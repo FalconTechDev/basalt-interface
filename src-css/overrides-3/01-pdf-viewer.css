@@ -1,0 +1,255 @@
+/* pdf-viewer (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* ---------- loading overlay ---------- */
+
+/* full-window veil while the viewer initialises */
+.progress-bar-container {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  padding-left: var(--safe-area-inset-left);
+  padding-right: var(--safe-area-inset-right);
+  background-color: var(--background-primary);
+}
+
+/* centred column holding the message and the bar */
+.progress-bar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--size-4-2);
+}
+
+/* message sits below the bar, styled as a pill */
+.progress-bar-message {
+  margin-bottom: var(--size-4-8);
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+/* status text rendered under the bar */
+.progress-bar-context {
+  position: absolute;
+  top: 100%;
+  padding: var(--size-4-2) var(--size-4-6);
+  border-radius: var(--pill-radius);
+  font-size: var(--font-ui-small);
+}
+
+/* the moving segment inside the track */
+.progress-bar-line {
+  position: absolute;
+  width: 150%;
+  height: 8px;
+  opacity: 0.4;
+  background-color: var(--interactive-accent);
+}
+
+/* overall progress, scaled via transform-origin */
+.progress-bar-subline {
+  position: absolute;
+  width: 100%;
+  height: 8px;
+  background-color: var(--interactive-accent);
+  transform-origin: left center;
+}
+
+.progress-bar-indicator {
+  position: relative;
+  overflow-x: hidden;
+  width: 90vw;
+  height: 8px;
+  margin: 0 10vw;
+  border-radius: var(--radius-m);
+}
+
+/* ---------- viewer frame ---------- */
+
+.pdf-container {
+  position: relative;
+  flex-grow: 1;
+  min-width: 350px;
+  overflow: hidden;
+  background-color: var(--pdf-background);
+}
+
+/* while the findbar is open the viewer drops below it */
+.findbarOpen .pdf-viewer-container {
+  margin-top: var(--findbar-height);
+}
+
+/* ---------- outline sidebar ---------- */
+
+.pdf-content-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  min-width: 350px;
+  --sidebar-width: 140px;
+}
+
+/* off-canvas panel that slides in from the inline-start edge */
+.pdf-sidebar-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-start: calc(-1 * var(--sidebar-width));
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width);
+  visibility: hidden;
+  border-inline-end: var(--divider-width) solid var(--divider-color);
+  background-color: var(--pdf-sidebar-background);
+  transition-property: inset-inline-start;
+}
+
+/* scrollable body of the sidebar */
+.pdf-sidebar-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  overflow: auto;
+}
+
+/* invisible hit area on the panel edge for resizing */
+.pdf-sidebar-resizer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-end: calc(var(--divider-width-hover) * -1);
+  z-index: var(--layer-cover);
+  width: var(--divider-width-hover);
+  background-color: transparent;
+  cursor: col-resize;
+  transition: background-color var(--bs-dur-normal) var(--bs-ease-standard);
+}
+
+@media (hover: hover) {
+  /* translucent windows highlight the resizer on hover */
+  .is-translucent .pdf-sidebar-resizer:hover {
+    background-color: var(--divider-color-hover);
+  }
+}
+
+/* outline entries reuse the nav-item active styling */
+.pdf-outline-view .tree-item-self.mod-active {
+  color: var(--nav-item-color-active);
+  font-weight: var(--nav-item-weight-active);
+  background-color: var(--nav-item-background-active);
+}
+
+/* ---------- toolbar ---------- */
+
+.pdf-toolbar {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  overflow: auto;
+  padding: var(--size-4-1) var(--size-4-3);
+  border-bottom: 1px solid var(--background-modifier-border);
+  background-color: var(--background-primary);
+}
+
+.pdf-toolbar-left,
+.pdf-toolbar-center,
+.pdf-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-1);
+}
+
+/* the centre cluster floats over the bar, centred via the direction var */
+.pdf-toolbar-center {
+  position: absolute;
+  top: var(--size-4-1);
+  inset-inline-start: 50%;
+  height: calc(100% - var(--size-4-2));
+  transform: translateX(calc(var(--direction) * -50%));
+}
+
+.pdf-toolbar-spacer {
+  width: var(--size-4-3);
+}
+
+.pdf-toolbar-divider {
+  width: var(--border-width);
+  height: var(--icon-size);
+  background-color: var(--background-modifier-border);
+}
+
+/* page number field is narrow and tabular */
+.pdf-page-input {
+  width: 7ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- findbar ---------- */
+
+.pdf-findbar {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  z-index: 101;
+  flex-direction: row-reverse;
+  gap: var(--size-4-1);
+  padding: var(--size-2-3);
+  font-size: var(--font-ui-small);
+  line-height: 1;
+  background-color: var(--background-primary);
+}
+
+.pdf-find-results-count {
+  margin: 0 var(--size-4-2);
+  color: var(--text-muted);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+/* gear menu anchored to the inline-end of the findbar */
+.pdf-findbar-settings {
+  position: absolute;
+  z-index: 200;
+  width: 200px;
+  padding: var(--size-4-1) var(--size-4-2);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-s);
+  background-color: var(--background-primary);
+  transform: translateX(-100%);
+}
+
+/* ---------- phones ---------- */
+
+/* the annotation modal fills the screen edge to edge */
+.is-phone .pdf-annotation-modal .modal-content {
+  overflow: hidden;
+  padding: 0;
+}
+
+/* popup meta rows lose their top border and padding on phones */
+.is-phone .pdf-annotation-modal .popupContent:empty + .popupMeta,
+.is-phone .pdf-annotation-modal .popupMeta {
+  --icon-size: var(--font-ui-medium);
+  --icon-stroke: var(--icon-m-stroke-width);
+  padding: var(--size-4-2) var(--size-4-4);
+  border-top: none;
+  background-color: transparent;
+}

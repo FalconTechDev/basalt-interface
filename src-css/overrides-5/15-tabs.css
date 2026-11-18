@@ -1,0 +1,7 @@
+/* tabs (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* popup meta icons pull back into the title row */
+.popupMeta .clickable-icon {
+  margin-inline-end: calc(var(--size-4-1) * -1);
+  margin-inline-start: calc(var(--size-2-1) * -1);
+}

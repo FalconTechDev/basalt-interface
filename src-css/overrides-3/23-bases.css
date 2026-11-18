@@ -1,0 +1,174 @@
+/* bases (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* formula editor: border highlight on hover (fine pointers only) and on focus */
+@media (hover: hover) {
+  .formula-editor:hover {
+    transition: box-shadow var(--anim-duration-fast) ease-in-out, border var(--anim-duration-fast) ease-in-out;
+    border-color: var(--background-modifier-border-hover);
+  }
+}
+
+.formula-editor:active,
+.formula-editor:focus,
+.formula-editor:focus-within {
+  transition: box-shadow var(--bs-dur-fast) var(--bs-ease-standard), border var(--bs-dur-fast) var(--bs-ease-standard);
+  border-color: var(--background-modifier-border-focus);
+}
+
+/* rendered values: disabled inputs stay flat and let clicks pass through */
+.bases-rendered-value input[disabled=true] {
+  pointer-events: none;
+  min-height: 0;
+}
+
+/* toolbar menu: chromeless search field inside the dropdown container */
+.bases-toolbar-menu-container .search-input-container input[type=search] {
+  border: 0;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+/* toolbar menu: collapse when it has no items; scroll long suggestion groups */
+.bases-toolbar-items:empty {
+  display: none;
+}
+
+.bases-toolbar-items .suggestion-group[data-group="views"],
+.bases-toolbar-items .suggestion-group[data-group="properties"] {
+  flex-shrink: 1;
+  overflow-y: auto;
+  padding-bottom: var(--size-2-3);
+}
+
+.bases-toolbar-items .suggestion-group[data-group="actions"] {
+  padding: var(--size-4-1);
+  border-top: var(--border-width) solid var(--background-modifier-border);
+}
+
+/* toolbar menu: hide the modal header; style group labels in the menu form */
+.bases-toolbar-menu .modal-header {
+  display: none;
+}
+
+.bases-toolbar-menu-form .input-group-header {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-2);
+  font-size: var(--font-ui-small);
+  font-weight: var(--font-semibold);
+}
+
+/* toolbar menu: focus ring on the checkbox of the selected item */
+.bases-toolbar-menu-item.is-selected input[type=checkbox] {
+  box-shadow: 0 0 0 2px var(--background-modifier-border-focus);
+}
+
+/* toolbar menu item: icon + label row that truncates instead of wrapping */
+.bases-toolbar-menu-item .bases-toolbar-menu-item-info {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-2);
+  flex-grow: 1;
+  overflow: hidden;
+  font-size: var(--font-ui-small);
+}
+
+.bases-toolbar-menu-item .bases-toolbar-menu-item-info-icon {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: var(--cursor);
+}
+
+/* search row: input grows, clear button stays pinned at the end */
+.bases-search-row .search-input-container {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-1);
+  flex-grow: 1;
+}
+
+.bases-search-row .search-input-container input {
+  flex: 1;
+  min-width: 0;
+}
+
+.bases-search-row .search-input-container input:not(:placeholder-shown) {
+  padding-inline-end: 0;
+}
+
+.bases-search-row .search-input-container .search-input-clear-button {
+  position: static;
+  flex-shrink: 0;
+}
+
+/* query builder: statements stack vertically inside each filter group */
+.bases-query-container .filter-group .filter-group-statements {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2-3);
+  width: 100%;
+}
+
+.bases-query-container .filter-row {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-2);
+}
+
+.bases-query-container .filter-row .filter-statement {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--size-4-1);
+  flex-grow: 1;
+}
+
+.bases-query-container .filter-rhs-container {
+  display: flex;
+  align-items: center;
+}
+
+/* table cells: editable inputs stay chromeless on hover, press and focus */
+.bases-table-container input[type='text']:hover,
+.bases-table-container input[type='date']:hover,
+.bases-table-container input[type='datetime-local']:hover,
+.bases-table-container input[type='number']:hover,
+.bases-table-container .multi-select-container:hover,
+.bases-table-container input[type='text']:active,
+.bases-table-container input[type='date']:active,
+.bases-table-container input[type='datetime-local']:active,
+.bases-table-container input[type='number']:active,
+.bases-table-container .multi-select-container:active,
+.bases-table-container input[type='text']:focus,
+.bases-table-container input[type='date']:focus,
+.bases-table-container input[type='datetime-local']:focus,
+.bases-table-container input[type='number']:focus,
+.bases-table-container .multi-select-container:focus {
+  border: none;
+  box-shadow: none;
+}
+
+/* table header: single-line cells */
+.bases-thead .bases-td {
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* RTL: header resizer hangs off the left edge instead of the right */
+body.mod-rtl .bases-table-header-resizer {
+  right: unset;
+  left: -1px;
+}
+
+/* table cells: centre checkboxes, right-align numbers with tabular figures */
+.bases-table-cell[data-property-type="checkbox"] {
+  justify-content: center;
+}
+
+.bases-table-cell .metadata-input-number,
+.bases-table-cell[data-property-type="number"] {
+  justify-content: flex-end;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}

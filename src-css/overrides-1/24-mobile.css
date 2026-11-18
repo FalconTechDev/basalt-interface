@@ -1,0 +1,163 @@
+/* mobile (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* community plugin list: accent styling for the selected row off-phone, narrower on mobile */
+body:not(.is-phone) .community-item.is-selected,
+body:not(.is-phone) .community-item.is-selected:hover {
+  border-color: var(--interactive-accent);
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.is-mobile .community-item {
+  max-width: 500px;
+}
+
+/* phone combobox (quick switcher style): cap height to the viewport, pad the search row */
+.is-phone .combobox.suggestion-container {
+  max-height: calc(100vh - var(--view-header-height) - var(--safe-area-inset-top));
+}
+
+.is-phone .combobox .search-input-container {
+  margin: var(--size-4-1) var(--size-4-3);
+}
+
+.is-phone .combobox .search-input-container input[type=search] {
+  border-radius: var(--radius-l);
+  background-color: var(--background-modifier-form-field);
+}
+
+/* code autocomplete tooltip stays inside the small viewport */
+.is-mobile .cm-tooltip.cm-tooltip-autocomplete {
+  max-width: calc(100vw - 20px - var(--safe-area-inset-left) - var(--safe-area-inset-right));
+  max-height: 240px;
+}
+
+/* tapped internal links in metadata and rendered notes render dimmed */
+.metadata-property-value .internal-link.mobile-tap,
+.markdown-rendered .internal-link.mobile-tap {
+  opacity: 0.5;
+}
+
+/* desktop focus rings: search results and tag panes get an inset border */
+body:not(.is-phone) .workspace-leaf.mod-active .search-result.has-focus .tree-item-self,
+body:not(.is-phone) .workspace-leaf.mod-active .search-result-file-match.has-focus {
+  border-radius: var(--radius-s);
+  box-shadow: inset 0 0 0 var(--input-border-width-focus) var(--background-modifier-border-focus);
+}
+
+body:not(.is-phone) .workspace-leaf.mod-active .tree-item.has-focus > .tag-pane-tag {
+  border-radius: var(--radius-s);
+  box-shadow: 0 0 0 2px var(--background-modifier-border-focus);
+}
+
+/* tablets get roomier buttons */
+.is-tablet button:not(.clickable-icon) {
+  padding: var(--size-4-1) var(--size-4-5);
+}
+
+/* bases toolbar on phone: compact filter button, scroll area clears the home indicator */
+.is-phone .bases-query-container .combobox-button {
+  padding-inline-start: var(--size-4-2);
+  border-width: 0;
+}
+
+.is-mobile .bases-toolbar-filter-menu .menu-scroll {
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+/* mobile onboarding: feature table and radio group stack vertically */
+.mobile-onboarding-feature-table {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--size-4-4);
+  font-size: var(--font-ui-small);
+}
+
+.mobile-onboarding-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-4);
+  margin: var(--size-4-2) 0;
+}
+
+.is-mobile .setting-item-name {
+  font-weight: var(--font-medium);
+}
+
+/* settings modal on phone: inline setting icons, grouped tab headers with chevrons */
+.is-phone .modal .setting-icon {
+  display: inline-flex;
+  margin-inline-end: 8px;
+  vertical-align: middle;
+}
+
+.is-phone .modal.mod-settings .vertical-tab-header-group-items {
+  --icon-size: var(--icon-m);
+  --icon-stroke: var(--icon-m-stroke-width);
+  overflow: hidden;
+  border-radius: var(--setting-items-radius);
+  background-color: var(--setting-items-background);
+  corner-shape: var(--corner-shape);
+}
+
+.is-phone .modal.mod-settings .vertical-tab-nav-item-chevron {
+  --icon-stroke: 2.25px;
+  display: flex;
+  margin-inline-start: auto;
+  color: var(--text-faint);
+}
+
+/* heading collapse indicators pull into the left margin on mobile */
+.is-mobile .markdown-rendered .heading-collapse-indicator {
+  margin-inline-start: -20px;
+}
+
+/* image viewer centres the image within the available space */
+.mobile-image-viewer img {
+  align-self: center;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+/* phone modals become bottom sheets pinned to the screen edge */
+.is-phone .modal-container.mod-confirmation .modal,
+.is-phone .modal.mod-lg,
+.is-phone .modal.mod-sidebar-layout {
+  --modal-radius: var(--touch-radius-s) var(--touch-radius-s) 0 0;
+  --dialog-max-height: calc(100vh - var(--safe-area-inset-top));
+  --dialog-max-width: 100vw;
+  --dialog-width: 100vw;
+  margin-top: auto;
+}
+
+.is-phone .modal.mod-settings.mod-sidebar-layout {
+  --modal-header-height: calc(var(--safe-area-inset-top) + var(--size-4-12));
+  --modal-radius: 0;
+  top: 0;
+  max-height: 100%;
+}
+
+/* tablets hide the mobile navbar entirely */
+body.is-tablet .mobile-navbar {
+  display: none;
+}
+
+/* prompt inputs get more padding on touch layouts */
+.is-mobile .prompt-input[type=text] {
+  padding: var(--size-4-4);
+}
+
+.is-phone .prompt-input[type=text] {
+  border: var(--border-width) solid var(--background-modifier-border);
+  border-radius: var(--touch-size-m);
+  padding-inline-end: var(--size-4-12);
+}
+
+/* sync history on phone: controls lose trailing padding, titlebar keeps clear of the edge */
+.is-phone .sync-history-content .setting-item-control {
+  padding-inline-end: 0;
+}
+
+.is-phone .sync-history-content .modal-setting-titlebar {
+  padding-inline-end: var(--size-4-4);
+}

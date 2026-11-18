@@ -1,0 +1,20 @@
+/* services (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* diff collapsed hover and webviewer address-bar suggestion icons */
+@media (hover: hover) {
+  .diff-collapsed:hover {
+    color: var(--text-accent);
+  }
+}
+
+.webviewer-addressbar-suggestion.suggestion-item .suggestion-flair-left img,
+.webviewer-addressbar-suggestion.suggestion-item .suggestion-icon:first-child img {
+  height: var(--icon-size);
+  max-width: var(--icon-size);
+}
+
+.webviewer-addressbar-suggestion.suggestion-item > .suggestion-content {
+  align-items: baseline;
+  flex-direction: row;
+  flex-grow: 1;
+}

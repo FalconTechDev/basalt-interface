@@ -1,0 +1,79 @@
+/* sidebar (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* tree item states, folder drag-over, search input and result hover */
+.tree-item-self.is-cut {
+  opacity: 0.5;
+}
+
+.tree-item-self.is-being-dragged-over {
+  color: var(--nav-item-color-highlighted);
+  background: var(--background-modifier-active-hover);
+}
+
+.tree-item-self.has-active-menu {
+  box-shadow: 0 0 0 var(--bs-focus-width) var(--background-modifier-border-focus);
+}
+
+.tree-item-self.is-being-renamed {
+  flex-grow: 1;
+  box-shadow: 0 0 0 var(--bs-focus-width) var(--background-modifier-border-focus);
+  white-space: normal;
+}
+
+body:not(.is-grabbing) .tree-item-self.is-active:hover,
+.tree-item-self.is-active {
+  color: var(--nav-item-color-active);
+  font-weight: var(--nav-item-weight-active);
+  background-color: var(--bs-accent-soft);
+  box-shadow: inset var(--bs-focus-width) 0 0 var(--interactive-accent);
+}
+
+body:not(.is-grabbing) .tree-item-self.is-selected:hover,
+.tree-item-self.is-selected {
+  color: var(--nav-item-color-selected);
+  background-color: var(--bs-accent-soft);
+  box-shadow: inset var(--bs-focus-width) 0 0 var(--interactive-accent);
+}
+
+body:not(.is-grabbing) .tree-item-self.is-being-dragged:hover,
+.tree-item-self.is-being-dragged {
+  color: var(--text-on-accent);
+  background-color: var(--interactive-accent);
+}
+
+.tree-item-self .tree-item-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin-inline-start: calc(-1 * var(--size-4-5));
+  width: var(--size-4-4);
+  color: var(--icon-color);
+  opacity: var(--icon-opacity);
+}
+
+.nav-folder.is-being-dragged-over {
+  border-radius: var(--radius-s);
+  background: var(--background-modifier-active-hover);
+}
+
+.file-tree .tree-item-inner {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.search-input-container input {
+  display: block;
+  width: 100%;
+  padding-inline-start: var(--size-4-9);
+}
+
+@media (hover: hover) {
+  .search-result-hover-button:hover {
+    opacity: 1;
+    background-color: var(--background-modifier-hover);
+  }
+}

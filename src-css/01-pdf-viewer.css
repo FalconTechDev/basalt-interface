@@ -1,0 +1,1484 @@
+/* pdf-viewer: PDF viewer chrome. Derived from Mozilla pdf.js (Apache-2.0), see THIRD_PARTY.md. */
+
+/* ---------- dialog tokens ---------- */
+
+/* pdf dialog chrome follows the app theme: basalt tokens already flip per theme,
+   so no light-dark() pairs or csstools fallbacks are needed here */
+.dialog {
+  --dialog-bg-color: var(--background-primary);
+  --dialog-border-color: var(--background-modifier-border-hover);
+  --dialog-shadow: var(--shadow-s);
+  --text-primary-color: var(--text-normal);
+  --text-secondary-color: var(--text-muted);
+  --hover-filter: brightness(0.9);
+  --link-fg-color: var(--link-color);
+  --link-hover-fg-color: var(--link-color-hover);
+  --separator-color: var(--background-modifier-border);
+  --textarea-border-color: var(--background-modifier-border-hover);
+  --textarea-bg-color: var(--background-modifier-form-field);
+  --textarea-fg-color: var(--text-secondary-color);
+  --radio-bg-color: var(--background-modifier-form-field);
+  --radio-checked-bg-color: var(--background-primary);
+  --radio-border-color: var(--background-modifier-border-hover);
+  --radio-checked-border-color: var(--interactive-accent);
+  /* secondary buttons: quiet warm tint, deepening on press/hover */
+  --button-secondary-bg-color: rgba(var(--mono-rgb-100), 0.07);
+  --button-secondary-fg-color: var(--text-primary-color);
+  --button-secondary-border-color: var(--button-secondary-bg-color);
+  --button-secondary-active-bg-color: rgba(var(--mono-rgb-100), 0.21);
+  --button-secondary-active-fg-color: var(--button-secondary-fg-color);
+  --button-secondary-active-border-color: var(--button-secondary-bg-color);
+  --button-secondary-hover-bg-color: rgba(var(--mono-rgb-100), 0.14);
+  --button-secondary-hover-fg-color: var(--button-secondary-fg-color);
+  --button-secondary-hover-border-color: var(--button-secondary-hover-bg-color);
+  --button-secondary-disabled-bg-color: var(--button-secondary-bg-color);
+  --button-secondary-disabled-border-color: var( --button-secondary-border-color );
+  --button-secondary-disabled-fg-color: var(--button-secondary-fg-color);
+  /* primary buttons: copper accent with the on-accent label colour */
+  --button-primary-bg-color: var(--interactive-accent);
+  --button-primary-fg-color: var(--bs-on-accent);
+  --button-primary-border-color: var(--button-primary-bg-color);
+  --button-primary-active-bg-color: var(--bs-accent-press);
+  --button-primary-active-fg-color: var(--button-primary-fg-color);
+  --button-primary-active-border-color: var(--button-primary-active-bg-color);
+  --button-primary-hover-bg-color: var(--interactive-accent-hover);
+  --button-primary-hover-fg-color: var(--button-primary-fg-color);
+  --button-primary-hover-border-color: var(--button-primary-hover-bg-color);
+  --button-primary-disabled-bg-color: var(--button-primary-bg-color);
+  --button-primary-disabled-border-color: var(--button-primary-border-color);
+  --button-primary-disabled-fg-color: var(--button-primary-fg-color);
+  --button-disabled-opacity: 0.4;
+  --input-text-bg-color: var(--background-modifier-form-field);
+  --input-text-fg-color: var(--text-primary-color);
+  border-radius: var(--radius-l);
+  border: var(--border-width) solid var(--dialog-border-color);
+  padding: var(--size-4-3) var(--size-4-4);
+  box-shadow: var(--dialog-shadow);
+  font: message-box;
+  font-size: var(--font-ui-small);
+  font-weight: var(--font-normal);
+  line-height: 150%;
+  color: var(--text-primary-color);
+  background: var(--dialog-bg-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  .dialog {
+    --hover-filter: brightness(1.4);
+    --button-disabled-opacity: 0.6;
+  }
+}
+
+/* forced-colors: swap every token to system colours */
+@media screen and (forced-colors: active) {
+  .dialog {
+    --dialog-bg-color: Canvas;
+    --dialog-border-color: CanvasText;
+    --dialog-shadow: none;
+    --text-primary-color: CanvasText;
+    --text-secondary-color: CanvasText;
+    --hover-filter: none;
+    --link-fg-color: LinkText;
+    --link-hover-fg-color: LinkText;
+    --separator-color: CanvasText;
+    --textarea-border-color: ButtonBorder;
+    --textarea-bg-color: Field;
+    --textarea-fg-color: ButtonText;
+    --radio-bg-color: ButtonFace;
+    --radio-checked-bg-color: ButtonFace;
+    --radio-border-color: ButtonText;
+    --radio-checked-border-color: ButtonText;
+    --button-secondary-bg-color: HighlightText;
+    --button-secondary-fg-color: ButtonText;
+    --button-secondary-border-color: ButtonText;
+    --button-secondary-active-bg-color: HighlightText;
+    --button-secondary-active-fg-color: SelectedItem;
+    --button-secondary-active-border-color: ButtonText;
+    --button-secondary-hover-bg-color: HighlightText;
+    --button-secondary-hover-fg-color: SelectedItem;
+    --button-secondary-hover-border-color: SelectedItem;
+    --button-secondary-disabled-fg-color: GrayText;
+    --button-secondary-disabled-border-color: GrayText;
+    --button-primary-bg-color: ButtonText;
+    --button-primary-fg-color: HighlightText;
+    --button-primary-border-color: ButtonText;
+    --button-primary-active-bg-color: SelectedItem;
+    --button-primary-active-fg-color: HighlightText;
+    --button-primary-active-border-color: ButtonText;
+    --button-primary-hover-bg-color: SelectedItem;
+    --button-primary-hover-fg-color: HighlightText;
+    --button-primary-hover-border-color: SelectedItem;
+    --button-primary-disabled-bg-color: GrayText;
+    --button-primary-disabled-fg-color: ButtonFace;
+    --button-primary-disabled-border-color: GrayText;
+    --button-disabled-opacity: 1;
+    --input-text-bg-color: HighlightText;
+    --input-text-fg-color: FieldText;
+  }
+}
+
+/* ---------- dialog widgets ---------- */
+
+.dialog .mainContainer *:focus-visible {
+  outline: var(--focus-ring-outline);
+  outline-offset: 2px;
+}
+
+.dialog .mainContainer .title {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 12px;
+  width: auto;
+}
+
+.dialog .mainContainer .title > span {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 590;
+  line-height: 150%;
+}
+
+.dialog .mainContainer .radio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.dialog .mainContainer .radio > .radioButton {
+  display: flex;
+  gap: 8px;
+  align-self: stretch;
+  align-items: center;
+}
+
+.dialog .mainContainer .radio > .radioButton input {
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--radio-border-color);
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--radio-bg-color);
+}
+
+.dialog .mainContainer .radio > .radioButton input:hover {
+  filter: var(--hover-filter);
+}
+
+.dialog .mainContainer .radio > .radioButton input:checked {
+  border: 4px solid var(--radio-checked-border-color);
+  background-color: var(--radio-checked-bg-color);
+}
+
+/* plain dialog buttons share one chrome; icon buttons are excluded */
+.dialog .mainContainer button:not(.toggle-button):not(.closeButton):not(.clearInputButton) {
+  border-radius: var(--input-radius);
+  border: var(--border-width) solid;
+  padding: var(--size-4-1) var(--size-4-4);
+  width: auto;
+  height: 32px;
+  font: menu;
+  font-weight: 590;
+  font-size: 13px;
+}
+
+.dialog .mainContainer button:not(.toggle-button):not(.closeButton):not(.clearInputButton):hover {
+  cursor: pointer;
+  filter: var(--hover-filter);
+}
+
+.dialog .mainContainer button:not(.toggle-button):not(.closeButton):not(.clearInputButton) > span {
+  color: inherit;
+  font: inherit;
+}
+
+.dialog .mainContainer button:not(.toggle-button):not(.closeButton):not(.clearInputButton):disabled {
+  pointer-events: none;
+}
+
+.dialog .mainContainer a {
+  color: var(--link-fg-color);
+}
+
+.dialog .mainContainer a:hover {
+  color: var(--link-hover-fg-color);
+}
+
+.dialog .mainContainer textarea {
+  padding: var(--size-4-2);
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: var(--input-radius);
+  border: var(--border-width) solid var(--textarea-border-color);
+  font: inherit;
+  color: var(--textarea-fg-color);
+  background: var(--textarea-bg-color);
+  resize: none;
+}
+
+.dialog .mainContainer textarea:focus {
+  outline-offset: 0;
+  border-color: transparent;
+}
+
+.dialog .mainContainer textarea:disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.dialog .mainContainer input[type="text"] {
+  color: var(--input-text-fg-color);
+  background-color: var(--input-text-bg-color);
+}
+
+/* ---------- textLayer ---------- */
+
+.textLayer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: clip;
+  z-index: 0;
+  text-align: initial;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  line-height: 1;
+  caret-color: CanvasText;
+  opacity: 1;
+  transform-origin: 0 0;
+  forced-color-adjust: none;
+}
+
+.textLayer.highlighting {
+  touch-action: none;
+}
+
+.textLayer span,
+.textLayer br {
+  position: absolute;
+  color: transparent;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+}
+
+.textLayer > :not(.markedContent),
+.textLayer .markedContent span:not(.markedContent) {
+  z-index: 1;
+}
+
+.textLayer span.markedContent {
+  top: 0;
+  height: 0;
+}
+
+.textLayer span[role="img"] {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+.textLayer .highlight {
+  --highlight-bg-color: rgba(180, 0, 170, 0.25);
+  --highlight-selected-bg-color: rgba(0, 100, 0, 0.25);
+  --highlight-backdrop-filter: none;
+  --highlight-selected-backdrop-filter: none;
+  margin: -1px;
+  padding: 1px;
+  border-radius: 4px;
+  background-color: var(--highlight-bg-color);
+  -webkit-backdrop-filter: var(--highlight-backdrop-filter);
+  backdrop-filter: var(--highlight-backdrop-filter);
+}
+
+@media screen and (forced-colors: active) {
+  .textLayer .highlight {
+    --highlight-bg-color: transparent;
+    --highlight-selected-bg-color: transparent;
+    --highlight-backdrop-filter: var(--hcm-highlight-filter);
+    --highlight-selected-backdrop-filter: var( --hcm-highlight-selected-filter );
+  }
+}
+
+.textLayer .highlight.appended {
+  position: initial;
+}
+
+.textLayer .highlight.begin {
+  border-radius: 4px 0 0 4px;
+}
+
+.textLayer .highlight.end {
+  border-radius: 0 4px 4px 0;
+}
+
+.textLayer .highlight.middle {
+  border-radius: 0;
+}
+
+.textLayer .highlight.selected {
+  background-color: var(--highlight-selected-bg-color);
+  -webkit-backdrop-filter: var(--highlight-selected-backdrop-filter);
+  backdrop-filter: var(--highlight-selected-backdrop-filter);
+}
+
+.textLayer ::selection {
+  background: rgba(0, 0, 255, 0.25);
+}
+
+.textLayer br::selection {
+  background: transparent;
+}
+
+.textLayer .endOfContent {
+  display: block;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+.textLayer.selecting .endOfContent {
+  top: 0;
+}
+
+/* ---------- annotationLayer ---------- */
+
+.annotationLayer {
+  --csstools-color-scheme--dark: ;
+  --annotation-unfocused-field-background: url("data:image/svg+xml;charset=UTF-8,<svg width='1px' height='1px' xmlns='http://www.w3.org/2000/svg'><rect width='100%' height='100%' style='fill:rgba(0, 54, 255, 0.13);'/></svg>");
+  --input-focus-border-color: Highlight;
+  --input-focus-outline: 1px solid Canvas;
+  --input-unfocused-border-color: transparent;
+  --input-disabled-border-color: transparent;
+  --input-hover-border-color: black;
+  --link-outline: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color-scheme: only light;
+  pointer-events: none;
+  transform-origin: 0 0;
+}
+
+@media screen and (forced-colors: active) {
+  .annotationLayer {
+    --input-focus-border-color: CanvasText;
+    --input-unfocused-border-color: ActiveText;
+    --input-disabled-border-color: GrayText;
+    --input-hover-border-color: Highlight;
+    --link-outline: 1.5px solid LinkText;
+  }
+
+  .annotationLayer .textWidgetAnnotation input:required {
+    outline: 1.5px solid selectedItem;
+  }
+
+  .annotationLayer .textWidgetAnnotation textarea:required {
+    outline: 1.5px solid selectedItem;
+  }
+
+  .annotationLayer .buttonWidgetAnnotation.checkBox input:required {
+    outline: 1.5px solid selectedItem;
+  }
+
+  .annotationLayer .buttonWidgetAnnotation.radioButton input:required {
+    outline: 1.5px solid selectedItem;
+  }
+
+  .annotationLayer .choiceWidgetAnnotation select:required {
+    outline: 1.5px solid selectedItem;
+  }
+
+  .annotationLayer .linkAnnotation {
+    outline: var(--link-outline);
+  }
+
+  .annotationLayer .linkAnnotation:hover {
+    -webkit-backdrop-filter: var(--hcm-highlight-filter);
+    backdrop-filter: var(--hcm-highlight-filter);
+  }
+
+  .annotationLayer .linkAnnotation > a:hover {
+    box-shadow: none;
+    opacity: 0 !important;
+    background: none !important;
+  }
+
+  .annotationLayer .popupAnnotation .popup {
+    outline: calc(1.5px * var(--total-scale-factor)) solid CanvasText !important;
+    color: ButtonText !important;
+    background-color: ButtonFace !important;
+  }
+
+  .annotationLayer .highlightArea:hover::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backdrop-filter: var(--hcm-highlight-filter);
+    backdrop-filter: var(--hcm-highlight-filter);
+    content: "";
+    pointer-events: none;
+  }
+
+  .annotationLayer .popupAnnotation.focused .popup {
+    outline: calc(3px * var(--total-scale-factor)) solid Highlight !important;
+  }
+}
+
+/* keep unrotated widgets upright on rotated pages */
+.annotationLayer[data-main-rotation="90"] .norotate {
+  transform: rotate(270deg) translateX(-100%);
+}
+
+.annotationLayer[data-main-rotation="180"] .norotate {
+  transform: rotate(180deg) translate(-100%, -100%);
+}
+
+.annotationLayer[data-main-rotation="270"] .norotate {
+  transform: rotate(90deg) translateY(-100%);
+}
+
+.annotationLayer.disabled section,
+.annotationLayer.disabled .popup {
+  pointer-events: none;
+}
+
+.annotationLayer .annotationContent {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.annotationLayer .annotationContent.freetext {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: visible;
+  border: none;
+  white-space: nowrap;
+  font: 10px sans-serif;
+  line-height: 1.35;
+  background: transparent;
+}
+
+.annotationLayer section {
+  position: absolute;
+  box-sizing: border-box;
+  text-align: initial;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+  transform-origin: 0 0;
+}
+
+.annotationLayer section:has(div.annotationContent) canvas.annotationContent {
+  display: none;
+}
+
+/* while the text layer is being selected, annotations go inert */
+.textLayer.selecting ~ .annotationLayer section {
+  pointer-events: none;
+}
+
+/* link and push-button annotations cover their whole quad */
+.annotationLayer .linkAnnotation:not(.does-not-exist) > a,
+.annotationLayer .buttonWidgetAnnotation.pushButton > a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 1em;
+}
+
+.annotationLayer .linkAnnotation:not(.does-not-exist):not(.hasBorder) > a:hover,
+.annotationLayer .buttonWidgetAnnotation.pushButton:not(.hasBorder) > a:hover {
+  box-shadow: 0 2px 10px rgb(255, 255, 0);
+  opacity: 0.2;
+  background-color: rgb(255, 255, 0);
+}
+
+.annotationLayer .linkAnnotation.hasBorder:hover {
+  background-color: rgba(255, 255, 0, 0.2);
+}
+
+.annotationLayer .hasBorder {
+  background-size: 100% 100%;
+}
+
+.annotationLayer .textAnnotation img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* form fields share one box model and scale with the page */
+.annotationLayer .textWidgetAnnotation input,
+.annotationLayer .textWidgetAnnotation textarea,
+.annotationLayer .choiceWidgetAnnotation select,
+.annotationLayer .buttonWidgetAnnotation.checkBox input,
+.annotationLayer .buttonWidgetAnnotation.radioButton input {
+  border: 2px solid var(--input-unfocused-border-color);
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font: calc(9px * var(--total-scale-factor)) sans-serif;
+  vertical-align: top;
+  background-image: var(--annotation-unfocused-field-background);
+}
+
+.annotationLayer .textWidgetAnnotation input:required {
+  outline: 1.5px solid red;
+}
+
+.annotationLayer .textWidgetAnnotation textarea:required {
+  outline: 1.5px solid red;
+}
+
+.annotationLayer .buttonWidgetAnnotation.checkBox input:required {
+  outline: 1.5px solid red;
+}
+
+.annotationLayer .buttonWidgetAnnotation.radioButton input:required {
+  outline: 1.5px solid red;
+}
+
+.annotationLayer .choiceWidgetAnnotation select:required {
+  outline: 1.5px solid red;
+}
+
+.annotationLayer .choiceWidgetAnnotation select option {
+  padding: 0;
+}
+
+.annotationLayer .buttonWidgetAnnotation.radioButton input {
+  border-radius: 50%;
+}
+
+.annotationLayer .textWidgetAnnotation textarea {
+  resize: none;
+}
+
+.annotationLayer .textWidgetAnnotation input[disabled],
+.annotationLayer .textWidgetAnnotation textarea[disabled],
+.annotationLayer .choiceWidgetAnnotation select[disabled],
+.annotationLayer .buttonWidgetAnnotation.checkBox input[disabled],
+.annotationLayer .buttonWidgetAnnotation.radioButton input[disabled] {
+  border: 2px solid var(--input-disabled-border-color);
+  background: none;
+  cursor: not-allowed;
+}
+
+.annotationLayer .textWidgetAnnotation input:hover,
+.annotationLayer .textWidgetAnnotation textarea:hover,
+.annotationLayer .choiceWidgetAnnotation select:hover,
+.annotationLayer .buttonWidgetAnnotation.checkBox input:hover,
+.annotationLayer .buttonWidgetAnnotation.radioButton input:hover {
+  border: 2px solid var(--input-hover-border-color);
+}
+
+.annotationLayer .textWidgetAnnotation input:hover,
+.annotationLayer .textWidgetAnnotation textarea:hover,
+.annotationLayer .choiceWidgetAnnotation select:hover,
+.annotationLayer .buttonWidgetAnnotation.checkBox input:hover {
+  border-radius: 2px;
+}
+
+.annotationLayer .textWidgetAnnotation input:focus,
+.annotationLayer .textWidgetAnnotation textarea:focus,
+.annotationLayer .choiceWidgetAnnotation select:focus {
+  border: 2px solid var(--input-focus-border-color);
+  border-radius: 2px;
+  outline: var(--input-focus-outline);
+  background: none;
+}
+
+.annotationLayer .buttonWidgetAnnotation.checkBox :focus,
+.annotationLayer .buttonWidgetAnnotation.radioButton :focus {
+  background-image: none;
+  background-color: transparent;
+}
+
+.annotationLayer .buttonWidgetAnnotation.checkBox :focus {
+  border: 2px solid var(--input-focus-border-color);
+  border-radius: 2px;
+  outline: var(--input-focus-outline);
+}
+
+.annotationLayer .buttonWidgetAnnotation.radioButton :focus {
+  border: 2px solid var(--input-focus-border-color);
+  outline: var(--input-focus-outline);
+}
+
+/* checkboxes and radios draw their marks with pseudo-elements */
+.annotationLayer .buttonWidgetAnnotation.checkBox input:checked::before,
+.annotationLayer .buttonWidgetAnnotation.checkBox input:checked::after,
+.annotationLayer .buttonWidgetAnnotation.radioButton input:checked::before {
+  display: block;
+  position: absolute;
+  background-color: CanvasText;
+  content: "";
+}
+
+.annotationLayer .buttonWidgetAnnotation.checkBox input:checked::before,
+.annotationLayer .buttonWidgetAnnotation.checkBox input:checked::after {
+  left: 45%;
+  height: 80%;
+  width: 1px;
+}
+
+.annotationLayer .buttonWidgetAnnotation.checkBox input:checked::before {
+  transform: rotate(45deg);
+}
+
+.annotationLayer .buttonWidgetAnnotation.checkBox input:checked::after {
+  transform: rotate(-45deg);
+}
+
+.annotationLayer .buttonWidgetAnnotation.radioButton input:checked::before {
+  left: 25%;
+  top: 25%;
+  border-radius: 50%;
+  height: 50%;
+  width: 50%;
+}
+
+.annotationLayer .textWidgetAnnotation input.comb {
+  padding-left: 2px;
+  padding-right: 0;
+  font-family: monospace;
+}
+
+.annotationLayer .textWidgetAnnotation input.comb:focus {
+  width: 103%;
+}
+
+.annotationLayer .buttonWidgetAnnotation.checkBox input,
+.annotationLayer .buttonWidgetAnnotation.radioButton input {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.annotationLayer .fileAttachmentAnnotation .popupTriggerArea {
+  height: 100%;
+  width: 100%;
+}
+
+.annotationLayer .richText > * {
+  white-space: pre-wrap;
+}
+
+.annotationLayer .popupTriggerArea {
+  cursor: pointer;
+}
+
+.annotationLayer section svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.annotationLayer .annotationTextContent {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.annotationLayer .annotationTextContent span {
+  display: inline-block;
+  width: 100%;
+}
+
+.annotationLayer svg.quadrilateralsContainer {
+  contain: strict;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 0;
+  height: 0;
+}
+
+/* ---------- xfaLayer ---------- */
+
+@media screen and (forced-colors: active) {
+  .xfaLayer *:required {
+    outline: 1.5px solid selectedItem;
+  }
+}
+
+.xfaLayer {
+  --csstools-color-scheme--dark: ;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color-scheme: only light;
+  text-align: initial;
+  line-height: 1.2;
+  background-color: transparent;
+  transform-origin: 0 0;
+}
+
+.xfaLayer .highlight {
+  margin: -1px;
+  padding: 1px;
+  border-radius: 4px;
+  background-color: rgb(239, 203, 237);
+}
+
+.xfaLayer .highlight.appended {
+  position: initial;
+}
+
+.xfaLayer .highlight.begin {
+  border-radius: 4px 0 0 4px;
+}
+
+.xfaLayer .highlight.end {
+  border-radius: 0 4px 4px 0;
+}
+
+.xfaLayer .highlight.middle {
+  border-radius: 0;
+}
+
+.xfaLayer .highlight.selected {
+  background-color: rgb(203, 223, 203);
+}
+
+.xfaPage {
+  overflow: hidden;
+  position: relative;
+}
+
+.xfaContentarea {
+  position: absolute;
+}
+
+.xfaPrintOnly {
+  display: none;
+}
+
+/* XFA widgets reset to inherit the form's typography */
+.xfaLayer * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  font-feature-settings: inherit;
+  font-kerning: inherit;
+  line-height: inherit;
+  letter-spacing: -0.01px;
+  text-align: inherit;
+  text-decoration: inherit;
+  background-color: transparent;
+  pointer-events: auto;
+}
+
+.xfaLayer *:required {
+  outline: 1.5px solid red;
+}
+
+.xfaLayer div,
+.xfaLayer svg,
+.xfaLayer svg * {
+  pointer-events: none;
+}
+
+.xfaLayer a {
+  color: blue;
+}
+
+.xfaRich li {
+  margin-left: 3em;
+}
+
+.xfaFont {
+  color: black;
+  font-weight: normal;
+  font-feature-settings: "kern" off;
+  font-kerning: none;
+  font-size: 10px;
+  font-style: normal;
+  letter-spacing: 0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  vertical-align: 0;
+}
+
+.xfaCaption {
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.xfaCaptionForCheckButton {
+  overflow: hidden;
+  flex: 1 1 auto;
+}
+
+.xfaLabel {
+  height: 100%;
+  width: 100%;
+}
+
+/* caption layouts: left/right rows, top/bottom columns */
+.xfaLeft {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.xfaRight {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.xfaLeft > .xfaCaption,
+.xfaLeft > .xfaCaptionForCheckButton,
+.xfaRight > .xfaCaption,
+.xfaRight > .xfaCaptionForCheckButton {
+  max-height: 100%;
+}
+
+.xfaTop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.xfaBottom {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+}
+
+.xfaTop > .xfaCaption,
+.xfaTop > .xfaCaptionForCheckButton,
+.xfaBottom > .xfaCaption,
+.xfaBottom > .xfaCaptionForCheckButton {
+  width: 100%;
+}
+
+.xfaBorder {
+  position: absolute;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.xfaWrapped {
+  width: 100%;
+  height: 100%;
+}
+
+.xfaTextfield:focus,
+.xfaSelect:focus {
+  outline: var(--xfa-focus-outline);
+  outline-offset: -1px;
+  background-image: none;
+  background-color: transparent;
+}
+
+.xfaCheckbox:focus,
+.xfaRadio:focus {
+  outline: var(--xfa-focus-outline);
+}
+
+.xfaTextfield,
+.xfaSelect {
+  flex: 1 1 auto;
+  height: 100%;
+  width: 100%;
+  border: none;
+  background-image: var(--xfa-unfocused-field-background);
+  resize: none;
+}
+
+.xfaSelect {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.xfaTop > .xfaTextfield,
+.xfaTop > .xfaSelect,
+.xfaBottom > .xfaTextfield,
+.xfaBottom > .xfaSelect {
+  flex: 0 1 auto;
+}
+
+.xfaButton {
+  width: 100%;
+  height: 100%;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.xfaLink {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.xfaCheckbox,
+.xfaRadio {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.xfaRich {
+  width: 100%;
+  height: 100%;
+  white-space: pre-wrap;
+}
+
+.xfaImage {
+  width: 100%;
+  height: 100%;
+  object-position: left top;
+  object-fit: contain;
+}
+
+/* table flow directions */
+.xfaLrTb,
+.xfaRlTb,
+.xfaTb {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.xfaLr {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.xfaRl {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: stretch;
+}
+
+.xfaTb > div {
+  justify-content: left;
+}
+
+.xfaPosition {
+  position: relative;
+}
+
+.xfaArea {
+  position: relative;
+}
+
+.xfaTable {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.xfaTable .xfaRow {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.xfaTable .xfaRlRow {
+  display: flex;
+  flex-direction: row-reverse;
+  flex: 1;
+  align-items: stretch;
+}
+
+.xfaTable .xfaRlRow > div {
+  flex: 1;
+}
+
+/* non-interactive and read-only fields lose their field chrome */
+.xfaNonInteractive input,
+.xfaNonInteractive textarea,
+.xfaDisabled input,
+.xfaDisabled textarea,
+.xfaReadOnly input,
+.xfaReadOnly textarea {
+  background: initial;
+}
+
+@media print {
+  .xfaTextfield,
+  .xfaSelect {
+    background: transparent;
+  }
+
+  .xfaSelect {
+    text-indent: 1px;
+    text-overflow: "";
+    -webkit-appearance: none;
+    appearance: none;
+  }
+}
+
+/* ---------- pdfViewer ---------- */
+
+.pdfViewer {
+  --scale-factor: 1;
+  --page-bg-color: unset;
+  --hcm-highlight-filter: none;
+  --hcm-highlight-selected-filter: none;
+  padding-bottom: var(--pdfViewer-padding-bottom);
+}
+
+@media screen and (forced-colors: active) {
+  .pdfViewer {
+    --hcm-highlight-filter: invert(100%);
+  }
+}
+
+.pdfViewer.copyAll {
+  cursor: wait;
+}
+
+.pdfViewer .canvasWrapper {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.pdfViewer .canvasWrapper canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  contain: content;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.pdfViewer .canvasWrapper canvas .structTree {
+  contain: strict;
+}
+
+.pdfViewer .page {
+  --user-unit: 1;
+  --total-scale-factor: calc(var(--scale-factor) * var(--user-unit));
+  --scale-round-x: 1px;
+  --scale-round-y: 1px;
+  position: relative;
+  overflow: visible;
+  width: 816px;
+  height: 1056px;
+  margin: var(--page-margin);
+  border: var(--page-border);
+  direction: ltr;
+  background-clip: content-box;
+  background-color: var(--page-bg-color, rgb(255, 255, 255));
+}
+
+.pdfViewer .dummyPage {
+  position: relative;
+  width: 0;
+  height: var(--viewer-container-height);
+}
+
+.pdfViewer.noUserSelect {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.pdfViewer.removePageBorders .page {
+  margin: 0 auto 10px;
+  border: none;
+}
+
+.pdfViewer.scrollHorizontal,
+.pdfViewer.scrollWrapped,
+.spread {
+  margin-left: 3.5px;
+  margin-right: 3.5px;
+  text-align: center;
+}
+
+.pdfViewer.scrollHorizontal,
+.spread {
+  white-space: nowrap;
+}
+
+.pdfViewer.removePageBorders,
+.pdfViewer.scrollHorizontal .spread,
+.pdfViewer.scrollWrapped .spread {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* pages sit inline in horizontal/wrapped scroll modes */
+.spread .page,
+.spread .dummyPage,
+.pdfViewer.scrollHorizontal .page,
+.pdfViewer.scrollHorizontal .spread,
+.pdfViewer.scrollWrapped .page,
+.pdfViewer.scrollWrapped .spread {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.spread .page,
+.pdfViewer.scrollHorizontal .page,
+.pdfViewer.scrollWrapped .page {
+  margin-left: var(--spreadHorizontalWrapped-margin-LR);
+  margin-right: var(--spreadHorizontalWrapped-margin-LR);
+}
+
+.pdfViewer.removePageBorders .spread .page,
+.pdfViewer.removePageBorders.scrollHorizontal .page,
+.pdfViewer.removePageBorders.scrollWrapped .page {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+/* loading spinner appears after a delay so fast renders stay clean */
+.pdfViewer .page.loadingIcon::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  z-index: 5;
+  contain: strict;
+  width: 100%;
+  height: 100%;
+  content: "";
+  transition-property: display;
+  transition-delay: var(--loading-icon-delay);
+}
+
+.pdfViewer .page.loading::after {
+  display: block;
+}
+
+.pdfViewer .page:not(.loading)::after {
+  display: none;
+  transition-property: none;
+}
+
+/* presentation mode drops page margins */
+.pdfPresentationMode .pdfViewer {
+  padding-bottom: 0;
+}
+
+.pdfPresentationMode .pdfViewer .page {
+  margin: 0 auto;
+  border: 2px solid transparent;
+}
+
+/* ---------- Basalt integration ---------- */
+
+.progress-bar-subline.mod-increase {
+  animation: increase 2s infinite;
+}
+
+.progress-bar-subline.mod-decrease {
+  animation: decrease 2s 0.5s infinite;
+}
+
+.progress-bar-context-button {
+  margin-top: var(--size-4-3);
+  text-align: center;
+}
+
+/* dark theme inverts text fields inside themed pdf containers */
+.theme-dark .pdf-container.mod-themed .annotationLayer .textWidgetAnnotation input,
+.theme-dark .pdf-container.mod-themed .annotationLayer .textWidgetAnnotation textarea {
+  filter: invert(100%) hue-rotate(180deg);
+}
+
+.theme-dark .pdf-container.mod-themed .popupWrapper > div::after {
+  background-color: var(--background-secondary-alt);
+}
+
+.theme-dark .pdf-container.mod-themed .popupContent:empty + .popupMeta {
+  background-color: var(--background-secondary-alt);
+}
+
+.pdf-viewer-container {
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  bottom: 0;
+  inset-inline-start: 0;
+  z-index: 0;
+  outline: none;
+  scroll-padding: var(--size-4-3);
+}
+
+/* sidebar slides in from the inline start */
+.pdf-content-container.sidebarMoving .pdf-sidebar-container,
+.pdf-content-container.sidebarOpen .pdf-sidebar-container {
+  visibility: visible;
+}
+
+.pdf-content-container.sidebarOpen .pdf-sidebar-container {
+  inset-inline-start: 0;
+}
+
+.pdf-content-container.sidebarOpen .pdf-viewer-container {
+  inset-inline-start: var(--sidebar-width);
+  transition-property: inset-inline-start;
+}
+
+/* embeds and mobile never shift the viewer for the sidebar */
+.pdf-embed .pdf-content-container.sidebarOpen .pdf-sidebar-container,
+.is-mobile .pdf-content-container.sidebarOpen .pdf-sidebar-container {
+  inset-inline-start: 0;
+}
+
+.pdf-embed .pdf-content-container.sidebarOpen .pdf-viewer-container,
+.is-mobile .pdf-content-container.sidebarOpen .pdf-viewer-container {
+  inset-inline-start: 0;
+}
+
+.pdf-content-container.sidebarResizing .pdf-sidebar-container,
+.pdf-content-container.sidebarResizing .pdf-viewer-container {
+  transition-duration: var(--anim-duration-none);
+}
+
+.pdf-content-container.is-loading:before {
+  z-index: 1;
+}
+
+/* findbar pushes the sidebar down */
+.findbarOpen .pdf-sidebar-container {
+  top: var(--findbar-height);
+}
+
+/* thumbnails get a shadow and a page-number badge */
+.pdf-sidebar-container .pdf-thumbnail-view a:active,
+.pdf-sidebar-container .pdf-thumbnail-view a:focus {
+  outline: 0;
+}
+
+.pdf-sidebar-container .thumbnail::before {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  bottom: 0;
+  inset-inline-start: 0;
+  box-shadow: var(--pdf-thumbnail-shadow);
+  content: " ";
+}
+
+.pdf-sidebar-container .thumbnail::after {
+  bottom: var(--size-4-1);
+  inset-inline-end: var(--size-4-1);
+  display: block;
+  position: absolute;
+  border-radius: var(--radius-m);
+  padding: var(--size-2-1) var(--size-4-1);
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  line-height: 1;
+  background-color: var(--background-secondary);
+  content: attr(data-page-label);
+}
+
+.pdf-outline-view .tree-item-flair {
+  white-space: nowrap;
+}
+
+.pdf-page-numbers {
+  margin-inline-end: var(--size-4-1);
+  white-space: nowrap;
+  font-size: var(--font-ui-small);
+  font-variant-numeric: tabular-nums;
+}
+
+/* findbar */
+.pdf-findbar label:hover,
+.pdf-findbar input:focus-visible + label {
+  color: var(--toggled-btn-color);
+  background-color: var(--button-hover-color);
+}
+
+.pdf-findbar .pdf-toolbar-field[type="checkbox"]:checked + .pdf-toolbar-label {
+  color: var(--toggled-btn-color);
+  background-color: var(--toggled-btn-bg-color) !important;
+}
+
+.pdf-findbar .mod-not-found {
+  --background-modifier-form-field: rgba(var(--background-modifier-error-rgb), 0.1);
+  --background-modifier-border-focus: rgba(var(--background-modifier-error-rgb), 0.6);
+}
+
+.pdf-findbar .mod-pending::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 12a9 9 0 1 1-6.219-8.56\"></path></svg>");
+  animation: rotation 1s infinite linear;
+}
+
+/* phone findbar is a single flexible row */
+.is-phone .pdf-findbar {
+  overflow: none;
+}
+
+.is-phone .pdf-findbar input {
+  min-width: 0;
+}
+
+.is-phone .pdf-findbar .search-input-container {
+  flex-grow: 1;
+}
+
+.is-phone .pdf-findbar .pdf-search-wrapper {
+  gap: var(--size-4-2);
+}
+
+.pdf-password-dialog .mod-small {
+  font-size: var(--font-ui-small);
+}
+
+.pdf-password-dialog input {
+  margin-top: var(--size-4-2);
+}
+
+.textLayer .mod-focused.appended {
+  position: static;
+}
+
+.annotationLayer .boundingRect {
+  z-index: 2000;
+  position: absolute;
+  pointer-events: none;
+}
+
+/* container-level overrides restyle pages to match the app theme */
+.pdf-container .pdfViewer .canvasWrapper {
+  box-shadow: var(--pdf-shadow);
+}
+
+.pdf-container .pdfViewer .page.loadingIcon::after {
+  background: none;
+}
+
+.pdf-container .pdfViewer.removePageBorders.spread .page,
+.pdf-container .pdfViewer.removePageBorders:is(.scrollHorizontal, .scrollWrapped) .page {
+  --spreadHorizontalWrapped-margin-LR: 0;
+  margin-inline: 0;
+  border: var(--size-4-1) solid transparent;
+}
+
+.pdf-container .pdfViewer.removePageBorders .page + .page {
+  border-top: var(--size-4-1) solid transparent;
+}
+
+.pdf-container .pdfViewer.removePageBorders .spread .page + .page {
+  border-top: none;
+}
+
+.pdf-container .pdfViewer.removePageBorders .spread .canvasWrapper {
+  box-shadow: var(--pdf-spread-shadow);
+}
+
+.pdf-container .pdfViewer.removePageBorders .spread + .spread {
+  border-top: var(--size-4-1) solid transparent;
+}
+
+.pdf-container .textLayer br::selection,
+.markdown-source-view.mod-cm6 .pdf-container .textLayer br::selection {
+  background-color: transparent;
+}
+
+.pdf-container .textLayer .highlight.appended {
+  position: static;
+  display: inline-block;
+}
+
+.pdf-container .textLayer .highlight.begin {
+  border-radius: var(--radius-s) 0 0 var(--radius-s);
+}
+
+.pdf-container .textLayer .highlight.end {
+  border-radius: 0 var(--radius-s) var(--radius-s) 0;
+}
+
+.pdf-container .textLayer .highlight.selected {
+  box-shadow: 0 0 0 2px hsl(var(--interactive-accent-hsl));
+  background-color: hsl(var(--interactive-accent-hsl));
+}
+
+.pdf-container .textLayer .highlight:not(.selected) {
+  box-shadow: 0 0 0 2px rgb(var(--color-yellow-rgb));
+  background-color: rgb(var(--color-yellow-rgb));
+}
+
+.pdf-container .annotationLayer > section.hasPopup:not(.textAnnotation) {
+  pointer-events: none;
+}
+
+.pdf-container .annotationLayer .linkAnnotation.hasBorder:hover {
+  background-color: hsla(var(--color-accent-hsl), 0.1);
+}
+
+/* phone annotation modal drops chrome */
+.is-phone .pdf-annotation-modal .modal .modal-close-button,
+.is-phone .pdf-annotation-modal .modal .modal-header {
+  display: none;
+}
+
+/* ---------- pdf-embed ---------- */
+
+.pdf-embed {
+  overflow: hidden;
+  position: relative;
+}
+
+.pdf-embed:not(.canvas-node-content) .edit-block-button + .pdf-toolbar {
+  padding-inline-end: var(--size-4-9);
+}
+
+@media (hover: hover) {
+  .markdown-source-view.mod-cm6 .pdf-embed .edit-block-button:hover {
+    color: var(--icon-color-hover);
+    background-color: var(--background-modifier-hover);
+  }
+}
+
+@media print {
+  .pdf-embed:not(.canvas-node-content) canvas {
+    height: auto;
+    width: 100%;
+  }
+}

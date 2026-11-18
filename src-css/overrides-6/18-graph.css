@@ -1,0 +1,95 @@
+/* graph (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* graph view colour modes and controls close/reset buttons */
+.graph-view.color-fill {
+  color: var(--graph-node);
+}
+
+.graph-view.color-fill-focused {
+  color: var(--graph-node-focused);
+}
+
+.graph-view.color-fill-tag {
+  color: var(--graph-node-tag);
+}
+
+.graph-view.color-fill-attachment {
+  color: var(--graph-node-attachment);
+}
+
+.graph-view.color-fill-unresolved {
+  color: var(--graph-node-unresolved);
+  opacity: 0.5;
+}
+
+.graph-view.color-fill-1 {
+  color: var(--text-muted);
+}
+
+.graph-view.color-fill-2 {
+  color: var(--text-muted);
+}
+
+.graph-view.color-fill-3 {
+  color: var(--text-muted);
+}
+
+.graph-view.color-fill-4 {
+  color: var(--text-muted);
+}
+
+.graph-view.color-fill-5 {
+  color: var(--text-muted);
+}
+
+.graph-view.color-fill-6 {
+  color: var(--text-muted);
+}
+
+.graph-view.color-arrow {
+  color: var(--text-normal);
+  opacity: 0.5;
+}
+
+.graph-view.color-circle {
+  color: var(--graph-node-focused);
+}
+
+.graph-view.color-line {
+  color: var(--graph-line);
+}
+
+.graph-view.color-text {
+  color: var(--graph-text);
+}
+
+.graph-view.color-fill-highlight {
+  color: var(--interactive-accent);
+}
+
+.graph-view.color-line-highlight {
+  color: var(--interactive-accent);
+}
+
+.graph-controls-button.mod-close,
+.graph-controls-button.mod-reset {
+  position: absolute;
+  top: var(--size-2-3);
+  inset-inline-end: var(--size-4-2);
+  padding: var(--size-2-2);
+}
+
+.graph-controls-button.mod-reset {
+  inset-inline-end: var(--size-4-9);
+}
+
+/* ghost icon buttons: chromeless until hovered, then a quiet wash */
+.graph-controls-button:hover,
+.graph-controls-button:active {
+  background-color: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.graph-controls-button:active {
+  color: var(--interactive-accent);
+}

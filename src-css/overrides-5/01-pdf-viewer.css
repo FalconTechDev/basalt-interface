@@ -1,0 +1,48 @@
+/* pdf-viewer (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* resizer hover, page loading state, findbar settings, lock icon, text/annotation focus */
+@media (hover: hover) {
+  .pdf-sidebar-resizer:hover {
+    background-color: var(--divider-color-hover);
+  }
+}
+
+.pdf-page-input.mod-page-loading {
+  background-color: var(--background-secondary);
+  opacity: 0.5;
+}
+
+.pdf-findbar-settings .setting-item {
+  padding: var(--size-4-1) 0;
+  border: none;
+}
+
+.pdf-lock-icon .svg-icon {
+  --icon-size: var(--icon-xl);
+  --icon-stroke: var(--icon-xl-stroke-width);
+}
+
+.textLayer .mod-focused {
+  border-radius: var(--radius-s);
+  box-sizing: content-box;
+  padding: var(--size-4-1);
+  margin: calc(var(--size-4-1) * -1);
+  background-color: rgb(var(--text-highlight-bg-rgb));
+}
+
+.annotationLayer .mod-focused {
+  border-radius: var(--radius-s);
+  border: var(--size-4-1) solid rgba(var(--text-highlight-bg-rgb), 0.8);
+  box-shadow: var(--shadow-s);
+  box-sizing: content-box;
+  margin: calc(var(--size-4-2) * -1);
+  padding: var(--size-4-1);
+  background-color: rgba(var(--text-highlight-bg-rgb), 0.1);
+}
+
+.pdf-container .textLayer {
+  -webkit-user-select: text;
+  user-select: text;
+  opacity: 0.2;
+  background-color: transparent;
+}

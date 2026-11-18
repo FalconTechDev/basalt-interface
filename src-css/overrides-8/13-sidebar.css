@@ -1,0 +1,38 @@
+/* sidebar (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* backlink pane headers, embedded backlinks sizing, tree flair badges, tag counts */
+@media (hover: hover) {
+  .backlink-pane > .tree-item-self:hover,
+  .outgoing-link-pane > .tree-item-self:hover {
+    color: var(--nav-heading-color-hover);
+    font-weight: var(--nav-heading-weight-hover);
+  }
+}
+
+.embedded-backlinks .backlink-pane .search-empty-state,
+.embedded-backlinks .backlink-pane .tree-item-self {
+  align-items: center;
+  font-size: max(var(--font-ui-small),var(--font-smaller));
+}
+
+.embedded-backlinks .backlink-pane > .tree-item-self {
+  width: fit-content;
+  font-size: max(var(--font-ui-small),1em);
+}
+
+.file-tree .tree-item-flair {
+  padding: var(--size-2-1) var(--size-2-3);
+  line-height: 1;
+  color: var(--nav-tag-color);
+}
+
+@media (hover: hover) {
+  .search-result-file-match:hover .search-result-file-match-destination-file {
+    background-color: var(--background-secondary);
+  }
+}
+
+.tag-pane-tag.is-active .tag-pane-tag-count {
+  color: var(--text-normal);
+  background-color: var(--background-modifier-hover);
+}

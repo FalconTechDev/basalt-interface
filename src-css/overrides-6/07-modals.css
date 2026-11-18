@@ -1,0 +1,36 @@
+/* modals (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* checkbox sizing in modals, publish/sync modal dimensions, setting icons */
+.modal .checkbox-container {
+  width: var(--toggle-width);
+  height: calc(var(--toggle-thumb-height) + var(--toggle-border-width) * 2);
+}
+
+.checkbox-container.mod-small {
+  width: var(--toggle-s-width);
+  height: calc(var(--toggle-s-thumb-height) + var(--toggle-s-border-width) * 2);
+}
+
+.modal.mod-publish {
+  position: relative;
+  overflow: hidden;
+  height: var(--modal-height);
+  width: var(--modal-width);
+  max-width: var(--modal-max-width-narrow);
+}
+
+.mod-sync-history .modal-content {
+  height: 100%;
+}
+
+.modal.mod-sync-log {
+  height: var(--modal-height);
+  width: var(--modal-width);
+  max-width: var(--modal-max-width-narrow);
+}
+
+.setting-icon {
+  display: flex;
+  align-self: flex-start;
+  color: var(--text-normal);
+}

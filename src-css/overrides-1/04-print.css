@@ -1,0 +1,8 @@
+/* print (late): rules of this component that have to stay after rules of components further down the build order. */
+
+@media print {
+  /* syntax-highlight text shadows only add noise on paper */
+  code[class*="language-"] {
+    text-shadow: none;
+  }
+}

@@ -1,0 +1,50 @@
+/* Window shared by the start and help pages: the Basalt dark copper look */
+:root {
+	--bg: #14110f; --bg-alt: #1b1612; --side: #0f0c0a; --border: #3a2f26; --hover: #2b231d;
+	--accent: #b07a52; --accent-text: #14110f; --text: #ece4db; --muted: #a79a8d; --faint: #7d6e5f; --danger: #d86a5a;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 "Segoe UI", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+body { overflow: auto; }
+.page { max-width: 640px; margin: 0 auto; padding: 36px 28px 40px; }
+.brand { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+.brand img { width: 52px; height: 52px; }
+.brand h1 { margin: 0; font-size: 30px; font-weight: 700; letter-spacing: .01em; }
+.brand small { display: block; color: var(--faint); font-size: 12px; }
+h2 { margin: 26px 0 10px; font-size: 11px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--faint); }
+.list { display: flex; flex-direction: column; gap: 6px; }
+.row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--side); border: 1px solid var(--border); cursor: pointer; transition: border-color .12s, background .12s; clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px)); }
+.row:hover { background: var(--hover); border-color: var(--accent); }
+.row .main { flex: 1; min-width: 0; }
+.row .name { font-weight: 600; }
+.row .path { color: var(--faint); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row .x { width: 26px; height: 26px; border: 0; background: transparent; color: var(--faint); font-size: 16px; line-height: 1; cursor: pointer; border-radius: 4px; }
+.row .x:hover { background: var(--bg-alt); color: var(--danger); }
+.empty { color: var(--faint); padding: 10px 2px; }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+button.big { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--side); color: var(--text); border: 1px solid var(--border); font: inherit; font-weight: 600; text-align: left; cursor: pointer; clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px)); }
+button.big:hover { background: var(--hover); border-color: var(--accent); }
+button.big .ico { display: inline-flex; width: 30px; height: 30px; align-items: center; justify-content: center; background: var(--hover); color: var(--accent); border-radius: 4px; font-size: 15px; }
+form.create { display: none; margin-top: 10px; padding: 14px; background: var(--side); border: 1px solid var(--border); gap: 10px; flex-direction: column; }
+form.create.open { display: flex; }
+label { display: flex; flex-direction: column; gap: 5px; color: var(--muted); font-size: 12px; }
+input[type=text] { height: 32px; padding: 0 10px; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px; font: inherit; outline: none; }
+input[type=text]:focus { border-color: var(--accent); }
+.pathrow { display: flex; gap: 8px; }
+.pathrow input { flex: 1; min-width: 0; }
+button.btn { height: 32px; padding: 0 16px; background: var(--hover); color: var(--text); border: 1px solid var(--border); border-radius: 4px; font: inherit; cursor: pointer; }
+button.btn:hover { border-color: var(--accent); }
+button.btn.primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); font-weight: 600; }
+.err { color: var(--danger); font-size: 12px; min-height: 16px; }
+.foot { margin-top: 28px; color: var(--faint); font-size: 12px; display: flex; justify-content: space-between; }
+/* help page */
+.help h2 { color: var(--accent); font-size: 12px; margin-top: 30px; }
+.help p { margin: 6px 0; color: var(--muted); }
+.help ul { margin: 6px 0; padding-left: 20px; color: var(--muted); }
+.help li { margin: 3px 0; }
+.help b { color: var(--text); font-weight: 600; }
+.keys { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin: 8px 0; }
+kbd { font: 12px Consolas, monospace; padding: 2px 7px; background: var(--hover); border: 1px solid var(--border); border-radius: 4px; color: var(--text); white-space: nowrap; }
+.keys span { color: var(--muted); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }

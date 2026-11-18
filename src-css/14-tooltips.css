@@ -1,0 +1,80 @@
+/* tooltips: tooltip bubbles, their arrows, and notice/progress styling */
+
+/* ---------- notices & progress ---------- */
+
+.notice progress {
+  width: 100%;
+}
+
+/* light theme keeps a dark warm track so the accent fill still reads */
+.theme-light .notice progress[value]::-webkit-progress-bar {
+  box-shadow: inset 0px 0px 0px 1px var(--color-base-70);
+  background-color: var(--color-base-100);
+}
+
+/* the track is an inset-bordered pill everywhere progress appears */
+.notice progress[value]::-webkit-progress-bar,
+.markdown-preview-view progress[value]::-webkit-progress-bar,
+.markdown-rendered progress[value]::-webkit-progress-bar,
+.markdown-source-view.is-live-preview progress[value]::-webkit-progress-bar {
+  overflow: hidden;
+  box-shadow: inset 0px 0px 0px 1px var(--background-modifier-border);
+  border-radius: var(--radius-xl);
+  background-color: var(--background-secondary);
+}
+
+/* the filled portion uses the accent colour */
+.notice progress[value]::-webkit-progress-value,
+.markdown-preview-view progress[value]::-webkit-progress-value,
+.markdown-rendered progress[value]::-webkit-progress-value,
+.markdown-source-view.is-live-preview progress[value]::-webkit-progress-value {
+  overflow: hidden;
+  background-color: var(--interactive-accent);
+}
+
+/* ---------- tooltip positioning ---------- */
+
+/* side tooltips slide in from the right and centre vertically */
+.tooltip.mod-right,
+.tooltip.mod-left {
+  animation: pop-right var(--bs-dur-normal) var(--bs-ease-standard) forwards;
+  transform: translateY(-50%);
+}
+
+/* arrow: a 5px CSS triangle on the side facing the anchor */
+.tooltip.mod-right .tooltip-arrow {
+  top: calc(50% - 5px);
+  left: -5px;
+  border-right: 5px solid var(--background-modifier-message);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+
+.tooltip.mod-left .tooltip-arrow {
+  top: calc(50% - 5px);
+  left: calc(100% + 5px);
+  border-left: 5px solid var(--background-modifier-message);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+
+.tooltip.mod-top .tooltip-arrow {
+  top: calc(100%);
+  border-top: 5px solid var(--background-modifier-message);
+  border-bottom: 5px solid transparent;
+}
+
+/* error tooltips recolour the arrow to match the error background */
+.tooltip.mod-error .tooltip-arrow {
+  border-bottom-color: var(--background-modifier-error);
+}
+
+.tooltip.mod-error.mod-right .tooltip-arrow {
+  border-right-color: var(--background-modifier-error);
+  border-bottom: 5px solid transparent;
+}
+
+.tooltip.mod-error.mod-left .tooltip-arrow {
+  border-left-color: var(--background-modifier-error);
+  border-bottom: 5px solid transparent;
+}

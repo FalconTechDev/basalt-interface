@@ -1,0 +1,7 @@
+/* forms (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* recent changes overflow button stays centred and faint */
+.recent-changes-container .more-button {
+  justify-content: center;
+  color: var(--text-faint);
+}

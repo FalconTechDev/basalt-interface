@@ -1,0 +1,43 @@
+/* editor (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* collapse indicators stay invisible until the hover rules reveal them */
+.cm-fold-indicator .collapse-indicator,
+.cm-gutterElement .collapse-indicator,
+.collapse-indicator {
+  opacity: 0;
+}
+
+/* callouts and previewed code blocks lose their outer margins in live preview */
+.markdown-source-view.mod-cm6 .callout {
+  margin: 0;
+}
+
+.markdown-source-view.mod-cm6 .cm-preview-code-block pre {
+  margin: 0;
+}
+
+/* images embedded on a cm line lay out inline */
+.cm-line div.image-embed .image-wrapper {
+  display: inline-flex;
+}
+
+/* inside an iframe the sizer must yield height to the scroller */
+.markdown-source-view.mod-inside-iframe > .cm-editor > .cm-scroller > .cm-sizer {
+  flex: 1 0 0;
+  min-height: unset;
+}
+
+@media (hover: hover) {
+  /* unresolved links resolve to link-hover styling on hover */
+  .markdown-source-view.mod-cm6 .is-unresolved:hover {
+    color: var(--link-color-hover);
+    text-decoration-color: var(--link-color-hover);
+    opacity: 1;
+  }
+}
+
+/* cm6 table widget has no outer spacing of its own */
+.markdown-source-view.mod-cm6 .cm-table-widget table {
+  margin-top: 0;
+  margin-bottom: 0;
+}

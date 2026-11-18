@@ -1,0 +1,22 @@
+/* tabs (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* drawer tab options: plain rows, select row gets button chrome */
+.workspace-drawer-tab-options .workspace-tab-header {
+  padding: 0;
+  user-select: none;
+}
+
+.workspace-drawer-tab-options .workspace-tab-header-inner {
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--size-4-2);
+  padding: var(--size-4-2) var(--size-4-3);
+  border-radius: var(--touch-radius-xs);
+  font-weight: var(--font-semibold);
+}
+
+.workspace-drawer-tab-select .workspace-tab-header-inner {
+  border-radius: var(--touch-radius-xs);
+  padding: var(--size-4-3) var(--size-4-5);
+  background-color: var(--interactive-normal);
+}

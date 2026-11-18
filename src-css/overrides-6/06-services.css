@@ -1,0 +1,55 @@
+/* services (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* recovery search, publish/sync status colours, webviewer controls */
+.file-recovery-list .search-input-container {
+  width: 100%;
+}
+
+@media (hover: hover) {
+  .publish-section-header-text:hover,
+  .publish-section-header-toggle-collapsed-button:hover,
+  .publish-section-header-action:hover {
+    color: var(--text-accent-hover);
+  }
+}
+
+.publish-upload-item.mod-failed {
+  color: var(--text-error);
+}
+
+.publish-upload-item.mod-completed {
+  color: var(--text-success);
+}
+
+.sync-status-icon.mod-success {
+  color: var(--text-success);
+}
+
+.sync-status-icon.mod-working {
+  color: var(--interactive-accent);
+}
+
+.sync-status-icon.mod-error {
+  color: var(--text-error);
+}
+
+.sync-exclude-folder > * {
+  align-self: center;
+  display: flex;
+}
+
+.sync-modal-header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.webviewer-favicon-container {
+  display: flex;
+  align-items: center;
+}
+
+.webviewer-address input {
+  flex-grow: 1;
+  min-width: 50px;
+}

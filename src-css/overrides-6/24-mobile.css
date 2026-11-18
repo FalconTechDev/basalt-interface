@@ -1,0 +1,82 @@
+/* mobile (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* keyboard-height aware app container, onboarding, option rows, phone modal */
+.is-mobile .canvas-node-resizer {
+  pointer-events: none;
+}
+
+body.is-mobile .app-container {
+  max-height: calc(100vh - var(--keyboard-height));
+}
+
+.mobile-onboarding .language-dropdown select {
+  box-shadow: none;
+  width: 100%;
+  background-color: transparent;
+}
+
+.mobile-onboarding h1 {
+  font-size: var(--h1-size);
+}
+
+.is-mobile .form-field input {
+  width: 100%;
+}
+
+.mobile-option-setting-item {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-1);
+  padding: var(--size-4-1) 0;
+  font-size: var(--font-ui-medium);
+  color: var(--text-muted);
+  transition: transform var(--bs-dur-slow) var(--bs-ease-standard);
+}
+
+.mobile-option-setting-item-option-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 4px;
+  border-radius: var(--radius-s);
+  cursor: var(--cursor);
+}
+
+.is-phone .workspace-drawer-tab-select {
+  order: 2;
+}
+
+.is-mobile input[type='text'] {
+  width: 100%;
+}
+
+.is-phone .modal,
+.is-phone .prompt {
+  left: 0;
+  right: 0;
+  border: none;
+  min-width: unset;
+}
+
+.mobile-tab-switcher-menu-button {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-1);
+  transition: opacity var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+.mobile-tab-switcher-menu-button-chevron {
+  --icon-size: var(--icon-s);
+  --icon-stroke: var(--icon-s-stroke-width);
+  display: flex;
+  align-items: center;
+  color: var(--text-faint);
+}
+
+.mobile-vault-chooser-action {
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-s);
+  padding: 14px 0;
+  font-size: 18px;
+}

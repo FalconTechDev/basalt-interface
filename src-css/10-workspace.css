@@ -1,0 +1,487 @@
+/* workspace: window frame — split tree of leaves, docks, resize, drag, popovers */
+
+/* ---------- global drag & app frame ---------- */
+
+/* while the app is grabbing, embedded frames must not eat events */
+body.is-grabbing iframe:not(.is-controlled),
+body.is-grabbing webview {
+  pointer-events: none;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.app-container.no-transition * {
+  transition: none !important;
+}
+
+/* read mode puts the source view beneath the preview */
+.workspace-leaf-content.is-read-mode .markdown-source-view {
+  z-index: 0;
+}
+
+/* ---------- drag ghosts ---------- */
+
+/* floating drag plate: warm dark surface, copper keyline, menu radius */
+.drag-ghost {
+  position: fixed;
+  z-index: var(--layer-dragged-item);
+  padding: var(--size-2-3) var(--size-4-2);
+  border: var(--bs-hairline) solid var(--bs-accent);
+  border-radius: var(--radius-m);
+  corner-shape: var(--corner-shape);
+  box-shadow: var(--shadow-s);
+  max-width: 300px;
+  font-size: var(--font-ui-small);
+  font-weight: var(--font-medium);
+  color: var(--drag-ghost-text-color);
+  background-color: var(--drag-ghost-background);
+  pointer-events: none;
+}
+
+.drag-ghost.mod-leaf {
+  display: flex;
+  z-index: var(--layer-tooltip);
+}
+
+.drag-ghost-icon {
+  position: relative;
+  margin-right: var(--size-2-3);
+}
+
+.drag-reorder-ghost {
+  position: fixed;
+  z-index: var(--layer-dragged-item);
+  border: var(--bs-hairline) solid var(--background-modifier-border-hover);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-s);
+  background-color: var(--background-primary);
+  pointer-events: none;
+  corner-shape: var(--corner-shape);
+}
+
+.drag-ghost-self {
+  display: flex;
+}
+
+.drag-ghost-self > .svg-icon {
+  --icon-size: var(--icon-xs);
+  --icon-stroke: var(--icon-xs-stroke-width);
+  align-self: center;
+  flex-shrink: 0;
+  margin-right: var(--size-2-2);
+  vertical-align: middle;
+  opacity: 0.7;
+}
+
+.drag-ghost-self span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.drag-ghost-action {
+  overflow: hidden;
+  padding: var(--size-2-1) 0 0 0;
+  font-size: var(--font-ui-smaller);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  opacity: 0.7;
+}
+
+/* hidden ghost keeps layout space but paints an accent placeholder */
+.drag-ghost-hidden {
+  visibility: hidden;
+  position: relative;
+}
+
+.drag-ghost-hidden:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  visibility: visible;
+  border-radius: var(--radius-l);
+  content: ' ';
+  background-color: color-mix(in srgb, var(--bs-accent) 30%, transparent);
+}
+
+/* macOS pop-out windows reserve titlebar space on the left */
+.mod-macos.is-popout-window {
+  --frame-left-space: 80px;
+}
+
+/* frameless windows disable window-drag on siblings of the container */
+body.is-frameless > .app-container ~ * {
+  -webkit-app-region: no-drag;
+}
+
+/* ---------- splits ---------- */
+
+.workspace-split.mod-root .view-content {
+  background-color: var(--background-primary);
+}
+
+.workspace-split.mod-root .workspace-fake-target-overlay .view-content {
+  background-color: transparent;
+}
+
+.workspace-split.mod-left-split .view-content,
+.workspace-split.mod-right-split .view-content {
+  overflow: auto;
+  height: 100%;
+}
+
+/* hover popovers hide the inline title (the popover is the title) */
+.hover-popover .inline-title,
+.inline-embed .inline-title {
+  display: none;
+}
+
+/* read mode preview fills the leaf edge-to-edge */
+.workspace-leaf-content.is-read-mode .markdown-preview-view {
+  inset-inline-start: 0;
+  width: 100%;
+  background-color: var(--background-primary);
+}
+
+/* RTL flips direction on all floating UI layers */
+.mod-rtl .workspace-sidedock-vault-profile,
+.mod-rtl .modal,
+.mod-rtl .notice,
+.mod-rtl .prompt,
+.mod-rtl .titlebar,
+.mod-rtl .tooltip,
+.mod-rtl .workspace-tab-container,
+.mod-rtl .workspace-tab-header-container,
+.mod-rtl .workspace-drawer,
+.mod-rtl .mobile-navbar-actions,
+.mod-rtl .status-bar,
+.mod-rtl .suggestion-container,
+.mod-rtl .menu,
+.mod-rtl .bases-toolbar-menu,
+.mod-rtl .popover {
+  direction: rtl;
+}
+
+/* ---------- workspace root ---------- */
+
+.workspace {
+  display: flex;
+  flex: 1 0 0;
+  overflow: hidden;
+  height: 100%;
+  transition: padding-left var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+.is-translucent .workspace {
+  background-color: transparent;
+}
+
+.workspace-split {
+  display: flex;
+  position: relative;
+  background-color: var(--tab-container-background);
+}
+
+.workspace-split.mod-vertical > .workspace-split:last-child {
+  padding-inline-end: 0;
+}
+
+.workspace-split:last-child:not(.mod-right-split) > .workspace-leaf-resize-handle {
+  display: none;
+}
+
+.workspace-split.mod-vertical {
+  flex-direction: row;
+}
+
+.workspace-split.mod-horizontal {
+  flex-direction: column;
+}
+
+.workspace-split.mod-root {
+  background-color: var(--background-primary);
+}
+
+/* ---------- leaves ---------- */
+
+.workspace-leaf {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  contain: strict !important;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.workspace-split.mod-root .workspace-leaf:last-child .workspace-leaf-resize-handle {
+  display: none;
+}
+
+/* drop target highlight washes the whole leaf in accent-soft */
+.workspace-leaf.is-highlighted:before {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  z-index: var(--layer-popover);
+  height: 100%;
+  width: 100%;
+  content: ' ';
+  background-color: var(--bs-accent-soft);
+  pointer-events: none;
+}
+
+.workspace-leaf-resize-handle {
+  position: absolute;
+  z-index: var(--layer-cover);
+  border-color: var(--divider-color);
+  border-top: 0;
+  border-width: var(--divider-width);
+  margin: 0;
+  background-color: transparent;
+  transition: background-color var(--bs-dur-fast) var(--bs-ease-standard), border-color var(--bs-dur-fast) var(--bs-ease-standard), opacity var(--bs-dur-fast) var(--bs-ease-standard);
+  -webkit-app-region: no-drag;
+}
+
+@media (hover: hover) {
+  .workspace-leaf-resize-handle:hover {
+    border-color: var(--divider-color-hover);
+    background-color: var(--divider-color-hover);
+  }
+}
+
+.workspace-leaf-content {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.workspace-leaf-content .image-container,
+.workspace-leaf-content .audio-container,
+.workspace-leaf-content .video-container {
+  text-align: center;
+}
+
+.workspace-leaf-content img:not([width]),
+.workspace-leaf-content audio,
+.workspace-leaf-content video {
+  max-width: 100%;
+}
+
+/* ---------- drop overlays ---------- */
+
+.workspace-fake-target-overlay,
+.workspace-drop-overlay {
+  position: fixed;
+  inset-inline-start: 0;
+  top: 0;
+  z-index: var(--layer-cover);
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  will-change: transform, width, height;
+  transform: translate(0, 0);
+  transition: all var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+/* drop overlay frames the target slot with a 2px copper keyline */
+.workspace-drop-overlay:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  margin: auto;
+  border-radius: var(--radius-s);
+  box-shadow: inset 0 0 0 var(--bs-focus-width) var(--bs-accent);
+  content: ' ';
+}
+
+.workspace-fake-target-container {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  pointer-events: none;
+}
+
+.workspace-fake-target-overlay {
+  visibility: visible;
+  overflow: hidden;
+  background-color: var(--background-primary);
+}
+
+/* ---------- sidedock ---------- */
+
+.workspace-sidedock-empty-state {
+  padding: var(--size-4-5) var(--size-4-8);
+  font-size: var(--font-ui-small);
+}
+
+body > .workspace-split {
+  height: 100%;
+}
+
+/* side splits use tighter file margins and the sidebar font size */
+.mod-right-split .markdown-preview-view,
+.mod-left-split .markdown-preview-view,
+.mod-right-split .markdown-source-view.mod-cm6 .cm-scroller,
+.mod-left-split .markdown-source-view.mod-cm6 .cm-scroller {
+  --file-margins: var(--size-4-5);
+}
+
+.mod-right-split .markdown-preview-view,
+.mod-left-split .markdown-preview-view,
+.mod-right-split .markdown-source-view,
+.mod-left-split .markdown-source-view {
+  font-size: var(--sidebar-markdown-font-size);
+}
+
+/* ---------- hover popovers ---------- */
+
+.popover.hover-popover.is-editing {
+  outline: 2px var(--background-modifier-border-focus) solid;
+  border-color: var(--background-modifier-border-focus);
+}
+
+.popover.hover-popover .markdown-preview-view {
+  font-size: var(--popover-font-size);
+}
+
+.popover.hover-popover > .markdown-embed > .markdown-embed-content {
+  width: 100%;
+}
+
+.popover.hover-popover > .markdown-embed > .markdown-embed-content > .markdown-source-view.mod-cm6 > .cm-editor > .cm-scroller,
+.popover.hover-popover > .markdown-embed > .markdown-embed-content .markdown-preview-view {
+  padding: var(--file-margins);
+}
+
+.popover.hover-popover > .markdown-embed .markdown-source-view {
+  font-size: var(--popover-font-size);
+}
+
+.popover.hover-popover > .markdown-embed[data-type="footnote"].mod-empty {
+  text-align: center;
+  cursor: var(--cursor-link);
+  background-color: var(--background-secondary-alt);
+}
+
+.popover.hover-popover > .markdown-embed[data-type="footnote"].mod-empty .markdown-preview-view {
+  color: var(--text-muted);
+}
+
+.popover.hover-popover > .markdown-embed[data-type="footnote"]:not(.mod-empty) {
+  --popover-font-size: var(--footnote-size);
+}
+
+.popover.hover-popover > .markdown-embed[data-type="footnote"] > .markdown-embed-content .cm-scroller,
+.popover.hover-popover > .markdown-embed[data-type="footnote"] > .markdown-embed-content .markdown-preview-view {
+  --file-margins: var(--size-4-3) var(--size-4-4);
+}
+
+/* ---------- bases & sidedock vars ---------- */
+
+.app-container .block-language-base,
+.app-container .bases-embed {
+  --bases-header-border-width: 0;
+}
+
+.mod-sidedock {
+  --bases-table-header-background: var(--background-secondary);
+}
+
+/* bookmark action only exists on browser leaves */
+.workspace-leaf-content:not([data-type="browser"]) .view-action.mod-bookmark {
+  display: none;
+}
+
+.workspace-leaf-content:not([data-type="browser"]) .view-action.mod-bookmarked {
+  display: flex;
+}
+
+/* nested splits tighten metadata spacing */
+.workspace > .workspace-split:not(.mod-root) .metadata-container .metadata-properties {
+  --metadata-gap: 0;
+}
+
+.workspace > .workspace-split:not(.mod-root) .metadata-container .metadata-property:hover:not(:focus-within) {
+  box-shadow: none;
+}
+
+/* ---------- workspace drawer ---------- */
+
+.workspace-drawer.mod-left.is-pinned {
+  --mobile-sidebar-radius: 0;
+  border-right: var(--divider-width) solid var(--divider-color);
+}
+
+.workspace-drawer.mod-left.is-pinned .workspace-drawer-header-info div {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.workspace-drawer.mod-right .workspace-drawer-header-name-text {
+  font-size: var(--font-ui-small);
+}
+
+.workspace-drawer.mod-right.is-pinned {
+  --mobile-sidebar-radius: 0;
+  border-left: var(--divider-width) solid var(--divider-color);
+}
+
+.workspace-drawer.mod-right.is-pinned .workspace-drawer-header-name-text {
+  display: none;
+}
+
+.workspace-drawer.is-collapsed {
+  overflow: hidden;
+}
+
+.workspace-drawer .nav-buttons-container::-webkit-scrollbar, .workspace-drawer .nav-buttons-container::-webkit-scrollbar-thumb {
+  visibility: hidden;
+}
+
+.workspace-drawer-ribbon::-webkit-scrollbar,
+.workspace-drawer-ribbon::-webkit-scrollbar-thumb {
+  visibility: hidden;
+  width: 0;
+}
+
+.workspace-drawer-ribbon .side-dock-actions,
+.workspace-drawer-ribbon .side-dock-settings {
+  gap: var(--size-4-2);
+}
+
+.workspace-drawer-header-name {
+  display: flex;
+}
+
+/* invisible select overlays the header name for switching */
+.workspace-drawer-header-switcher select {
+  position: absolute;
+  padding: 0;
+  width: 100%;
+  opacity: 0;
+}
+
+.workspace-drawer-tab-options:not(.is-collapsed) .workspace-drawer-tab-options-list .workspace-drawer-tab-select {
+  animation: none;
+}
+
+.workspace-drawer-tab-container {
+  position: relative;
+  flex: 1 0 0;
+}

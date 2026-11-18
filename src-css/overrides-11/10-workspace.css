@@ -1,0 +1,6 @@
+/* workspace (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* drawer settings button sits flush at the bottom */
+.workspace-drawer .side-dock-settings {
+  margin-bottom: 0;
+}

@@ -1,0 +1,747 @@
+/* preview: reading view — rendered markdown, callouts, embeds, tables, footnotes */
+
+/* ---------- inline title ---------- */
+
+.inline-title {
+  margin-block-end: var(--inline-title-margin-bottom);
+  color: var(--inline-title-color);
+  white-space: pre-wrap;
+}
+
+.inline-title:not([data-level]) {
+  font-size: var(--inline-title-size);
+  font-weight: var(--inline-title-weight);
+  line-height: var(--inline-title-line-height);
+  font-style: var(--inline-title-style);
+  font-variant: var(--inline-title-variant);
+  font-family: var(--inline-title-font);
+  letter-spacing: -0.015em;
+}
+
+/* embedded headings keep their own margins reset inside the title block */
+.inline-title h1,
+.inline-title h2,
+.inline-title h3,
+.inline-title h4,
+.inline-title h5,
+.inline-title h6 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+body:not(.show-inline-title) .inline-title:not([data-level]) {
+  display: none;
+}
+
+/* ---------- reading view frame ---------- */
+
+.markdown-reading-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.markdown-preview-view {
+  position: relative;
+  overflow-y: auto;
+  overflow-wrap: break-word;
+  width: 100%;
+  height: 100%;
+  padding: var(--file-margins);
+  font-size: var(--font-text-size);
+  font-family: var(--font-text);
+  line-height: var(--line-height-normal);
+  color: var(--text-normal);
+  user-select: text;
+  -webkit-user-select: text;
+  scrollbar-gutter: stable;
+}
+
+.markdown-preview-view.is-readable-line-width .markdown-preview-sizer {
+  max-width: var(--file-line-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---------- rendered content ---------- */
+
+.markdown-rendered {
+  tab-size: var(--indent-size);
+
+  /* reading-view tables get the basalt row-hover tint; editor tables keep theirs */
+  --table-row-background-hover: var(--background-modifier-hover);
+  --table-row-alt-background-hover: var(--background-modifier-hover);
+}
+
+.markdown-rendered.rtl {
+  direction: rtl;
+}
+
+/* edge children lose outer margins */
+.markdown-rendered > :first-child {
+  margin-top: 0;
+}
+
+.markdown-rendered > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-rendered > .markdown-preview-section > .markdown-preview-pusher + div:not(.mod-ui) > :first-child,
+.markdown-rendered > .markdown-preview-section > .mod-ui + div:not(.mod-ui) > :first-child {
+  margin-top: 0;
+}
+
+.markdown-rendered > .markdown-preview-section > div:last-child > :last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- RTL metadata ---------- */
+
+.mod-rtl .metadata-container,
+.is-rtl .metadata-container,
+.rtl .metadata-container {
+  --direction: -1;
+}
+
+.mod-rtl .metadata-container,
+.is-rtl .metadata-container,
+.rtl .metadata-container,
+.mod-rtl input.metadata-input-number,
+.is-rtl input.metadata-input-number,
+.rtl input.metadata-input-number,
+.mod-rtl input.metadata-property-key-input,
+.is-rtl input.metadata-property-key-input,
+.rtl input.metadata-property-key-input {
+  text-align: right;
+}
+
+/* ---------- search highlight ---------- */
+
+.markdown-rendered .search-highlight > div.is-active {
+  box-shadow: 0 0 0px 3px var(--text-accent);
+  opacity: 1;
+}
+
+/* ---------- folds ---------- */
+
+.markdown-preview-view:not(.allow-fold-lists) .list-collapse-indicator,
+.markdown-preview-view:not(.allow-fold-headings) .heading-collapse-indicator {
+  display: none;
+}
+
+.markdown-preview-view .collapse-indicator .svg-icon {
+  vertical-align: middle;
+}
+
+.markdown-preview-view li.is-collapsed > ul,
+.markdown-preview-view li.is-collapsed > ol {
+  display: none;
+}
+
+/* ---------- indentation guides ---------- */
+
+.markdown-rendered.show-indentation-guide li > ul,
+.markdown-rendered.show-indentation-guide li > ol {
+  position: relative;
+}
+
+.markdown-rendered.show-indentation-guide li > ul::before,
+.markdown-rendered.show-indentation-guide li > ol::before {
+  position: absolute;
+  display: block;
+  inset-inline-start: var(--indentation-guide-reading-indent);
+  top: 0;
+  bottom: 0;
+  border-inline-end: var(--indentation-guide-width) solid var(--indentation-guide-color);
+  content: "\200B";
+}
+
+.markdown-rendered audio {
+  max-width: 100%;
+  outline: none;
+}
+
+.markdown-rendered video {
+  max-width: 100%;
+  outline: none;
+}
+
+/* ---------- blockquote ---------- */
+
+.markdown-rendered blockquote {
+  border-inline-start: var(--blockquote-border-thickness) solid var(--blockquote-border-color);
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-inline-start: var(--size-4-6);
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  color: var(--blockquote-color);
+  font-style: var(--blockquote-font-style);
+  background-color: var(--blockquote-background-color);
+}
+
+/* ---------- callouts ---------- */
+
+/* engines with color-mix tint table/embed borders from the callout colour */
+@supports (color: color-mix(in srgb, white 50%, black)) {
+  .callout {
+    --bases-table-header-background: transparent;
+    --bases-table-header-background-hover: rgba(var(--callout-color), 0.1);
+    --bases-embed-border-color: color-mix(in srgb, rgb(var(--callout-color)) 25%, var(--background-primary) 50%);
+    --bases-table-border-color: color-mix(in srgb, rgb(var(--callout-color)) 25%, var(--background-primary) 50%);
+    --table-border-color: color-mix(in srgb, rgb(var(--callout-color)) 25%, var(--background-primary) 50%);
+  }
+}
+
+/* each callout type maps to a colour var and an icon name */
+.callout[data-callout="abstract"],
+.callout[data-callout="summary"],
+.callout[data-callout="tldr"] {
+  --callout-color: var(--callout-summary);
+  --callout-icon: lucide-clipboard-list;
+}
+
+.callout[data-callout="info"] {
+  --callout-color: var(--callout-info);
+  --callout-icon: lucide-info;
+}
+
+.callout[data-callout="todo"] {
+  --callout-color: var(--callout-todo);
+  --callout-icon: lucide-check-circle-2;
+}
+
+.callout[data-callout="important"] {
+  --callout-color: var(--callout-important);
+  --callout-icon: lucide-flame;
+}
+
+.callout[data-callout="tip"],
+.callout[data-callout="hint"] {
+  --callout-color: var(--callout-tip);
+  --callout-icon: lucide-flame;
+}
+
+.callout[data-callout="success"],
+.callout[data-callout="check"],
+.callout[data-callout="done"] {
+  --callout-color: var(--callout-success);
+  --callout-icon: lucide-check;
+}
+
+.callout[data-callout="question"],
+.callout[data-callout="help"],
+.callout[data-callout="faq"] {
+  --callout-color: var(--callout-question);
+  --callout-icon: help-circle;
+}
+
+.callout[data-callout="warning"],
+.callout[data-callout="caution"],
+.callout[data-callout="attention"] {
+  --callout-color: var(--callout-warning);
+  --callout-icon: lucide-alert-triangle;
+}
+
+.callout[data-callout="failure"],
+.callout[data-callout="fail"],
+.callout[data-callout="missing"] {
+  --callout-color: var(--callout-fail);
+  --callout-icon: lucide-x;
+}
+
+.callout[data-callout="danger"],
+.callout[data-callout="error"] {
+  --callout-color: var(--callout-error);
+  --callout-icon: lucide-zap;
+}
+
+.callout[data-callout="bug"] {
+  --callout-color: var(--callout-bug);
+  --callout-icon: lucide-bug;
+}
+
+.callout[data-callout="example"] {
+  --callout-color: var(--callout-example);
+  --callout-icon: lucide-list;
+}
+
+.callout[data-callout="quote"],
+.callout[data-callout="cite"] {
+  --callout-color: var(--callout-quote);
+  --callout-icon: quote-glyph;
+}
+
+.callout-icon::after {
+  content: "\200B";
+}
+
+.callout-fold::after {
+  content: "\200B";
+}
+
+.callout-fold.is-collapsed .svg-icon {
+  transform: rotate(calc(var(--direction) * -1 * 90deg));
+}
+
+/* ---------- inline code & code blocks ---------- */
+
+.markdown-rendered code {
+  border-radius: var(--code-radius);
+  border: var(--code-border-width) solid var(--code-border-color);
+  padding: 0.15em 0.3em;
+  -webkit-box-decoration-break: clone;
+  color: var(--code-normal);
+  font-family: var(--font-monospace);
+  font-size: var(--code-size);
+  /* inline code sits on the quiet hover tint; fenced blocks keep --code-background */
+  background-color: var(--background-modifier-hover);
+}
+
+.markdown-rendered pre {
+  position: relative;
+  overflow-x: auto;
+  padding: var(--size-4-3) var(--size-4-4);
+  min-height: 38px;
+  border-radius: var(--code-radius);
+  border: var(--code-border-width) solid var(--code-border-color);
+  white-space: var(--code-white-space);
+  background-color: var(--code-background);
+}
+
+.markdown-rendered pre code {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+
+.markdown-rendered li > pre {
+  margin: 0;
+}
+
+/* copy button only on hover */
+.markdown-rendered pre:not(:hover) > button.copy-code-button {
+  display: none;
+}
+
+@media (hover: hover) {
+  .markdown-rendered button.copy-code-button:hover {
+    background-color: var(--background-modifier-hover);
+  }
+}
+
+/* headings inside nested preview pushers lose top margin */
+.markdown-preview-view .markdown-embed .markdown-preview-view .markdown-preview-pusher h1,
+.markdown-preview-view .markdown-embed .markdown-preview-view .markdown-preview-pusher h2,
+.markdown-preview-view .markdown-embed .markdown-preview-view .markdown-preview-pusher h3,
+.markdown-preview-view .markdown-embed .markdown-preview-view .markdown-preview-pusher h4,
+.markdown-preview-view .markdown-embed .markdown-preview-view .markdown-preview-pusher h5,
+.markdown-preview-view .markdown-embed .markdown-preview-view .markdown-preview-pusher h6 {
+  margin-top: 0;
+}
+
+/* ---------- embeds ---------- */
+
+.markdown-embed,
+.file-embed {
+  position: relative;
+}
+
+.internal-embed.query-embed .edit-block-button {
+  opacity: 1;
+}
+
+/* image embeds hug their content with a small padding */
+div.image-embed {
+  width: fit-content;
+  padding-bottom: 3px;
+  padding-inline-end: 3px;
+}
+
+div.image-embed .image-wrapper img:not([width]) {
+  width: 100%;
+}
+
+/* RTL flips the resize-corner cursor */
+.is-rtl div.image-embed .image-resize-corner,
+.cm-line[dir="rtl"] div.image-embed .image-resize-corner {
+  cursor: nesw-resize;
+}
+
+div.image-embed .image-resize-corner::after {
+  position: absolute;
+  display: block;
+  inset-inline-end: 3px;
+  bottom: 3px;
+  outline: var(--bs-focus-width) solid var(--interactive-accent);
+  border-radius: var(--radius-m);
+  height: 4px;
+  width: 4px;
+  content: " ";
+  background-color: var(--background-primary);
+  opacity: 0;
+}
+
+/* ---------- footnotes ---------- */
+
+.footnote-link {
+  text-decoration: none;
+}
+
+.footnotes {
+  font-size: var(--footnote-size);
+}
+
+.footnote-ref {
+  vertical-align: super;
+}
+
+/* ---------- frontmatter ---------- */
+
+.markdown-rendered .frontmatter.mod-failed {
+  position: relative;
+}
+
+.markdown-rendered .frontmatter.mod-failed .mod-error {
+  color: var(--text-error);
+  font-size: var(--font-smaller);
+}
+
+.markdown-rendered .frontmatter.mod-failed:after {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background-color: var(--background-modifier-error);
+  opacity: 0.3;
+  mix-blend-mode: var(--highlight-mix-blend-mode);
+}
+
+/* ---------- metadata properties ---------- */
+
+.metadata-container.is-collapsed .metadata-property {
+  display: none;
+}
+
+.metadata-container:focus-within .metadata-property.is-selected {
+  color: var(--nav-item-color-selected);
+  background-color: var(--nav-item-background-selected);
+}
+
+/* longtext clamps to a few lines until focused */
+.metadata-properties .metadata-input-longtext:not(:empty) {
+  display: -webkit-box;
+}
+
+.metadata-properties .metadata-input-longtext:focus {
+  -webkit-line-clamp: unset;
+}
+
+.metadata-properties-heading:before {
+  position: absolute;
+  display: inline-block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: var(--metadata-property-radius);
+  content: '';
+  corner-shape: var(--metadata-property-corner-shape);
+}
+
+.metadata-properties-heading:focus:before {
+  box-shadow: 0 0 0 2px var(--background-modifier-border-focus);
+}
+
+.metadata-input-text::-webkit-date-and-time-value {
+  text-align: start;
+}
+
+.metadata-property-icon:before {
+  width: var(--size-4-1);
+  content: "\200B";
+}
+
+.metadata-property-value.is-being-dragged-over {
+  position: relative;
+}
+
+.metadata-property-value.is-being-dragged-over:after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--layer-cover);
+  content: '';
+  pointer-events: none;
+  background: hsla(var(--interactive-accent-hsl), 0.1);
+}
+
+.metadata-property-value .multi-select-pill {
+  --pill-border-width: 0;
+  --pill-padding-x: 0;
+  --pill-padding-y: 0;
+  --pill-color: var(--metadata-input-text-color);
+  line-height: var(--line-height-tight);
+}
+
+.metadata-property-value .metadata-input-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* external-link values get link styling even though they are inputs */
+.metadata-property-value.mod-external-link:not(:placeholder-shown) {
+  text-decoration-line: var(--link-decoration);
+  text-decoration-thickness: var(--link-decoration-thickness);
+  text-decoration-color: var(--text-faint);
+}
+
+@media (hover: hover) {
+  .metadata-property-value.mod-external-link:not(:placeholder-shown) .metadata-link-inner:hover {
+    text-decoration-line: var(--link-decoration-hover);
+  }
+}
+
+.metadata-property-value .multi-select-input {
+  font-size: inherit;
+}
+
+/* invalid pills strike through in error colour */
+.metadata-property-value .multi-select-container .multi-select-pill.is-invalid {
+  --pill-background: transparent;
+  --pill-color: var(--text-error);
+  --pill-color-remove: var(--text-error);
+  text-decoration-line: line-through;
+}
+
+.metadata-property-value .external-link .multi-select-pill-content,
+.metadata-property-value .internal-link .multi-select-pill-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.metadata-input-longtext:focus {
+  overflow-y: auto;
+}
+
+.metadata-input-longtext:empty:before {
+  color: var(--input-placeholder-color);
+  content: attr(placeholder);
+}
+
+/* ---------- headings after blocks ---------- */
+
+.markdown-rendered li h1,
+.markdown-rendered li h2,
+.markdown-rendered li h3,
+.markdown-rendered li h4,
+.markdown-rendered li h5 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* a heading following a block gets extra top space */
+.markdown-rendered :is(p,pre,table,ul,ol) + :is(h1,h2,h3,h4,h5,h6),
+.markdown-rendered div:is(.el-blockquote,.el-p,.el-pre,.el-table,.el-ul,.el-ol) + div > :is(h1,h2,h3,h4,h5,h6) {
+  margin-top: var(--heading-spacing);
+}
+
+.markdown-rendered hr {
+  border: none;
+  border-top: var(--hr-thickness) solid;
+  border-color: var(--hr-color);
+}
+
+/* ---------- images ---------- */
+
+.markdown-preview-view img,
+.markdown-rendered img {
+  max-width: 100%;
+  image-rendering: -webkit-optimize-contrast;
+  -webkit-touch-callout: default;
+}
+
+.markdown-preview-view img:not([width]),
+.markdown-rendered img:not([width]) {
+  outline: none;
+}
+
+/* ---------- lists ---------- */
+
+.markdown-rendered ul,
+.markdown-rendered ol {
+  padding-inline-start: 0;
+  margin-block-start: var(--p-spacing);
+  margin-block-end: var(--p-spacing);
+}
+
+/* nested lists have no outer margins */
+.markdown-rendered ul ul,
+.markdown-rendered ol ul,
+.markdown-rendered ul ol,
+.markdown-rendered ol ol {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.markdown-rendered ul li p:first-of-type,
+.markdown-rendered ol li p:first-of-type {
+  margin-block-start: 0;
+}
+
+.markdown-rendered ul li p:last-of-type,
+.markdown-rendered ol li p:last-of-type {
+  margin-block-end: 0;
+}
+
+.markdown-rendered ul > li,
+.markdown-rendered ol > li {
+  position: relative;
+  padding-top: var(--list-spacing);
+  padding-bottom: var(--list-spacing);
+}
+
+.markdown-rendered ul > li {
+  margin-inline-start: 3ch;
+}
+
+.markdown-rendered ol > li {
+  margin-inline-start: 3ch;
+}
+
+.markdown-rendered ol ol > li,
+.markdown-rendered ul ul > li {
+  margin-inline-start: var(--list-indent);
+}
+
+.markdown-rendered .task-list-item > .list-bullet {
+  display: none;
+}
+
+/* custom bullet glyphs keep a transparent native marker */
+.markdown-rendered ul.has-list-bullet {
+  list-style-type: '\200B';
+}
+
+.markdown-rendered ul.has-list-bullet > li::marker {
+  color: transparent;
+}
+
+/* list-bullet: the drawn bullet is a positioned pseudo-element */
+.list-bullet:before {
+  content: '\200B';
+}
+
+.list-bullet:after {
+  position: absolute;
+  border-radius: var(--list-bullet-radius);
+  border: var(--list-bullet-border);
+  width: var(--list-bullet-size);
+  height: var(--list-bullet-size);
+  color: var(--list-marker-color);
+  content: '\200B';
+  pointer-events: none;
+  background-color: var(--list-marker-color);
+  transform: var(--list-bullet-transform);
+  transition: transform var(--bs-dur-fast) var(--bs-ease-standard), box-shadow var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+.list-bullet::selection {
+  background-color: transparent !important;
+}
+
+@media (hover: hover) {
+  /* hovering the fold indicator highlights its bullet */
+  .list-collapse-indicator:hover ~ .list-bullet:after,
+  .cm-fold-indicator:hover ~ .list-bullet:after,
+  .list-collapse-indicator:hover ~ .cm-formatting-list .list-bullet:after,
+  .cm-fold-indicator:hover ~ .cm-formatting-list .list-bullet:after {
+    box-shadow: 0 0 0 4px var(--background-modifier-hover);
+    background-color: var(--list-marker-color-hover);
+  }
+
+  /* unresolved links reveal their hover colour on hover */
+  .metadata-property-value .internal-link.is-unresolved:hover,
+  .markdown-rendered .internal-link.is-unresolved:hover {
+    color: var(--link-color-hover);
+    text-decoration-color: var(--link-color-hover);
+    text-decoration-line: var(--link-decoration-hover);
+    opacity: 1;
+  }
+}
+
+/* ---------- tables ---------- */
+
+.markdown-rendered table {
+  margin-block-start: var(--p-spacing);
+  margin-block-end: var(--p-spacing);
+  word-break: normal;
+}
+
+/* ---------- table drag & drop ---------- */
+
+.table-drag-target {
+  position: absolute;
+  z-index: 2;
+}
+
+.table-drag-target::after {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-m);
+  content: "";
+  background-color: var(--interactive-accent);
+}
+
+.table-drag-target.mod-row::after {
+  inset-block: calc(-1 * var(--table-drop-indicator-half-width));
+}
+
+.table-drag-target.mod-col::after {
+  inset-inline: calc(-1 * var(--table-drop-indicator-half-width));
+}
+
+/* ---------- paragraphs & marks ---------- */
+
+.markdown-rendered p {
+  margin-block-start: var(--p-spacing);
+  margin-block-end: var(--p-spacing);
+  unicode-bidi: plaintext;
+}
+
+.markdown-rendered mark {
+  color: var(--text-normal);
+  background-color: var(--text-highlight-bg);
+}
+
+.markdown-rendered mark .internal-link {
+  color: var(--text-normal);
+}
+
+/* ---------- reveal mode & footnotes view ---------- */
+
+.reveal .task-list-item,
+.reveal .footnote-item {
+  list-style: none;
+}
+
+.footnotes-view .footnote-list-item.is-editing {
+  border-color: var(--footnote-divider-color-active);
+}
+
+.footnotes-view .footnote-list-item.is-editing > .footnote {
+  box-shadow: 0 0 0 var(--input-border-width-focus) var(--background-modifier-border-focus);
+  background-color: var(--footnote-input-background-active);
+}
+
+.footnotes-view .footnote-list-item:last-child {
+  border-bottom-width: 0;
+}
+
+.footnotes-view .footnote-id::after {
+  content: var(--footnote-id-delimiter);
+}

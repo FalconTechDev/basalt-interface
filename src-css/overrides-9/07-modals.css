@@ -1,0 +1,24 @@
+/* modals (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* copy-search result textarea needs no trailing separator */
+.copy-search-result-textarea + .setting-item {
+  border-top: none;
+}
+
+/* search params rows are bare label/value pairs */
+.search-params .setting-item {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.search-params .setting-item.mod-slider > * {
+  width: 100%;
+}
+
+.setting-item.mod-change-language .setting-item-name {
+  position: relative;
+  top: 3px;
+  color: var(--text-faint);
+  cursor: var(--cursor);
+}

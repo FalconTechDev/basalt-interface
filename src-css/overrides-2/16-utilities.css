@@ -1,0 +1,31 @@
+/* utilities (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* collapse indicators inside scrollable content take the muted collapse colour */
+.view-content .list-collapse-indicator svg.svg-icon,
+.view-content .collapse-indicator svg.svg-icon {
+  color: var(--collapse-icon-color);
+}
+
+.view-content .is-collapsed .list-collapse-indicator svg.svg-icon,
+.view-content .is-collapsed .collapse-indicator svg.svg-icon {
+  color: var(--collapse-icon-color-collapsed);
+}
+
+/* success modifier tints text with the success colour */
+.mod-success {
+  color: var(--text-success);
+}
+
+/* inline-block: a baseline-aligned inline box */
+.inline-block {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* base embeds: fixed-height framed blocks that clip their content */
+.block-language-base,
+.bases-embed {
+  overflow: hidden;
+  height: var(--bases-embed-height, auto);
+  cursor: var(--cursor);
+}

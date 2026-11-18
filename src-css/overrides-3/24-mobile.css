@@ -1,0 +1,60 @@
+/* mobile (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* touch sizing: clear buttons keep the small icon metrics on phones */
+.is-mobile .combobox-clear-button {
+  --icon-size: var(--icon-s);
+  --icon-stroke: var(--icon-s-stroke-width);
+}
+
+/* canvas controls lose their border on touch layouts */
+.is-mobile .canvas-control-group {
+  border: none;
+}
+
+/* phone: toolbar search becomes a filled, borderless pill */
+.is-phone .bases-toolbar-menu-container input[type=search] {
+  background-color: var(--background-modifier-form-field);
+  border: 0;
+  border-radius: var(--radius-xl);
+  box-shadow: none;
+}
+
+/* find/replace inputs stretch to fill the row on touch */
+.is-mobile .document-search input,
+.is-mobile .document-replace input {
+  flex-grow: 1;
+}
+
+/* onboarding radios: focus ring, then accent border once chosen */
+.mobile-onboarding-radio-option:focus {
+  border-color: var(--background-modifier-border-focus);
+}
+
+.mobile-onboarding-radio-option.is-selected {
+  border-color: var(--interactive-accent);
+}
+
+/* phone: roomier tap target for buttons inside modal setting rows */
+.is-phone .modal .setting-item-control button {
+  padding: 10px;
+}
+
+/* drag grip in mobile option lists shows the grab cursor */
+.mobile-option-setting-item-option-icon.mobile-option-setting-drag-icon {
+  cursor: grab;
+}
+
+/* tablet: left sidebar toggle aligns with the content inset */
+body.is-tablet .sidebar-toggle-button.mod-left {
+  padding-left: var(--size-4-2);
+}
+
+/* touch modals drop their border entirely */
+.is-mobile .modal {
+  border: none;
+}
+
+/* phone: share-vault setting stacks its control under the label */
+.is-phone .sync-vault-share-container .setting-item-control {
+  flex-direction: column;
+}

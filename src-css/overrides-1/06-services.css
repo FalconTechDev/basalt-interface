@@ -1,0 +1,50 @@
+/* services (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* release notes render like other readable file views */
+.release-notes-view .is-readable-line-width {
+  max-width: var(--file-line-width);
+  margin-inline: auto;
+}
+
+/* publish-changes info buttons sit at the row end */
+.publish-changes-info button {
+  margin-inline-start: var(--size-4-2);
+  margin-inline-end: 0;
+}
+
+/* sync history: entry names truncate, images stay in bounds */
+.sync-history-content .setting-item-info .setting-item-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.sync-history-preview img {
+  max-width: 100%;
+}
+
+.sync-history-content-container.mod-empty .sync-history-content {
+  display: none;
+}
+
+button.sync-history-button {
+  margin: var(--size-4-1) 0 var(--size-4-2);
+  min-height: var(--input-height);
+  background-color: var(--background-secondary);
+  box-shadow: none;
+}
+
+/* webviewer fills its pane with the embedded frame */
+.webviewer-content webview {
+  flex-grow: 1;
+  width: 100%;
+}
+
+/* starter window keeps its titlebar but hides the app title */
+.starter.is-hidden-frameless .titlebar {
+  display: block;
+}
+
+.starter .titlebar-inner .titlebar-text {
+  display: none;
+}

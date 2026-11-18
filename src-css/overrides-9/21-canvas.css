@@ -1,0 +1,36 @@
+/* canvas late rules: card menu buttons, selected labels and embed layout. */
+
+.canvas-card-menu .canvas-card-menu-button {
+  --icon-size: var(--icon-l);
+  --icon-stroke: var(--icon-l-stroke-width);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  padding: var(--size-4-2);
+  color: var(--text-muted);
+  line-height: 1;
+}
+
+@media (hover: hover) {
+  .canvas-card-menu .canvas-card-menu-button:hover {
+    color: var(--text-accent);
+    background-color: var(--background-modifier-hover);
+  }
+}
+
+.canvas-node.is-selected .canvas-node-label,
+.canvas-node.is-focused .canvas-node-label {
+  color: var(--text-muted);
+}
+
+.canvas-node-content.markdown-embed {
+  border: none;
+  padding: 0;
+}
+
+.canvas-node-content.media-embed {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}

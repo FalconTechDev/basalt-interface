@@ -1,0 +1,80 @@
+/* workspace (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* ---------- modal-root icon sizing ---------- */
+
+/* pinned-tab and tab-close glyphs share the small icon metrics inside modals */
+.mod-root .mod-pinned,
+.mod-root .workspace-tab-header-inner-close-button {
+  --icon-size: var(--icon-s);
+  --icon-stroke: var(--icon-s-stroke-width);
+}
+
+/* ---------- hover popover ---------- */
+
+/* empty state of a hover popover: centred muted message */
+.popover.hover-popover > .mod-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--size-4-5);
+  font-size: var(--popover-font-size);
+  color: var(--text-muted);
+}
+
+/* ---------- mobile drawer ---------- */
+
+/* drawer column: fills the popover, keeps its own paint layer, clears system insets */
+.workspace-drawer-inner {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow: hidden;
+  contain: layout style paint;
+  padding-top: max(var(--size-4-2), var(--safe-area-inset-top));
+  padding-bottom: calc(max(var(--safe-area-inset-bottom), var(--size-4-4)) - var(--keyboard-height));
+  background-color: var(--mobile-sidebar-background);
+  transition: width var(--bs-dur-normal) var(--bs-ease-standard);
+}
+
+/* drawer title: single-line ellipsis */
+.workspace-drawer-header-name-text {
+  overflow: hidden;
+  font-size: var(--font-ui-large);
+  font-weight: var(--font-semibold);
+  color: var(--text-normal);
+  text-overflow: ellipsis;
+}
+
+/* subtitle line under the drawer title */
+.workspace-drawer-header-info {
+  margin: var(--size-4-1) 0 0 0;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+
+/* stacked icon buttons column on the drawer edge */
+.workspace-drawer-tab-options {
+  --no-tooltip: true;
+  --icon-color: var(--text-muted);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0 var(--size-4-3);
+  color: var(--text-muted);
+}
+
+/* wrapper that pins the active tab to the drawer background */
+.workspace-drawer-active-tab-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--mobile-sidebar-background);
+}
+
+/* scrollable body of the active drawer tab */
+.workspace-drawer-active-tab-content {
+  display: flex;
+  flex: 1 0 0;
+  overflow: auto;
+  padding: 0;
+}

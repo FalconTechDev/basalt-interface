@@ -1,0 +1,16 @@
+/* workspace (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* drawer tab panels stack absolutely inside their container */
+.workspace-drawer-tab-container > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.workspace-drawer-active-tab-content > * {
+  flex: 1 0 0;
+  width: 100%;
+  height: 100%;
+}

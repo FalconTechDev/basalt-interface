@@ -1,0 +1,9 @@
+/* suggest (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* search suggestion container sizing and colours */
+.suggestion-container.mod-search-suggestion {
+  max-width: unset;
+  max-height: 600px;
+  border-color: var(--prompt-border-color);
+  background-color: var(--background-secondary);
+}

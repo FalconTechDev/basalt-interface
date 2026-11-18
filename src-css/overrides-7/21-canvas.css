@@ -1,0 +1,27 @@
+/* canvas late rules: drag ghost, group tinting and the custom colour swatch. */
+
+.canvas-card-menu .canvas-card-menu-button.mod-draggable {
+  cursor: grab;
+}
+
+.canvas-node.is-dummy .canvas-node-container {
+  border: var(--bs-focus-width) solid var(--bs-accent);
+  box-shadow: var(--shadow-drag);
+  background-color: color-mix(in srgb, var(--bs-accent) 20%, transparent);
+}
+
+.canvas-wrapper:not(.mod-readonly) .canvas-group-label {
+  cursor: grab;
+}
+
+.canvas-node-content.markdown-embed .inline-title {
+  cursor: text;
+}
+
+.canvas-node.is-themed .canvas-node-content {
+  background-color: rgba(var(--canvas-color), 0.07);
+}
+
+.canvas-color-picker-item.canvas-color-picker-custom:not(.is-active) {
+  background: conic-gradient(var(--color-red), var(--color-yellow), var(--color-green), var(--color-blue), var(--color-purple), var(--color-red));
+}

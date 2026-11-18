@@ -1,0 +1,142 @@
+/* editor (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* CodeMirror fold UI: gutter indicators and inline placeholders */
+
+/* the fold indicator sits flush against the line's end edge and stays
+   invisible until the fold affordances reveal it */
+.markdown-source-view.mod-cm6 .cm-fold-indicator .collapse-indicator {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  height: 100%;
+  padding-inline-end: var(--size-4-1);
+  opacity: 0;
+  cursor: var(--cursor);
+}
+
+/* folded regions collapse to a quiet placeholder tag */
+.markdown-source-view.mod-cm6 .cm-foldPlaceholder {
+  margin-inline-start: var(--size-4-2);
+  border: none;
+  color: var(--text-faint);
+  background-color: transparent;
+  user-select: none;
+}
+
+/* indentation guides take the list indent width so wrapped lines align */
+.markdown-source-view.mod-cm6 .cm-indent {
+  display: inline-block;
+  min-width: var(--list-indent);
+}
+
+/* CodeMirror theme: inline code and fenced code block chrome */
+
+/* inline code reads as a small pill */
+.cm-s-basalt .cm-inline-code:not(.cm-formatting) {
+  padding: 0.15em 0.3em;
+  border-width: var(--code-border-width);
+  border-radius: var(--code-radius);
+}
+
+/* inside formatting markers (backticks) the pill is open on the left */
+.cm-s-basalt .cm-inline-code.cm-formatting {
+  padding: 0.15em 0;
+  border-width: var(--code-border-width) 0 var(--code-border-width) var(--code-border-width);
+  border-start-start-radius: var(--code-radius);
+  border-start-end-radius: 0;
+  border-end-start-radius: var(--code-radius);
+  border-end-end-radius: 0;
+}
+
+/* the codeblock background strip spans the full editor width */
+.cm-s-basalt div.HyperMD-codeblock-bg {
+  right: 0;
+  left: 0;
+  border-width: 0px var(--code-border-width) 0px var(--code-border-width);
+  border-style: solid;
+  border-color: var(--code-border-color);
+  background-color: var(--code-background);
+}
+
+/* the begin/end bands round the block's outer corners */
+.cm-s-basalt div.HyperMD-codeblock-begin-bg {
+  border-width: var(--code-border-width) var(--code-border-width) 0px var(--code-border-width);
+  border-top-left-radius: var(--code-radius);
+  border-top-right-radius: var(--code-radius);
+}
+
+.cm-s-basalt div.HyperMD-codeblock-end-bg {
+  border-width: 0 var(--code-border-width) var(--code-border-width) var(--code-border-width);
+  border-bottom-left-radius: var(--code-radius);
+  border-bottom-right-radius: var(--code-radius);
+}
+
+.cm-s-basalt div.HyperMD-codeblock-begin-bg,
+.cm-s-basalt div.HyperMD-codeblock-end-bg {
+  border-style: solid;
+  border-color: var(--code-border-color);
+  background-color: var(--code-background);
+}
+
+/* embeds inside the editor get the same breathing room as in preview */
+.inline-embed > .markdown-embed-content > .markdown-source-view,
+.inline-embed > .markdown-embed-content > .markdown-preview-view {
+  padding: var(--embed-padding);
+}
+
+/* images embedded on a code line flow inline but keep their own box */
+.cm-line div.image-embed {
+  position: relative;
+  display: inline-flex;
+}
+
+/* headings in source mode reserve a little top spacing */
+.cm-s-basalt .cm-line.HyperMD-header {
+  padding-top: var(--p-spacing);
+}
+
+/* thematic breaks stretch across the line in source mode */
+.markdown-source-view.mod-cm6 hr {
+  flex: 1 0 0;
+  margin: 0;
+}
+
+/* source-mode images scale down but never upscale */
+.cm-s-basalt img.hmd-image {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+/* list items breathe vertically in both source and preview views */
+.markdown-source-view ol > li,
+.markdown-source-view ul > li,
+.markdown-preview-view ol > li,
+.markdown-preview-view ul > li,
+.mod-cm6 .HyperMD-list-line.cm-line {
+  padding-top: var(--list-spacing);
+  padding-bottom: var(--list-spacing);
+}
+
+/* bullet-less list lines (checklist items) don't take the extra spacing */
+.cm-s-basalt .HyperMD-list-line.HyperMD-list-line-nobullet {
+  padding-top: initial;
+}
+
+/* the "back to parent" button in folded lists is a small accent chip */
+.cm-s-basalt div.HyperMD-goback-button {
+  display: inline-block;
+  padding-right: var(--size-4-4);
+  border-radius: 0 var(--radius-m) var(--radius-m) 0;
+  text-align: center;
+  color: var(--text-on-accent);
+  background-color: var(--interactive-accent);
+  cursor: var(--cursor);
+}
+
+/* task list labels sit tight against their checkbox */
+.markdown-source-view.mod-cm6 .task-list-label {
+  padding: 0;
+  margin-inline-start: -0.25em;
+}

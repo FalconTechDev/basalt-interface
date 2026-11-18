@@ -1,0 +1,21 @@
+/* suggest (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* selected rows take the basalt accent wash plus an inset accent bar;
+   drag-ghost and tap states only dim */
+.suggestion-item.is-selected {
+  background-color: var(--bs-accent-soft);
+  box-shadow: inset 2px 0 0 var(--interactive-accent);
+}
+
+.suggestion-item.mobile-tap {
+  background-color: var(--background-modifier-hover);
+}
+
+.suggestion-item.is-being-dragged {
+  pointer-events: auto;
+  background-color: var(--background-modifier-hover);
+}
+
+.suggestion-item.mod-downranked {
+  color: var(--text-muted);
+}

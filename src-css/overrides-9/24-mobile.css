@@ -1,0 +1,181 @@
+/* mobile (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* ---------- search ---------- */
+
+.is-mobile .search-params {
+  border-radius: var(--touch-size-xxs);
+  margin: var(--size-4-1) var(--size-4-3) var(--size-4-2);
+  padding: var(--size-4-4) var(--size-4-4) var(--size-4-3);
+  background: var(--background-secondary);
+}
+
+.is-mobile .search-row > .clickable-icon {
+  width: var(--touch-size-s);
+  height: var(--touch-size-s);
+}
+
+.is-phone .slides-close-btn {
+  --icon-size: var(--icon-l);
+  inset-inline-end: var(--size-4-4);
+}
+
+/* ---------- bases toolbar ---------- */
+
+.is-phone .bases-toolbar-views-menu .search-input-container,
+.is-phone .bases-toolbar-properties-menu .search-input-container {
+  position: absolute;
+  left: var(--size-4-3);
+  bottom: var(--safe-area-inset-bottom);
+  z-index: 1;
+  width: calc(100% - var(--size-4-6));
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+}
+
+.is-phone .bases-toolbar-menu .menu-scroll {
+  max-height: unset;
+}
+
+.is-phone .base-toolbar-sort-item .bases-sort-property, .is-phone .base-toolbar-sort-item .filter-property-select {
+  max-width: unset;
+}
+
+.is-phone .bases-query-container .filter-lhs-container {
+  width: 100%;
+  border-bottom: var(--border-width) solid var(--menu-background);
+}
+
+.is-mobile .bases-header {
+  --icon-size: var(--icon-l);
+  --icon-stroke: var(--icon-l-stroke-width);
+}
+
+.is-mobile .document-search-container.mod-replace-mode {
+  height: auto;
+}
+
+/* ---------- onboarding ---------- */
+
+.mobile-onboarding .language-dropdown-icon {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-onboarding-feature-table .feature-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* ---------- chrome icons ---------- */
+
+.is-mobile .modal-close-button,
+.is-mobile .modal-setting-back-button,
+.is-mobile .view-header-nav-buttons,
+.is-mobile .view-header .view-action {
+  --icon-color: var(--text-normal);
+  --icon-color-hover: var(--text-normal);
+  --icon-color-active: var(--text-normal);
+  --icon-color-focus: var(--text-normal);
+  --icon-size: var(--icon-l);
+  --icon-stroke: var(--icon-l-stroke-width);
+}
+
+.is-mobile .view-header-left {
+  flex: 0;
+  align-items: center;
+  display: flex;
+}
+
+.is-phone .view-header .view-header-left {
+  height: var(--view-header-height);
+}
+
+.is-phone .view-header .view-actions {
+  flex-grow: 0;
+  z-index: 1;
+  border-radius: var(--view-header-action-radius);
+  margin: 0;
+  margin-left: auto;
+  padding: 0;
+  height: var(--view-header-height);
+}
+
+.is-phone .view-header .view-action {
+  height: 100%;
+  width: var(--view-header-height);
+  border-radius: var(--view-header-action-radius);
+}
+
+.is-phone .modal .setting-item-info {
+  min-width: 0;
+}
+
+.is-phone .search-input-container.mod-raised {
+  --background-modifier-form-field: transparent;
+  border-radius: var(--touch-radius-m);
+  padding-bottom: 0;
+}
+
+.is-phone .community-modal-controls .search-input-container {
+  width: 100%;
+}
+
+.is-phone.hide-cursor .menu-grabber {
+  width: 14%;
+  background: var(--text-muted);
+}
+
+/* ---------- modals / navbar ---------- */
+
+.is-mobile .mod-confirmation .modal-title {
+  max-width: 100%;
+}
+
+.is-phone .modal .modal-setting-back-button {
+  position: absolute;
+  bottom: var(--size-4-1);
+  inset-inline-start: var(--size-4-4);
+  padding: var(--size-2-2);
+  height: var(--touch-size-m);
+  width: var(--touch-size-m);
+}
+
+.is-phone .modal.mod-lg,
+.is-phone .modal.mod-sidebar-layout {
+  height: 100%;
+}
+
+.is-phone .error-container {
+  justify-content: center;
+  height: 100%;
+}
+
+.mobile-navbar-action.has-longpress-menu .navbar-action-flair {
+  --icon-size: 12px;
+  --icon-stroke: 3px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  align-items: center;
+  display: flex;
+  margin: 0 auto;
+  height: 100%;
+  width: fit-content;
+  color: var(--text-faint);
+  opacity: var(--icon-opacity);
+  transform: translateX(calc(var(--icon-size) * -1 - 6px));
+}
+
+.is-mobile.is-floating-nav .mod-raised {
+  box-shadow: var(--raised-shadow);
+  border: var(--raised-mask-border-width) solid transparent;
+  backdrop-filter: var(--raised-blur);
+  background-clip: padding-box;
+}
+
+.is-phone .publish-changes-info .search-input-container {
+  width: auto;
+}

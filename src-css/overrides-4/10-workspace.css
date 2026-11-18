@@ -1,0 +1,12 @@
+/* workspace (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* hover popovers stretch to content with a capped width */
+.popover.hover-popover {
+  --callout-blend-mode: normal;
+  justify-content: stretch;
+  overflow: hidden;
+  max-width: 80vw;
+  max-height: inherit;
+  min-height: 30px;
+  width: fit-content;
+}

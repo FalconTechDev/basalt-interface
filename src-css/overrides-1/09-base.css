@@ -1,0 +1,24 @@
+/* base (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* side-dock ribbon icons centre inside their rail cells */
+.side-dock-settings .side-dock-ribbon-action,
+.side-dock-actions .side-dock-ribbon-action {
+  margin: 0 auto;
+}
+
+@media (hover: hover) {
+  /* selectable list rows highlight on hover */
+  .list-item.mod-selectable:hover {
+    background-color: var(--background-modifier-hover);
+  }
+}
+
+/* document search: replace field only exists in replace mode */
+.document-search-container.mod-replace-mode .document-replace {
+  display: flex;
+}
+
+/* an empty workspace manager renders nothing at all */
+.list-container.mod-manage-workspaces:empty {
+  display: none;
+}

@@ -1,0 +1,8 @@
+/* graph (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* open graph controls panel gets a bordered floating card */
+.graph-controls:not(.is-close) {
+  max-height: calc(100% - var(--size-4-4));
+  border: var(--bs-hairline) solid var(--background-modifier-border);
+  box-shadow: var(--shadow-s);
+}

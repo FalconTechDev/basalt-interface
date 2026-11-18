@@ -1,0 +1,91 @@
+/* preview (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* ---------- rendered markdown ---------- */
+
+/* search hits inside rendered markdown get a soft ring marker */
+.markdown-rendered .search-highlight > div {
+  position: absolute;
+  box-shadow: 0 0 0px 2px var(--text-normal);
+  border-radius: var(--radius-m);
+  pointer-events: none;
+  opacity: 0.3;
+  mix-blend-mode: var(--highlight-mix-blend-mode);
+}
+
+/* blockquotes hug their first and last child */
+.markdown-rendered blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-rendered blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* the copy button floats over the top-end corner of a code block */
+.markdown-rendered button.copy-code-button {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  margin: var(--size-2-3);
+  padding: var(--size-2-3) var(--size-4-2);
+  height: auto;
+  box-shadow: none;
+  font-family: var(--font-interface);
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+  background-color: transparent;
+}
+
+/* ---------- embedded previews ---------- */
+
+/* a nested preview inside a preview fills the embed and drops its own padding */
+.markdown-preview-view .markdown-embed .markdown-preview-view {
+  --file-folding-offset: 0px;
+  height: 100%;
+  padding: 0;
+}
+
+/* media inside embeds never exceeds the embed width */
+.internal-embed img:not([width]),
+.internal-embed audio,
+.internal-embed video {
+  max-width: 100%;
+}
+
+/* ---------- metadata properties ---------- */
+
+.metadata-properties {
+  display: flex;
+  flex-direction: column;
+  gap: var(--metadata-gap);
+}
+
+input[type=checkbox].metadata-input-checkbox {
+  margin: var(--input-padding);
+}
+
+@media (hover: hover) {
+  /* hovering the link itself fades its flair in */
+  .metadata-link:hover .metadata-link-flair {
+    opacity: var(--icon-opacity);
+    transition: opacity var(--bs-dur-fast) var(--bs-ease-standard) var(--bs-dur-normal);
+  }
+
+  /* hovering the value row hides the flair again */
+  .metadata-link-inner:hover ~ .metadata-link-flair {
+    opacity: 0;
+  }
+}
+
+@container (width < 250px) {
+  /* narrow property rows wrap instead of squeezing */
+  .metadata-property {
+    flex-wrap: wrap;
+  }
+}
+
+/* ---------- slides ---------- */
+
+.slides-container li .collapse-indicator {
+  display: none;
+}

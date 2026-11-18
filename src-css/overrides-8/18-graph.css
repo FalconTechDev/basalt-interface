@@ -1,0 +1,60 @@
+/* graph (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* graph control panel: settings rows and colour groups */
+.graph-controls.is-close {
+  min-width: inherit;
+  width: auto;
+  border: var(--menu-border-width) solid transparent;
+  padding: var(--size-2-3);
+  background-color: var(--background-primary);
+}
+
+.graph-controls .mod-cta {
+  margin-top: var(--size-2-3);
+  width: 100%;
+}
+
+.graph-controls .setting-item {
+  padding: var(--size-2-3) 0;
+  margin-bottom: var(--size-4-1);
+  border: none;
+  background-color: transparent;
+}
+
+.graph-controls .setting-item.mod-slider > * {
+  width: 100%;
+}
+
+.graph-color-group .clickable-icon {
+  padding: var(--size-2-2);
+}
+
+.graph-color-group.drag-ghost {
+  position: fixed;
+  display: flex;
+  max-width: unset;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  background-color: var(--background-primary-alt);
+  pointer-events: none;
+  transition: none;
+}
+
+.graph-controls-button.mod-animate {
+  margin-top: var(--size-4-2);
+}
+
+.graph-control-section > .tree-item-self {
+  padding-inline-start: var(--size-4-4);
+}
+
+.graph-control-section .tree-item-children {
+  margin: 0;
+  padding: var(--size-4-1) 0;
+  border-inline-start: none;
+}
+
+.workspace-drawer-active-tab-content .graph-controls {
+  display: none;
+}

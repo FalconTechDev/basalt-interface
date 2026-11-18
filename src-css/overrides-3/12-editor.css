@@ -1,0 +1,137 @@
+/* editor (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* ---------- syntax colours ---------- */
+
+/* inline code span and math runs share the code-text colour */
+.cm-inline-code,
+.cm-math {
+  color: var(--code-normal);
+}
+
+/* comments and front-matter meta text */
+.cm-comment,
+.cm-meta {
+  color: var(--code-comment);
+}
+
+/* markup tags */
+.cm-tag {
+  color: var(--code-tag);
+}
+
+/* punctuation, brackets and horizontal rules */
+.cm-punctuation,
+.cm-bracket,
+.cm-hr {
+  color: var(--code-punctuation);
+}
+
+/* numeric literals */
+.cm-number {
+  color: var(--code-value);
+}
+
+/* language qualifiers plus quoted strings */
+.cm-qualifier,
+.cm-string,
+.cm-string-2 {
+  color: var(--code-string);
+}
+
+/* operators */
+.cm-operator {
+  color: var(--code-operator);
+}
+
+/* links and the three variable scopes */
+.cm-link,
+.cm-variable,
+.cm-variable-2,
+.cm-variable-3 {
+  color: var(--code-property);
+}
+
+/* builtins, properties, attributes and type names */
+.cm-builtin,
+.cm-property,
+.cm-attribute,
+.cm-type {
+  color: var(--code-function);
+}
+
+/* keywords */
+.cm-keyword {
+  color: var(--code-keyword);
+}
+
+/* ---------- editor chrome ---------- */
+
+/* bracket-match highlight while the editor has focus */
+.cm-editor.cm-focused .cm-matchingBracket {
+  box-shadow: inset 0 0 0 1px var(--background-modifier-hover);
+  background-color: var(--code-bracket-background);
+}
+
+/* ---------- markdown source flavour ---------- */
+
+/* frontmatter block reads as muted metadata */
+.cm-hmd-frontmatter {
+  font-size: var(--font-smaller);
+  color: var(--text-muted);
+}
+
+/* heading and list markers fade into the background */
+.cm-formatting-header {
+  color: var(--text-faint);
+}
+
+/* list bullets/numbers keep tabular figures for alignment */
+.cm-formatting-list-ul,
+.cm-formatting-list-ol {
+  padding-inline-start: var(--list-padding-inline-start);
+  font-variant-numeric: tabular-nums;
+}
+
+/* HyperMD link hover card keeps its light paper look */
+.cm-s-basalt div.HyperMD-hover > .HyperMD-hover-content {
+  padding: 0.5em;
+  border: var(--bs-hairline) solid var(--background-modifier-border-hover);
+  color: var(--text-normal);
+  background-color: var(--background-primary);
+}
+
+/* block math scrolls horizontally inside the source view */
+.markdown-source-view.mod-cm6 .math-block > mjx-container {
+  overflow-x: auto;
+  margin: 0;
+  padding: 1em 0;
+}
+
+/* ---------- inline marks ---------- */
+
+/* hashtag pill: vertical padding only, tag palette */
+.cm-hashtag {
+  padding-top: var(--tag-padding-y);
+  padding-bottom: var(--tag-padding-y);
+  border: var(--tag-border-width) solid var(--tag-border-color);
+  border-inline-start: none;
+  border-inline-end: none;
+  font-size: var(--tag-size);
+  font-weight: var(--tag-weight);
+  vertical-align: baseline;
+  color: var(--tag-color);
+  background-color: var(--tag-background);
+}
+
+/* bold/italic reuse the theme's mark colours; bold also widens the link weight var */
+.cm-strong {
+  --link-weight: calc(var(--font-weight) + var(--bold-modifier));
+  font-weight: calc(var(--font-weight) + var(--bold-modifier));
+  color: var(--bold-color);
+}
+
+.cm-em {
+  font-style: italic;
+  font-weight: var(--italic-weight);
+  color: var(--italic-color);
+}

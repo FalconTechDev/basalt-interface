@@ -1,0 +1,605 @@
+/* bases: database views — table, cards, list, toolbar, filters, formulas */
+
+/* ---------- inline titles in popovers ---------- */
+
+.hover-popover.bases-new-item-popover .inline-title,
+.hover-popover .markdown-embed[data-type="heading"] .inline-title {
+  display: block;
+}
+
+body:not(.show-inline-title) .bases-new-item-popover .inline-title {
+  display: block;
+}
+
+/* ---------- bidi ---------- */
+
+/* user-authored text gets plaintext bidi resolution everywhere it appears */
+.bases-toolbar-result-count,
+.community-item-desc,
+.community-modal-info-desc,
+.community-modal-search-summary,
+.inline-title,
+.inline-title h1,
+.metadata-property-key-input,
+.metadata-input-longtext,
+.multi-select-pill-content,
+.nav-file-title-content,
+.nav-folder-title-content,
+.search-result-file-match,
+.setting-item-description,
+.setting-item-name,
+.suggestion-title,
+.bases-table-header-name,
+.table-cell-wrapper,
+.titlebar-text,
+.tooltip,
+.tree-item-inner,
+.view-header-breadcrumb,
+.view-header-title,
+.workspace-tab-header-inner-title,
+input {
+  unicode-bidi: plaintext;
+}
+
+.mod-rtl .bases-embed,
+.is-rtl .bases-embed,
+.rtl .bases-embed {
+  direction: rtl;
+}
+
+/* ---------- formula editor ---------- */
+
+.formula-editor::placeholder {
+  color: var(--input-placeholder-color);
+}
+
+.formula-editor .cm-content {
+  caret-color: var(--caret-color);
+}
+
+.formula-editor .cm-focused {
+  outline: none;
+}
+
+.formula-editor .cm-tooltip {
+  font-family: var(--font-interface);
+}
+
+/* ---------- bases view chrome ---------- */
+
+.bases-view.is-being-dragged-over {
+  position: relative;
+}
+
+.bases-view.is-being-dragged-over:after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--layer-cover);
+  content: '';
+  pointer-events: none;
+  background: var(--bs-accent-soft);
+}
+
+.bases-formula-error .bases-formula-error-message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* markdown embeds get the embed border/padding vars */
+.workspace-leaf-content[data-type="markdown"] .block-language-base .bases-view,
+.workspace-leaf-content[data-type="markdown"] .bases-embed .bases-view {
+  overflow-x: auto;
+  border-width: var(--bases-embed-border-width);
+  border-style: solid;
+  border-color: var(--bases-embed-border-color);
+  border-radius: var(--bases-embed-border-radius);
+  padding: var(--bases-embed-padding);
+}
+
+.workspace-leaf-content[data-type="markdown"] .block-language-base .bases-view:empty,
+.workspace-leaf-content[data-type="markdown"] .bases-embed .bases-view:empty {
+  display: none;
+}
+
+/* live-preview embeds size to content width/transform */
+.markdown-source-view.mod-cm6 .cm-content > .bases-embed,
+.markdown-source-view.mod-cm6 .cm-content > .cm-lang-base {
+  --bases-header-padding-end: calc(var(--icon-m) + var(--size-4-4));
+  width: var(--bases-embed-width, 100%);
+  transform: var(--bases-embed-transform, none);
+}
+
+.markdown-source-view.mod-cm6 .cm-content > .bases-embed .edit-block-button,
+.markdown-source-view.mod-cm6 .cm-content > .cm-lang-base .edit-block-button {
+  top: calc(var(--bases-header-height) / 2 - var(--icon-m) / 2 - var(--size-2-2));
+  opacity: 1;
+}
+
+.hover-popover > .bases-embed .bases-header {
+  --bases-header-padding-start: var(--size-4-2);
+  --bases-header-padding-end: var(--size-4-2);
+}
+
+/* canvas nodes flatten the embed chrome */
+.canvas-node .bases-embed {
+  --bases-embed-border-width: 0;
+  --bases-embed-border-radius: 0;
+  --bases-header-border-width: 0 0 var(--border-width) 0;
+}
+
+/* ---------- rendered values ---------- */
+
+.bases-rendered-value input[disabled=true][type=date],
+.bases-rendered-value input[disabled=true][type=datetime-local] {
+  width: auto;
+}
+
+.bases-rendered-value img {
+  width: auto;
+  max-height: 100%;
+}
+
+.bases-group-heading .bases-group-value {
+  overflow: hidden;
+  font-size: var(--bases-group-heading-value-size);
+  font-weight: var(--bases-group-heading-value-weight);
+  text-overflow: ellipsis;
+}
+
+/* narrow containers collapse toolbar labels/badges */
+@container (width < 540px) {
+  .bases-header .bases-toolbar-item:not(.bases-toolbar-result-count) {
+    --bases-toolbar-label-display: none;
+    --bases-toolbar-badge-display: none;
+  }
+}
+
+/* ---------- toolbar ---------- */
+
+.bases-toolbar-menu-container-header .menu-title-inner {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bases-toolbar-menu-container-header .back-button .back-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* labels hide via the --bases-toolbar-label-display var */
+.bases-toolbar .bases-toolbar-item:not(.bases-toolbar-views-menu, .bases-toolbar-result-count) .text-button-label {
+  display: var(--bases-toolbar-label-display);
+}
+
+.bases-toolbar .bases-toolbar-result-count .text-button-icon {
+  display: none;
+}
+
+.bases-toolbar .bases-toolbar-result-count .text-button-label {
+  font-size: var(--font-ui-smaller);
+  unicode-bidi: plaintext;
+}
+
+.bases-toolbar .bases-toolbar-result-count .text-icon-button.is-active {
+  color: var(--icon-color-active);
+}
+
+.bases-toolbar .bases-toolbar-item.bases-toolbar-views-menu {
+  overflow: hidden;
+  display: flex;
+}
+
+.bases-toolbar .bases-toolbar-item.bases-toolbar-views-menu .text-icon-button {
+  --icon-color-hover: var(--text-normal);
+  color: var(--text-normal);
+}
+
+.bases-toolbar .bases-toolbar-item.bases-toolbar-views-menu .text-icon-button .mod-aux {
+  margin-inline-start: auto;
+}
+
+.bases-toolbar-items .grip-handle circle {
+  fill: var(--text-faint);
+}
+
+.bases-toolbar-items .grip-handle:hover circle {
+  fill: var(--text-muted);
+}
+
+/* drag handles on menu items */
+.bases-toolbar-items .suggestion-group[data-group="views"]:not(.mod-hidden) .bases-toolbar-menu-item-info-icon,
+.bases-toolbar-items .suggestion-group[data-group="properties"]:not(.mod-hidden) .bases-toolbar-menu-item-info-icon {
+  cursor: grab;
+}
+
+.bases-toolbar-items .suggestion-group[data-group="views"]:not(.mod-hidden) .bases-toolbar-menu-item-info-icon:active,
+.bases-toolbar-items .suggestion-group[data-group="properties"]:not(.mod-hidden) .bases-toolbar-menu-item-info-icon:active {
+  cursor: grabbing;
+}
+
+.bases-toolbar-items .suggestion-group[data-group="properties"] .bases-toolbar-menu-item {
+  border-start-start-radius: var(--bases-property-menu-item-radius);
+  border-end-start-radius: var(--bases-property-menu-item-radius);
+}
+
+.bases-toolbar-menu .bases-toolbar-section:not(:last-child) {
+  border-bottom: var(--border-width) solid var(--background-modifier-border);
+}
+
+/* error state: red ring on sort/group-by rows */
+.bases-toolbar-menu .bases-sort-container .bases-sort-property-container.mod-error,
+.bases-toolbar-menu .bases-groupby-container .bases-sort-property-container.mod-error {
+  box-shadow: 0 0 0 var(--border-width) var(--background-modifier-error);
+}
+
+.bases-toolbar-menu .bases-sort-container .bases-sort-property-container .bases-sort-property,
+.bases-toolbar-menu .bases-groupby-container .bases-sort-property-container .bases-sort-property,
+.bases-toolbar-menu .bases-sort-container .bases-sort-property-container .bases-groupby-property,
+.bases-toolbar-menu .bases-groupby-container .bases-sort-property-container .bases-groupby-property {
+  flex-grow: 1;
+}
+
+.bases-toolbar-menu .bases-sort-container .bases-sort-property-container .bases-sort-direction,
+.bases-toolbar-menu .bases-groupby-container .bases-sort-property-container .bases-sort-direction {
+  min-width: 5.25em;
+  border-left: var(--border-width) solid var(--background-modifier-border);
+  padding-inline-start: var(--size-2-3);
+}
+
+.bases-toolbar-menu .bases-sort-container .bases-sort-property-container .bases-sort-direction .combobox-button-label,
+.bases-toolbar-menu .bases-groupby-container .bases-sort-property-container .bases-sort-direction .combobox-button-label {
+  margin-inline-end: 0;
+  margin-inline-start: auto;
+}
+
+.bases-toolbar-menu-form.view-config-menu .formula-editor .cm-content {
+  min-height: var(--input-height);
+}
+
+/* form rows: controls grow; mod-error gets the red ring */
+.bases-toolbar-menu-form .input-row .input-row-content .combobox-button,
+.bases-toolbar-menu-form .input-row .input-row-content button,
+.bases-toolbar-menu-form .input-row .input-row-content select,
+.bases-toolbar-menu-form .input-row .input-row-content textarea,
+.bases-toolbar-menu-form .input-row .input-row-content input {
+  flex-grow: 1;
+}
+
+.bases-toolbar-menu-form .input-row .input-row-content .combobox-button.mod-error,
+.bases-toolbar-menu-form .input-row .input-row-content button.mod-error,
+.bases-toolbar-menu-form .input-row .input-row-content select.mod-error,
+.bases-toolbar-menu-form .input-row .input-row-content textarea.mod-error,
+.bases-toolbar-menu-form .input-row .input-row-content input.mod-error {
+  box-shadow: 0 0 0 var(--border-width) var(--background-modifier-error);
+}
+
+.bases-toolbar-menu-form .input-row .formula-editor-status.mod-empty {
+  color: var(--text-faint);
+}
+
+.bases-toolbar-menu-form .input-row .formula-editor-status.mod-error {
+  color: var(--text-error);
+}
+
+.bases-toolbar-menu-item.mod-active {
+  --icon-color: var(--text-normal);
+  font-weight: var(--font-medium);
+}
+
+.bases-toolbar-menu-item .bases-toolbar-menu-item-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bases-toolbar-menu-item:not(.mod-destructive) .bases-toolbar-menu-item-info-icon.mod-error {
+  color: var(--text-error);
+}
+
+.bases-toolbar-menu-item .bases-toolbar-menu-item-info-icon:before {
+  width: 0;
+  content: "\200B";
+}
+
+/* ---------- query builder (filters) ---------- */
+
+.bases-query-container .filter-group .filter-group-header-actions {
+  --icon-size: var(--icon-s);
+  --icon-stroke: var(--icon-s-stroke-width);
+  display: flex;
+}
+
+.bases-query-container .filter-group .filter-group-header .conjunction.dropdown {
+  padding-top: 0;
+  box-shadow: none;
+  font-size: var(--font-ui-small);
+  text-align: start;
+  background-color: transparent;
+}
+
+.bases-query-container .filter-group .filter-group-header .conjunction.dropdown:hover {
+  background-color: var(--background-modifier-hover);
+}
+
+.bases-query-container .filter-group .filter-group-header .filter-group-label {
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+}
+
+.bases-query-container .filter-row .formula-editor-container {
+  font-size: var(--font-ui-small);
+}
+
+.bases-query-container .filter-row.mod-group > .conjunction {
+  display: none;
+}
+
+.bases-query-container .filter-row .combobox-button {
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.bases-query-container .filter-row .combobox-button.has-focus,
+.bases-query-container .filter-row .combobox-button:focus,
+.bases-query-container .filter-row .combobox-button:hover {
+  box-shadow: none;
+}
+
+.bases-query-container .filter-expression.mod-error {
+  box-shadow: 0 0 0 var(--border-width) var(--background-modifier-error);
+}
+
+.bases-query-container .filter-expression.mod-error .filer-expression-mode-toggle {
+  --icon-color: var(--text-error);
+}
+
+.bases-query-container .filter-lhs-container {
+  position: relative;
+}
+
+.bases-query-container .filter-lhs-container .metadata-property-warning-icon {
+  top: var(--size-2-2);
+  bottom: unset;
+}
+
+.bases-query-container .filter-rhs-container .combobox-button {
+  flex-grow: 1;
+}
+
+.bases-query-container .filter-rhs-container .metadata-input-longtext {
+  display: flex;
+  align-items: center;
+  outline: none;
+  font-family: inherit;
+  word-break: break-word;
+}
+
+.bases-query-container .filter-rhs-container .metadata-link-flair {
+  display: none;
+}
+
+.tooltip.bases-filter-query-message {
+  z-index: var(--layer-popover);
+  animation: none;
+}
+
+/* ---------- view-type vars ---------- */
+
+.bases-view[data-view-type="cards"] {
+  --bases-view-padding: var(--size-4-3);
+  --bases-embed-padding: var(--size-4-1) 1px;
+}
+
+.bases-view[data-view-type="list"] {
+  --bases-view-padding: var(--size-4-2) var(--size-4-4) 60px var(--size-4-2);
+  --bases-embed-padding: 0;
+}
+
+.bases-view[data-view-type="list"].is-grouped {
+  --bases-view-padding: 0 var(--size-4-4) 60px var(--size-4-4);
+}
+
+.bases-view[data-view-type="table"] {
+  --bases-view-padding: 0;
+  --bases-embed-border-width: var(--border-width);
+  position: relative;
+}
+
+/* ---------- cards view ---------- */
+
+.bases-cards-group {
+  position: absolute;
+  gap: var(--size-4-3);
+}
+
+.bases-cards-property {
+  position: absolute;
+  overflow: hidden;
+}
+
+.bases-cards-property.mod-title .bases-cards-label {
+  display: none;
+}
+
+.bases-cards-property.mod-title .bases-cards-line {
+  font-size: var(--font-ui-medium);
+}
+
+.bases-cards-label,
+.bases-cards-line {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* empty cells show an em-dash */
+.bases-cards-line:empty:before {
+  color: var(--text-faint);
+  content: "\2014";
+}
+
+.bases-cards-line .metadata-input-text {
+  position: absolute;
+  top: 0;
+}
+
+.bases-cards-line .value-list-container:empty:before {
+  color: var(--text-faint);
+  content: "—";
+}
+
+/* ---------- list view ---------- */
+
+.bases-list-group-list {
+  position: relative;
+}
+
+.bases-list-item .list-bullet + .bases-rendered-value {
+  overflow: visible;
+}
+
+.bases-list-item .bases-rendered-value .value-list-container {
+  display: inline;
+}
+
+.bases-list-item .bases-list-item-properties {
+  position: relative;
+}
+
+.bases-list-item .bases-list-item-properties.nested .bases-list-property {
+  display: block;
+}
+
+.bases-list-item .bases-list-property a {
+  user-select: text;
+}
+
+/* optional indentation guide line on nested properties */
+.show-indentation-guide .bases-list-item-properties.nested:before {
+  position: absolute;
+  display: block;
+  inset-inline-start: -0.5em;
+  top: 0;
+  bottom: 0;
+  border-inline-end: var(--indentation-guide-width) solid var(--indentation-guide-color);
+  content: "\200b";
+}
+
+/* ---------- table view ---------- */
+
+/* sorted headers get a fade mask on the sort side */
+.bases-thead .bases-td[data-sort] .bases-table-header {
+  mask-image: var(--bases-table-header-sort-mask);
+}
+
+.bases-thead .bases-td[data-sort] .bases-table-header-name {
+  padding-inline-end: var(--size-4-4);
+}
+
+.bases-table-footer .bases-td {
+  box-shadow: none;
+}
+
+@media (hover: hover) {
+  .bases-table-summary-cell:hover .summary-expand-button {
+    display: flex;
+    opacity: 1;
+  }
+}
+
+.bases-table-summary-cell.has-active-menu .summary-expand-button {
+  display: flex;
+  opacity: 1;
+}
+
+/* measuring pass: let content size itself */
+.bases-td.is-measuring * {
+  overflow: visible !important;
+  width: max-content !important;
+}
+
+.bases-td .metadata-input-longtext:not(:empty) {
+  display: block;
+}
+
+/* empty date cells stay invisible until interacted with */
+.bases-td .metadata-input.mod-date,
+.bases-td .metadata-input.mod-datetime {
+  --input-placeholder-color: var(--text-faint);
+}
+
+.bases-td .metadata-input.mod-date.is-empty,
+.bases-td .metadata-input.mod-datetime.is-empty {
+  opacity: 0;
+}
+
+.bases-td .metadata-input.mod-date.is-empty:focus-within,
+.bases-td .metadata-input.mod-datetime.is-empty:focus-within,
+.bases-td .metadata-input.mod-date.is-empty:hover,
+.bases-td .metadata-input.mod-datetime.is-empty:hover {
+  opacity: 1;
+}
+
+/* single-line mode: fixed row height, nowrap cells */
+.bases-table-container:not(.mod-multiline) .bases-tr {
+  --input-height: var(--bases-table-row-height);
+}
+
+.bases-table-container:not(.mod-multiline) .bases-td {
+  align-items: center;
+  white-space: nowrap;
+}
+
+.bases-table-container:not(.mod-multiline) .bases-table-cell {
+  align-items: center;
+}
+
+.bases-table-container:not(.mod-multiline) .metadata-input-longtext:not(:focus-within) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bases-table-container:not(.mod-multiline) .metadata-link {
+  overflow: hidden;
+}
+
+.bases-table-container:not(.mod-multiline) .multi-select-container:not(:focus-within) {
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+}
+
+/* active cell / selection overlays */
+.bases-table-active-cell,
+.bases-table-selection {
+  position: absolute;
+  display: flex;
+  pointer-events: none;
+}
+
+.bases-table-container.is-selecting .bases-table-cell {
+  pointer-events: none;
+}
+
+.bases-table-container:focus .bases-table-active-cell {
+  box-shadow: var(--bases-table-cell-shadow-active);
+  border-radius: var(--bases-table-cell-radius-active);
+}
+
+.bases-table-container:focus .bases-table-active-cell.mod-selection {
+  box-shadow: var(--bases-table-cell-shadow-focus);
+}
+
+/* multiline mode: top-aligned, scrollable long text */
+.bases-table-container.mod-multiline .bases-table-cell {
+  align-items: start;
+}
+
+.bases-table-container.mod-multiline .metadata-input-longtext {
+  overflow-y: auto;
+}

@@ -1,0 +1,8 @@
+/* base (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* workspace list management mode gets a separated section */
+.list-container.mod-manage-workspaces {
+  margin-top: var(--size-4-4);
+  padding-top: var(--size-4-1);
+  border-top: var(--border-width) solid var(--divider-color);
+}

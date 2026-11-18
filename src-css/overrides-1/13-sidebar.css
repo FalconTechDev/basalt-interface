@@ -1,0 +1,38 @@
+/* sidebar (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* hotkey search keeps its icon buttons compact */
+.search-input-container.mod-hotkey .clickable-icon {
+  padding: var(--size-2-1);
+}
+
+/* markdown leaves own their scrolling and padding to the preview pane */
+.workspace-leaf-content[data-type='markdown'] .view-content {
+  overflow: hidden;
+  padding: 0;
+}
+
+/* backlink and outgoing-link panes are flex columns without padding */
+.workspace-leaf-content[data-type='backlink'] .view-content,
+.workspace-leaf-content[data-type='outgoing-link'] .view-content {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* tree item icons use the small icon metrics */
+.tree-item-self .tree-item-icon .svg-icon:not(.right-triangle) {
+  --icon-size: var(--icon-xs);
+  --icon-stroke: var(--icon-s-stroke-width);
+}
+
+/* native dropdown options cannot inherit app colors */
+.search-results-info .dropdown option {
+  color: initial;
+  text-align: start;
+}
+
+/* file list inside a drawer tab gets a small top inset */
+.workspace-drawer-active-tab-container .workspace-drawer-active-tab-content .nav-files-container {
+  padding-top: var(--size-4-3);
+}

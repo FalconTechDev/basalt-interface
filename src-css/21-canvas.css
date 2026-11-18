@@ -1,0 +1,405 @@
+/* canvas board: viewport states, nodes, edges, selection and floating chrome. */
+
+/* ---------- wrapper states ---------- */
+
+.mod-rtl .canvas-card-menu {
+  flex-direction: row-reverse;
+}
+
+/* while dragging, embedded frames must not steal pointer events */
+.canvas-wrapper.is-dragging iframe:not(.is-controlled),
+.canvas-wrapper.is-dragging webview {
+  pointer-events: none;
+}
+
+.canvas-wrapper.is-screenshotting {
+  z-index: 999999;
+}
+
+.canvas-wrapper.is-screenshotting .canvas-card-menu,
+.canvas-wrapper.is-screenshotting .canvas-controls {
+  display: none !important;
+}
+
+.canvas-wrapper.is-screenshotting * {
+  pointer-events: none !important;
+}
+
+/* ---------- background & selection ---------- */
+
+.canvas-background circle {
+  fill: var(--canvas-dot-pattern);
+}
+
+.canvas-wrapper:not(.mod-readonly) .canvas-selection.mod-group-selection {
+  cursor: grab;
+}
+
+.canvas-wrapper:not(.mod-readonly) .canvas-selection.mod-group-selection:active {
+  cursor: grabbing;
+}
+
+/* ---------- floating chrome (controls & card menu) ---------- */
+
+.canvas-controls,
+.canvas-card-menu {
+  display: flex;
+  position: absolute;
+  z-index: var(--layer-cover);
+  font-size: var(--font-ui-medium);
+}
+
+.canvas-card-menu .canvas-card-menu-button svg {
+  fill: var(--background-secondary);
+}
+
+.theme-dark .canvas-card-menu .canvas-card-menu-button svg {
+  fill: var(--background-secondary);
+}
+
+.canvas-card-menu .canvas-card-menu-button.mod-draggable:active {
+  cursor: grabbing;
+}
+
+.canvas-card-menu .canvas-card-menu-button.mod-draggable svg {
+  transition: transform var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+@media (hover: hover) {
+  .canvas-card-menu .canvas-card-menu-button.mod-draggable:hover svg {
+    filter: drop-shadow(0 var(--size-2-2) var(--size-4-2) var(--background-modifier-box-shadow));
+    transform: translateY(calc(-1 * var(--size-4-2))) scale(var(--direction), 1);
+  }
+}
+
+.canvas-control-item.is-disabled svg {
+  color: var(--text-faint);
+}
+
+.canvas-control-item svg {
+  pointer-events: none;
+}
+
+/* ---------- nodes ---------- */
+
+.canvas-wrapper:not(.mod-readonly) .canvas-node:not(.is-editing) .canvas-node-container {
+  cursor: grab;
+}
+
+.canvas-wrapper:not(.mod-readonly) .canvas-node:not(.is-editing) .canvas-node-container:active {
+  cursor: grabbing;
+}
+
+/* labels glide to new positions while the canvas animates (non-iOS) */
+body:not(.is-ios) .canvas-wrapper.mod-animating .canvas-node-label {
+  transition: transform var(--bs-dur-slow) var(--bs-ease-emphasized);
+}
+
+.canvas-node-label svg {
+  position: relative;
+  top: var(--size-2-1);
+  margin-right: var(--size-4-1);
+}
+
+@media (hover: hover) {
+  .canvas-node:hover .canvas-node-label.mod-hover-label {
+    opacity: 1;
+  }
+}
+
+@media (hover: none) {
+  .canvas-node.is-focused .canvas-node-label.mod-hover-label {
+    opacity: 1;
+  }
+}
+
+/* zoomed-out view hides labels entirely */
+.canvas-wrapper.mod-zoomed-out .canvas-node-label {
+  display: none;
+}
+
+/* placeholder cards tint their body with the node colour */
+.canvas-node-placeholder::after {
+  display: block;
+  position: absolute;
+  top: var(--size-4-4);
+  right: var(--size-4-4);
+  bottom: var(--size-4-4);
+  left: var(--size-4-4);
+  border-radius: var(--radius-s);
+  content: ' ';
+  background-color: rgba(var(--canvas-color), 0.1);
+}
+
+.canvas-icon-placeholder svg {
+  width: 100%;
+  height: 100%;
+  color: rgb(var(--canvas-color));
+  opacity: 0.3;
+}
+
+/* dragging lifts the card with the drag shadow */
+.canvas-node.is-dragging .canvas-node-container {
+  box-shadow: var(--shadow-drag);
+}
+
+.canvas-node.is-selected,
+.canvas-node.is-focused {
+  touch-action: initial;
+}
+
+.canvas-node.is-selected .canvas-node-container,
+.canvas-node.is-focused .canvas-node-container {
+  border-color: var(--bs-accent);
+  box-shadow: var(--shadow-stationary), var(--shadow-border-accent);
+}
+
+.canvas-node.is-selected.is-dragging .canvas-node-container,
+.canvas-node.is-focused.is-dragging .canvas-node-container {
+  box-shadow: var(--shadow-drag), var(--shadow-border-accent);
+}
+
+/* themed nodes take their colour for border and inset ring */
+.canvas-node.is-themed .canvas-node-container {
+  border-color: rgba(var(--canvas-color), 0.7);
+  box-shadow: inset 0 0 0 var(--bs-hairline) rgba(var(--canvas-color), 0.7), var(--shadow-stationary);
+}
+
+.canvas-node.is-selected.is-themed .canvas-node-container,
+.canvas-node.is-focused.is-themed .canvas-node-container {
+  border-color: rgb(var(--canvas-color));
+  box-shadow: var(--shadow-border-themed-inset), var(--shadow-border-themed);
+}
+
+.canvas-node.is-selected.is-themed.is-dragging .canvas-node-container,
+.canvas-node.is-focused.is-themed.is-dragging .canvas-node-container {
+  box-shadow: var(--shadow-border-themed-inset), var(--shadow-border-themed);
+}
+
+/* a focused node lets clicks through its content blocker */
+.canvas-node.is-focused:not(.is-dragging) .canvas-node-content-blocker {
+  display: none;
+}
+
+/* unfocused groups don't intercept pointer events */
+.canvas-node-group:not(.is-focused):not(.is-selected) {
+  pointer-events: none;
+}
+
+/* ---------- group labels ---------- */
+
+body:not(.is-ios) .canvas-wrapper.mod-animating .canvas-group-label {
+  transition: transform var(--bs-dur-slow) var(--bs-ease-emphasized);
+}
+
+.canvas-wrapper:not(.mod-readonly) .canvas-group-label:active {
+  cursor: grabbing;
+}
+
+.canvas-node-group.is-themed .canvas-group-label:not([contenteditable="true"]) {
+  background-color: rgb(var(--canvas-color));
+}
+
+.canvas-node-group.is-themed .canvas-group-label:not([contenteditable="true"]).mod-foreground-light {
+  color: var(--text-on-accent);
+}
+
+.canvas-node-group.is-themed .canvas-group-label:not([contenteditable="true"]).mod-foreground-dark {
+  color: var(--text-on-accent-inverted);
+}
+
+/* ---------- embedded content in nodes ---------- */
+
+.canvas-node-content.markdown-embed > .markdown-embed-link {
+  display: none;
+}
+
+.canvas-node-content.markdown-embed > .markdown-embed-content > .markdown-preview-view {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--size-4-4);
+}
+
+.canvas-wrapper:not(.mod-readonly) .canvas-node-content.markdown-embed > .markdown-embed-content > .markdown-preview-view {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* flexible spacers keep embed content vertically centred */
+.canvas-node-content.markdown-embed > .markdown-embed-content > .markdown-preview-view::before,
+.canvas-node-content.markdown-embed > .markdown-embed-content > .markdown-preview-view::after {
+  display: block;
+  flex: 1 1 0;
+  min-height: min(calc(var(--canvas-node-height) * 0.1 - var(--size-2-2)), var(--size-4-4));
+  max-height: var(--size-4-4);
+  content: " ";
+}
+
+.canvas-node-content.markdown-embed > .markdown-embed-content > .markdown-preview-view > .markdown-preview-sizer {
+  flex: 1 0 0;
+}
+
+.canvas-node-content.markdown-embed > .markdown-embed-content > .markdown-preview-view .callout {
+  mix-blend-mode: normal;
+}
+
+/* focused embeds get their own layer to avoid blend artefacts */
+.is-focused .canvas-node-content.markdown-embed > .markdown-embed-content > .markdown-preview-view {
+  transform: translateZ(0);
+}
+
+/* media fills the node */
+.canvas-node-content.media-embed img,
+.canvas-node-content.media-embed video,
+.canvas-node-content.media-embed audio {
+  flex-shrink: 0;
+  flex-grow: 1;
+}
+
+/* readonly canvases hide resizers */
+.canvas-wrapper.mod-readonly .canvas-node-resizer {
+  display: none;
+}
+
+/* ---------- connection points ---------- */
+
+.canvas-node-connection-point[data-side='top'] {
+  top: var(--bs-hairline);
+  left: calc(50% - var(--resizer-size) * var(--zoom-multiplier) / 2);
+}
+
+.canvas-node-connection-point[data-side='right'] {
+  right: var(--bs-hairline);
+  top: calc(50% - var(--resizer-size) * var(--zoom-multiplier) / 2);
+}
+
+.canvas-node-connection-point[data-side='bottom'] {
+  bottom: var(--bs-hairline);
+  left: calc(50% - var(--resizer-size) * var(--zoom-multiplier) / 2);
+}
+
+.canvas-node-connection-point[data-side='left'] {
+  left: var(--bs-hairline);
+  top: calc(50% - var(--resizer-size) * var(--zoom-multiplier) / 2);
+}
+
+/* invisible until hovered; a zoom-scaled accent dot */
+.canvas-node-connection-point::after {
+  display: block;
+  position: relative;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  border: var(--bs-focus-width) solid var(--background-modifier-border-hover);
+  box-sizing: border-box;
+  height: calc(var(--resizer-size) * var(--zoom-multiplier));
+  width: calc(var(--resizer-size) * var(--zoom-multiplier));
+  content: ' ';
+  background-color: var(--bs-accent);
+  opacity: 0;
+}
+
+/* ---------- alignment snaps ---------- */
+
+.canvas-snaps line {
+  stroke-width: var(--bs-hairline);
+  stroke: var(--bs-accent);
+}
+
+.canvas-snaps circle {
+  fill: var(--bs-accent);
+}
+
+/* ---------- edges ---------- */
+
+/* visible stroke scales with zoom */
+.canvas-edges path.canvas-display-path {
+  pointer-events: none;
+  stroke-width: calc(var(--bs-focus-width) * var(--zoom-multiplier));
+  stroke: rgb(var(--canvas-color));
+  fill: none;
+  transition: stroke-width var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+/* fat transparent stroke is the actual hit target */
+.canvas-edges path.canvas-interaction-path {
+  pointer-events: stroke;
+  stroke-width: calc(var(--size-4-6) * var(--zoom-multiplier));
+  stroke-linecap: round;
+  stroke: transparent;
+  fill: none;
+  transition: stroke var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+.canvas-wrapper:not(.mod-readonly) .canvas-edges path.canvas-interaction-path {
+  cursor: grab;
+}
+
+.canvas-wrapper:not(.mod-readonly) .canvas-edges path.canvas-interaction-path:active {
+  cursor: grabbing;
+}
+
+.canvas-edges polygon.canvas-path-end {
+  pointer-events: none;
+  stroke: rgb(var(--canvas-color));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: var(--bs-hairline);
+  fill: rgb(var(--canvas-color));
+  transform-box: fill-box;
+  transform: scale(var(--zoom-multiplier));
+  transform-origin: center top;
+}
+
+/* hovered/focused edges thicken */
+.canvas-edges g.is-focused path.canvas-display-path,
+.canvas:not(.is-connecting) .canvas-edges g:hover path.canvas-display-path {
+  stroke-width: calc((var(--bs-focus-width) + var(--size-4-1)) * var(--zoom-multiplier));
+}
+
+.canvas-edges g.is-focused path.canvas-interaction-path,
+.canvas:not(.is-connecting) .canvas-edges g:hover path.canvas-interaction-path {
+  stroke: rgba(var(--canvas-color), 0.1);
+}
+
+@media (hover: hover) {
+  .canvas-color-picker-item.canvas-color-picker-custom:not(.is-active):hover {
+    box-shadow: 0 0 0 var(--bs-focus-width) var(--background-modifier-border-hover);
+  }
+}
+
+/* ---------- empty state & instructions ---------- */
+
+.canvas-empty-embed-action-list button {
+  padding: var(--size-4-5) var(--size-4-9);
+  font-size: var(--font-text-size);
+}
+
+.canvas-instruction-desc {
+  display: flex;
+  gap: var(--size-4-1);
+}
+
+/* ---------- minimap ---------- */
+
+.canvas-minimap rect {
+  stroke-width: var(--size-4-1);
+  stroke: var(--background-modifier-border);
+  fill: var(--background-modifier-border);
+  fill-opacity: 0.65;
+}
+
+.canvas-minimap rect.is-themed {
+  stroke: rgb(var(--canvas-color));
+  fill: rgb(var(--canvas-color));
+  fill-opacity: 0.5;
+}
+
+.canvas-minimap path {
+  stroke: rgb(var(--canvas-color));
+  fill: none;
+}
+
+.canvas-minimap path.is-themed {
+  stroke: rgb(var(--canvas-color));
+}

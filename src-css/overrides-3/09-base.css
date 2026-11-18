@@ -1,0 +1,414 @@
+/* base (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* ---------- lists ---------- */
+
+/* empty slot inside a virtualised list: centred faint hint */
+.list-item.mod-empty {
+  margin: 0 auto;
+  padding: var(--size-4-4);
+  color: var(--text-faint);
+  font-size: var(--font-ui-small);
+  text-align: center;
+}
+
+/* extended part of a list row may wrap anywhere */
+.list-item-part.mod-extended {
+  flex-grow: 1;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- debug textarea ---------- */
+
+/* fullscreen monospace dump used by the debug modal */
+.debug-textarea {
+  width: 100%;
+  height: 100%;
+  min-height: 50vh;
+  max-height: 80vh;
+  color: var(--text-normal);
+  font-family: var(--font-monospace);
+  tab-size: 4;
+  opacity: 1;
+  resize: none;
+}
+
+/* ---------- error container ---------- */
+
+/* centred column for crash/fatal screens */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--size-4-6);
+  padding: var(--size-4-4);
+  text-align: center;
+}
+
+/* ---------- message ---------- */
+
+/* small inline status pill */
+.message {
+  display: inline-block;
+  padding: var(--size-2-3) var(--size-4-3);
+  border-radius: var(--radius-s);
+  corner-shape: var(--corner-shape);
+}
+
+/* ---------- multi-select ---------- */
+
+/* pill field: wraps pills plus a free-text input inside one bordered box */
+.multi-select-container {
+  display: inline-flex;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  gap: var(--size-2-3);
+  min-height: var(--input-height);
+  vertical-align: top;
+  cursor: text;
+}
+
+.multi-select-pill {
+  --icon-size: var(--icon-xs);
+  --icon-stroke: var(--icon-xs-stroke-width);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--size-2-1);
+  max-width: calc(100% - var(--size-2-3) - 1ch);
+  padding: var(--pill-padding-y) 0;
+  border: var(--pill-border-width) solid var(--pill-border-color);
+  border-radius: var(--pill-radius);
+  color: var(--pill-color);
+  font-weight: var(--pill-weight);
+  line-height: 1;
+  background-color: var(--pill-background);
+  cursor: var(--cursor);
+}
+
+/* borderless input that sizes itself to its content */
+.multi-select-input {
+  min-width: 1ch;
+  max-width: max-content;
+  border: none;
+  color: var(--text-normal);
+  font-family: var(--font-interface);
+  word-break: break-word;
+  background-color: inherit;
+  cursor: text;
+}
+
+/* ---------- follow-link popover ---------- */
+
+/* tooltip under a followed link: dark basalt plate above everything else */
+.follow-link-popover {
+  --bs-on-plate: #ece4db;
+  top: calc(100%);
+  z-index: var(--layer-tooltip);
+  max-width: 300px;
+  padding: var(--size-4-1) var(--size-4-3);
+  border: var(--bs-hairline) solid var(--background-modifier-border-hover);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-xs);
+  color: var(--bs-on-plate);
+  font-size: var(--font-ui-small);
+  line-height: var(--size-4-5);
+  text-align: center;
+  white-space: pre-wrap;
+  background-color: var(--background-modifier-message);
+  transition: opacity var(--bs-dur-fast) var(--bs-ease-standard), transform var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+/* ---------- drop indicator ---------- */
+
+/* accent hairline marking a drop target */
+.drop-indicator {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 0;
+  border: 2px solid var(--interactive-accent);
+  pointer-events: none;
+}
+
+/* ---------- pdf popup ---------- */
+
+/* container for the pdf.js link/annotation popup */
+.popup {
+  display: flex;
+  flex-direction: column;
+  width: var(--pdf-popup-width);
+  white-space: normal;
+  word-wrap: break-word;
+  cursor: initial;
+  pointer-events: auto;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* scrollable body of the popup */
+.popupContent {
+  overflow: auto;
+  max-height: 200px;
+  padding: var(--size-4-4);
+  font-size: var(--font-ui-small);
+  line-height: var(--line-height-tight);
+  text-align: start;
+}
+
+/* footer strip with the popup actions */
+.popupMeta {
+  --icon-size: var(--font-ui-small);
+  --icon-stroke: var(--icon-xs-stroke-width);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--size-4-1);
+  padding: var(--size-4-1) var(--size-4-2);
+  border-top: var(--border-width) solid var(--background-modifier-border);
+  border-bottom-right-radius: var(--radius-m);
+  border-bottom-left-radius: var(--radius-m);
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  background-color: var(--background-secondary);
+}
+
+/* when the body is empty the footer becomes the whole popup */
+.popupContent:empty + .popupMeta {
+  border-top: none;
+  border-top-right-radius: var(--radius-m);
+  border-top-left-radius: var(--radius-m);
+  background-color: var(--background-primary);
+}
+
+/* ---------- file embed ---------- */
+
+.file-embed-icon {
+  display: flex;
+  color: var(--text-muted);
+}
+
+.file-embed {
+  display: flex;
+  justify-content: center;
+  border-radius: var(--radius-s);
+  background-color: var(--background-primary-alt);
+}
+
+/* ---------- internal query ---------- */
+
+.internal-query {
+  margin: 0;
+  border-top: var(--border-width) solid var(--background-modifier-border);
+}
+
+/* ---------- base toolbar ---------- */
+
+/* sort/filter row of a base: reuses input chrome but strips its shadow and metadata chrome */
+.base-toolbar-sort-item {
+  --input-shadow: none;
+  --icon-size: var(--icon-s);
+  --icon-stroke: var(--icon-s-stroke-width);
+  --metadata-divider-width: 0px;
+  --metadata-label-width: 7em;
+  --metadata-property-background: var(--interactive-normal);
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-1);
+  border-radius: var(--radius-s);
+  corner-shape: var(--corner-shape);
+  background-color: var(--menu-background);
+}
+
+/* ---------- upload progress ---------- */
+
+.upload-progress-container {
+  overflow: auto;
+  max-height: 60vh;
+}
+
+/* ---------- site list ---------- */
+
+.site-list-container {
+  margin-bottom: var(--size-4-4);
+  border-top: var(--border-width) solid var(--background-modifier-border);
+}
+
+/* ---------- password item ---------- */
+
+.password-item {
+  margin: var(--size-4-1) 0;
+  padding: var(--size-4-2) var(--size-4-4);
+  border-radius: var(--radius-s);
+}
+
+/* ---------- tree list ---------- */
+
+.tree-list {
+  padding: var(--size-4-4) 0;
+}
+
+/* header row: title on the left, actions on the right */
+.tree-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--size-4-2) 0;
+  border-bottom: var(--border-width) solid var(--background-modifier-border);
+  line-height: 1.1;
+}
+
+.tree-list-action {
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+}
+
+/* ---------- search suggest ---------- */
+
+/* trailing hint inside a suggestion row */
+.search-suggest-info-text {
+  margin-inline-start: var(--size-4-1);
+  color: var(--text-muted);
+}
+
+/* icon well at the start of a suggestion row */
+.search-suggest-icon {
+  display: flex;
+  align-items: center;
+  padding: var(--size-4-1);
+  border-radius: var(--radius-s);
+}
+
+.search-suggest-item {
+  padding: var(--size-4-1) var(--size-4-2);
+  border-radius: var(--radius-s);
+}
+
+/* ---------- search states ---------- */
+
+/* "no results" line inside the search panel */
+.search-empty-state {
+  margin: 0 0 var(--size-4-3);
+  padding-inline-start: var(--size-4-2);
+  color: var(--text-faint);
+  font-size: var(--font-ui-small);
+}
+
+/* summary line above the result groups */
+.search-info-container {
+  padding: var(--size-4-1) var(--size-4-4) var(--size-4-2);
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+
+/* indented child count under a result group */
+.search-info-children {
+  margin: var(--size-2-1) 0;
+  padding-inline-start: var(--size-4-5);
+  border-inline-start: var(--border-width) solid var(--background-modifier-border);
+}
+
+/* ---------- copy search ---------- */
+
+.copy-search-result-textarea {
+  height: 300px;
+  max-height: 20vh;
+  resize: none;
+}
+
+/* ---------- search row ---------- */
+
+/* toolbar row above search results */
+.search-row {
+  display: flex;
+  gap: var(--size-4-1);
+  align-items: center;
+  margin: var(--size-4-3) var(--size-4-3) var(--size-4-2);
+}
+
+/* ---------- more options ---------- */
+
+/* circular badge that toggles extra result options */
+.more-options-icon {
+  --icon-size: 10px;
+  display: flex;
+  margin-inline-start: var(--size-2-3);
+  padding: 0.5px;
+  border-radius: 50%;
+  color: var(--background-secondary);
+  background-color: var(--icon-color);
+  opacity: var(--icon-opacity);
+}
+
+/* ---------- slides ---------- */
+
+/* fullscreen container hosting the slides deck */
+.slides-container {
+  position: fixed;
+  top: 0;
+  inset-inline-start: 0;
+  z-index: var(--layer-slides);
+  width: 100vw;
+  height: 100vh;
+  border: none;
+  background-color: var(--background-primary);
+  transition: -webkit-transform calc(var(--bs-dur-slow) * 2) var(--bs-ease-standard) 0s;
+}
+
+/* close button pinned to the top corner of the deck */
+.slides-close-btn {
+  position: absolute;
+  top: calc(var(--safe-area-inset-top) + var(--size-4-2));
+  inset-inline-end: var(--size-4-2);
+  z-index: 1;
+  display: inline-block;
+  color: var(--text-faint);
+  cursor: var(--cursor);
+}
+
+/* ---------- vault list ---------- */
+
+.vault-list-item-desc {
+  color: var(--text-faint);
+}
+
+.vault-list-item-icon {
+  display: flex;
+  color: var(--text-muted);
+}
+
+/* vault row title: icon + name, single-line ellipsis */
+.vault-list-item-title {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-2);
+  min-width: 0;
+  margin-bottom: var(--size-4-1);
+  overflow: hidden;
+  color: var(--text-muted);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  user-select: none;
+}
+
+/* ---------- recent changes ---------- */
+
+/* scrollable file list of the recent-changes core plugin view */
+.recent-changes-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--size-4-3) var(--size-4-3) var(--size-4-8);
+}
+
+/* ---------- pull request action ---------- */
+
+/* floating action button anchored inside a pull-request view */
+.pull-action {
+  position: absolute;
+  z-index: var(--layer-popover);
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  background-color: var(--background-primary);
+  transition: background-color var(--bs-dur-fast) var(--bs-ease-standard);
+}

@@ -1,0 +1,291 @@
+/* sidebar (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* nav header and the active state of its action buttons */
+.nav-header {
+  padding: var(--size-4-2);
+}
+
+.nav-buttons-container .nav-action-button.is-active {
+  color: var(--icon-color-focused);
+  background-color: var(--background-modifier-hover);
+}
+
+/* tree item: base row plus its rename, drag and selection states */
+.tree-item-self {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  margin-bottom: var(--nav-item-margin-bottom);
+  padding: var(--nav-item-padding);
+  border-radius: var(--nav-item-radius);
+  corner-shape: var(--corner-shape);
+  color: var(--nav-item-color);
+  font-size: var(--nav-item-size);
+  font-weight: var(--nav-item-weight);
+  line-height: var(--line-height-tight);
+  transition: background-color var(--bs-dur-fast) var(--bs-ease-standard), box-shadow var(--bs-dur-fast) var(--bs-ease-standard), color var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+.tree-item-self.is-being-dragged-over .collapse-icon {
+  color: var(--nav-item-color-highlighted);
+}
+
+.tree-item-self.is-being-renamed [contenteditable="true"],
+.tree-item-self.is-being-renamed .tree-item-inner {
+  flex-grow: 1;
+  cursor: text;
+}
+
+.tree-item-self.is-being-renamed:focus-within {
+  box-shadow: 0 0 0 var(--bs-focus-width) var(--focus-ring-color);
+  color: var(--nav-item-color-active);
+}
+
+@media (hover: hover) {
+  body:not(.is-grabbing) .tree-item-self.is-clickable:hover {
+    color: var(--nav-item-color-hover);
+    font-weight: var(--nav-item-weight-hover);
+    background-color: var(--nav-item-background-hover);
+  }
+}
+
+body:not(.is-grabbing) .tree-item-self.is-being-dragged:hover .tree-item-icon,
+.tree-item-self.is-being-dragged .tree-item-icon {
+  color: var(--text-on-accent);
+}
+
+/* tree item extras: trailing flair, faint subtext and the indent guide */
+.tree-item-flair-outer {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  margin-inline-start: auto;
+  padding-inline-start: var(--size-4-1);
+}
+
+.tree-item-flair {
+  border-radius: var(--radius-s);
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+  line-height: 1;
+}
+
+@media (hover: hover) {
+  .tree-item-self:hover .tree-item-flair {
+    color: var(--text-muted);
+  }
+}
+
+.tree-item-inner-subtext {
+  color: var(--text-faint);
+  font-size: var(--font-smaller);
+}
+
+.tree-item-children {
+  padding-inline-start: var(--nav-item-children-padding-start, var(--nav-item-children-padding-left));
+  margin-inline-start: var(--nav-item-children-margin-start, var(--nav-item-children-margin-left));
+  border-inline-start: var(--nav-indentation-guide-width) solid var(--nav-indentation-guide-color);
+}
+
+/* backlink and outgoing-link panes share one scrollable body */
+.outgoing-link-pane {
+  padding-top: var(--size-4-3);
+}
+
+.backlink-pane {
+  padding-top: var(--size-4-1);
+}
+
+.backlink-pane,
+.outgoing-link-pane {
+  flex: 1 0 0;
+  overflow-y: auto;
+  padding-inline-start: var(--size-4-3);
+  padding-inline-end: var(--size-4-3);
+  padding-bottom: max(var(--safe-area-inset-bottom), var(--size-4-8));
+}
+
+/* bookmarks leaf content gets breathing room */
+.workspace-leaf-content[data-type="bookmarks"] .view-content {
+  padding: var(--size-4-1) var(--size-4-3) var(--size-4-8);
+}
+
+/* nav files list fills the remaining sidebar height and scrolls */
+.nav-files-container,
+.backlink-pane,
+.outgoing-link-pane,
+.search-result-container {
+  scrollbar-color: var(--scrollbar-thumb-bg) var(--scrollbar-bg);
+}
+
+.nav-files-container {
+  flex-grow: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: var(--size-4-1) var(--size-4-3) var(--size-4-6);
+  padding-bottom: max(var(--safe-area-inset-bottom), var(--size-4-6));
+  scroll-padding-block: var(--size-4-2);
+}
+
+/* file tag pill pinned to the end of a nav row */
+.nav-file-tag {
+  align-self: center;
+  margin-inline-start: auto;
+  padding: 0 var(--size-4-1);
+  border-radius: var(--nav-tag-radius);
+  color: var(--nav-tag-color);
+  font-size: var(--font-smallest);
+  font-weight: var(--nav-tag-weight);
+  line-height: var(--line-height-normal);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background-color: var(--nav-tag-background);
+}
+
+/* nav titles wrap anywhere instead of overflowing */
+.nav-file-title-content,
+.nav-folder-title-content {
+  display: inline-block;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  white-space: var(--nav-item-white-space);
+}
+
+/* outline and properties leaves only need a top inset */
+.workspace-leaf-content[data-type="outline"] .view-content,
+.workspace-leaf-content[data-type="all-properties"] .view-content,
+.workspace-leaf-content[data-type="properties"] .view-content {
+  padding-top: var(--size-4-1);
+}
+
+/* search input: clear button sits inside the field, suggest button at its edge */
+.search-input-clear-button {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-end: var(--size-2-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--size-4-6) + var(--size-4-1));
+  height: var(--input-height);
+  margin: auto;
+  padding: 0;
+  border-radius: var(--radius-s);
+  color: var(--search-clear-button-color);
+  line-height: 0;
+  text-align: center;
+  background: transparent;
+  cursor: var(--cursor);
+  transition: color var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+.search-input-suggest-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  padding: var(--size-4-1) var(--size-4-2);
+  color: var(--text-faint);
+  cursor: var(--cursor);
+  opacity: 0;
+}
+
+/* search results: scrollable body plus the per-file match list */
+.search-result-container {
+  position: relative;
+  flex: 1 0 0;
+  padding: var(--size-4-3) var(--size-4-3) var(--size-4-4);
+}
+
+.search-result-file-matches {
+  overflow: hidden;
+  margin: var(--size-4-1) 0 var(--size-4-2);
+  border-radius: var(--radius-s);
+  box-shadow: 0 0 0 var(--border-width) var(--background-modifier-border);
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  line-height: var(--line-height-tight);
+  background-color: var(--search-result-background);
+}
+
+.search-result-file-match {
+  position: relative;
+  width: 100%;
+  padding: var(--size-4-2) var(--size-4-5) var(--size-4-2) var(--size-4-3);
+  border-bottom: var(--border-width) solid var(--background-modifier-border);
+  white-space: pre-wrap;
+  cursor: var(--cursor);
+  transition: background-color var(--bs-dur-fast) var(--bs-ease-standard), color var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+.search-result-file-match-replace-button {
+  position: absolute;
+  bottom: var(--size-2-2);
+  inset-inline-end: var(--size-4-6);
+  display: none;
+  height: auto;
+  padding: var(--size-4-1) var(--size-4-2);
+  border-radius: var(--radius-s);
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+
+.search-result-hover-button {
+  position: absolute;
+  inset-inline-end: var(--size-2-1);
+  display: flex;
+  padding: var(--size-2-1) var(--size-2-2);
+  border-radius: var(--radius-s);
+  color: var(--text-faint);
+}
+
+.search-result-file-matched-text {
+  color: var(--text-normal);
+  background-color: var(--text-highlight-bg);
+}
+
+.search-result-file-match-destination-file {
+  display: inline-flex;
+  padding: var(--size-2-2) var(--size-2-3);
+  border-radius: var(--radius-s);
+  box-shadow: var(--input-shadow);
+  color: var(--text-muted);
+  background-color: var(--interactive-normal);
+}
+
+.search-result-file-match-destination-file-icon {
+  --icon-size: var(--icon-xs);
+  --icon-stroke: var(--icon-xs-stroke-width);
+  display: flex;
+  margin-inline-end: var(--size-4-1);
+  color: var(--text-faint);
+}
+
+/* results header row: count on the left, sort/filter controls on the right */
+.search-results-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  margin: 0;
+  padding: 0 var(--size-4-3) var(--size-4-2);
+  border-bottom: var(--border-width) solid var(--background-modifier-border);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* leaf views whose content fills the pane edge to edge */
+.workspace-leaf-content[data-type="pdf"] .view-content,
+.workspace-leaf-content[data-type="bases"] .view-content,
+.workspace-leaf-content[data-type="sync"] .view-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+}
+
+.workspace-leaf-content[data-type="canvas"] .view-content {
+  position: relative;
+  padding: 0;
+}

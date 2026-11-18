@@ -1,0 +1,113 @@
+/* mobile (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* ---------- bases query ---------- */
+
+.is-phone .bases-query-container .filter-expression {
+  flex-wrap: wrap;
+  box-shadow: none;
+  background-color: var(--interactive-normal);
+}
+
+/* ---------- onboarding screens ---------- */
+
+.mobile-onboarding {
+  --nav-height: 80px;
+  --content-height: calc(100vh - var(--safe-area-inset-top));
+  --input-border-width: 1px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: var(--content-height);
+  margin-top: var(--safe-area-inset-top);
+  scrollbar-gutter: stable;
+}
+
+.mobile-onboarding-screen {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 540px;
+  min-height: var(--content-height);
+  padding: var(--size-4-8);
+  padding-top: var(--nav-height);
+  background-color: var(--background-primary);
+}
+
+.mobile-onboarding-radio-button {
+  flex-shrink: 0;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--background-modifier-border);
+  border-radius: 50%;
+}
+
+.mobile-onboarding-radio-option.is-selected .mobile-onboarding-radio-button {
+  background-color: var(--interactive-accent);
+}
+
+.mobile-onboarding-navbar {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: var(--safe-area-inset-top);
+  z-index: var(--layer-cover);
+  padding-left: var(--size-4-10);
+  height: var(--nav-height);
+  width: 100%;
+  background-color: var(--background-primary);
+}
+
+.is-tablet.theme-dark .vertical-tab-content {
+  background-color: var(--modal-background);
+}
+
+/* ---------- community / option rows ---------- */
+
+.is-mobile .community-item.mobile-tap {
+  background-color: var(--background-modifier-hover);
+}
+
+:not(.is-mobile) .mobile-option-setting-item-option-icon:hover,
+:not(.is-mobile) .mobile-option-setting-item-option-icon:active {
+  background-color: var(--background-modifier-hover);
+}
+
+.mobile-option-setting-item-option-icon.mobile-option-setting-drag-icon:active {
+  cursor: grabbing;
+}
+
+/* ---------- workspace root padding for system bars ---------- */
+
+.is-mobile .workspace > .mod-root {
+  padding-top: var(--safe-area-inset-top);
+  padding-left: var(--safe-area-inset-left);
+  background-color: var(--system-status-background);
+}
+
+.is-phone .workspace > .mod-root {
+  padding-top: 0;
+}
+
+.is-phone .menu .suggestion-group .suggestion-item:not(.is-label),
+.is-phone .menu-item:not(.is-label) {
+  background-color: var(--interactive-normal);
+}
+
+/* ---------- tab switcher preview ---------- */
+
+.mobile-tab-preview-empty {
+  --icon-size: var(--icon-xl);
+  --icon-stroke: var(--icon-xl-stroke-width);
+  z-index: 1;
+  position: absolute;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--tab-switcher-preview-shadow);
+  border-radius: var(--tab-switcher-preview-radius);
+  width: 100%;
+  height: 100%;
+  color: var(--text-faint);
+  background-color: var(--background-primary);
+}

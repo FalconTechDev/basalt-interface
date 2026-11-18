@@ -1,0 +1,13 @@
+/* tabs (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* clickable icons inside list items */
+.list-item-part.clickable-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--size-2-2);
+  border-radius: var(--radius-s);
+  corner-shape: var(--corner-shape);
+  color: var(--icon-color);
+  cursor: var(--cursor);
+}

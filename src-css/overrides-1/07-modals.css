@@ -1,0 +1,200 @@
+/* modals (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* frameless windows: modals must not become drag regions */
+body.is-frameless .modal-container,
+body.is-frameless .suggestion-bg {
+  -webkit-app-region: initial;
+}
+
+/* plugin debug modal lists startup timings as label/value rows */
+.modal.mod-plugin-debug .startup-stat-list,
+.modal.mod-plugin-debug .startup-timing-list {
+  display: flex;
+  flex-direction: column;
+  margin: var(--size-4-4) 0;
+}
+
+.modal.mod-plugin-debug .startup-stat {
+  display: flex;
+  flex-direction: row;
+  gap: var(--size-4-2);
+  padding: var(--size-4-1) 0;
+  font-size: var(--font-ui-medium);
+}
+
+.modal.mod-plugin-debug .startup-value {
+  width: 50%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+/* setting groups stack with wide gaps; empty groups disappear */
+.setting-group + .setting-group {
+  margin-top: var(--size-4-6);
+}
+
+.setting-group .setting-items:empty {
+  display: none;
+}
+
+.setting-group .setting-item {
+  padding: var(--size-4-4) 0;
+  margin-bottom: 0;
+  border: none;
+  border-top: var(--border-width) solid var(--background-modifier-border);
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.setting-group .setting-item-heading {
+  padding: 0 var(--size-4-4);
+  margin-bottom: var(--size-4-4);
+  background-color: transparent;
+  flex-wrap: wrap;
+}
+
+/* headings inside a group read as section titles */
+.setting-item + div > .setting-item-heading,
+.setting-item + .setting-item-heading {
+  margin-top: var(--size-4-3);
+}
+
+.setting-item.mod-cta {
+  justify-content: center;
+}
+
+.setting-item-heading .setting-item-description {
+  flex-basis: 100%;
+  padding-top: 0;
+  font-size: var(--font-ui-small);
+  font-weight: var(--font-normal);
+}
+
+/* vertical tabs: headings share the settings group look */
+.vertical-tab-content h1,
+.vertical-tab-content h2,
+.vertical-tab-content h3,
+.vertical-tab-content h4 {
+  padding: 0 var(--size-4-4);
+  margin: 0 0 var(--size-4-4);
+  color: var(--setting-group-heading-color);
+  font-size: var(--setting-group-heading-size);
+  font-weight: var(--setting-group-heading-weight);
+}
+
+.vertical-tab-content .setting-item ~ :is(h1, h2, h3, h4, .setting-item-heading) {
+  margin-top: var(--size-4-6);
+}
+
+/* vertical control stacks its children */
+.setting-item-control.mod-vertical {
+  flex-direction: column;
+}
+
+.setting-item-control.mod-vertical > *:not(:last-child) {
+  margin-bottom: var(--size-4-3);
+  margin-inline-end: 0;
+}
+
+/* hotkey icons dim until hovered */
+.setting-hotkey-icon .svg-icon {
+  width: var(--icon-s);
+  height: var(--icon-s);
+  opacity: 0.6;
+  stroke-width: var(--icon-s-stroke-width);
+}
+
+@media (hover: hover) {
+  .setting-hotkey-icon:hover .svg-icon {
+    opacity: 1;
+  }
+}
+
+/* image lightbox hugs the picture */
+.modal.mod-image-lightbox {
+  max-width: 90vw;
+  max-height: 90vh;
+  padding: 0;
+}
+
+/* community modal sidebar: icon column stays compact */
+.mod-community-modal .modal-sidebar .setting-item-info {
+  flex-grow: 0;
+  margin: 0;
+}
+
+.mod-community-modal .modal-sidebar button.clickable-icon {
+  display: flex;
+  align-items: center;
+  padding: var(--size-2-3) var(--size-4-3);
+  color: var(--text-normal);
+}
+
+/* community item placeholder centres its icon */
+.community-item-screenshot .placeholder-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.community-item-screenshot .placeholder-icon .svg-icon {
+  width: var(--size-4-8);
+  height: var(--size-4-8);
+  color: var(--text-faint);
+}
+
+/* while the modal window is dragged its contents go inert */
+.modal-container.is-being-dragged .prompt,
+.modal-container.is-being-dragged .modal {
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+/* sidebar-layout modals put content beside the sidebar */
+.modal.mod-sidebar-layout .modal-content {
+  display: flex;
+}
+
+/* community plugins tab hides redundant row icons */
+.vertical-tab-header-group-items[data-section="community-plugins"] .vertical-tab-nav-item-icon {
+  display: none;
+}
+
+.vertical-tab-content h2 {
+  font-size: var(--font-ui-medium);
+  font-weight: var(--font-semibold);
+}
+
+/* bookmark modal inputs fill their control cell */
+.modal.mod-bookmark .setting-item-control input {
+  width: 100%;
+}
+
+/* search settings hide the redundant description line */
+.setting-item.mod-search-setting .setting-item-info {
+  display: none;
+}
+
+/* publish modal reserves space for its action bar */
+.modal.mod-publish .modal-content {
+  margin-bottom: calc(var(--input-height) + var(--size-4-8));
+  border-top: var(--border-width) solid var(--background-modifier-border);
+}
+
+/* search-params items align info and control rows */
+.search-params .setting-item .setting-item-info {
+  display: flex;
+  align-items: center;
+}
+
+.search-params .setting-item.mod-slider .setting-item-control {
+  padding-top: var(--size-4-3);
+}
+
+.search-params .setting-item.mod-toggle .setting-item-control {
+  padding-top: 0;
+}

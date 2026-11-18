@@ -1,0 +1,76 @@
+/* pdf-viewer (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* progress bar subline slides in with the bar */
+.progress-bar .progress-bar-subline {
+  transition: transform var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+/* sidebar and viewer panes ease open/close together */
+.pdf-content-container .pdf-sidebar-container,
+.pdf-content-container .pdf-viewer-container {
+  transition-duration: var(--bs-dur-slow);
+  transition-timing-function: var(--anim-motion-swing);
+}
+
+/* thumbnails: whole page image is the click target */
+.pdf-sidebar-container .pdf-thumbnail-view a {
+  display: block;
+  cursor: var(--cursor);
+}
+
+.pdf-sidebar-container img.thumbnailImage {
+  width: var(--thumbnail-width);
+  height: var(--thumbnail-height);
+  max-width: unset;
+  border: 1px solid transparent;
+}
+
+/* the findbar draws its own checkboxes through labels */
+.pdf-findbar input[type="checkbox"] {
+  display: none;
+  pointer-events: none;
+}
+
+.pdf-findbar label {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* phone-width findbar keeps only search field and buttons row */
+.is-phone .pdf-findbar .pdf-toolbar-divider,
+.is-phone .pdf-findbar .pdf-findbar-settings-btn,
+.is-phone .pdf-findbar .pdf-findbar-message {
+  display: none;
+}
+
+.pdf-findbar-settings .setting-item-name {
+  font-size: var(--font-ui-small);
+}
+
+/* text-layer selections and annotation hover use accent */
+.pdf-container .textLayer ::selection,
+.markdown-source-view.mod-cm6 .pdf-container .textLayer ::selection {
+  background-color: hsl(var(--color-accent-hsl));
+}
+
+.pdf-container .annotationLayer :is(.linkAnnotation, .buttonWidgetAnnotation.pushButton):not(.hasBorder) > a:hover {
+  box-shadow: none;
+  opacity: 1;
+  background-color: hsla(var(--color-accent-hsl), 0.1);
+}
+
+/* edit-block button on embedded pdfs sits above the viewer */
+.markdown-source-view.mod-cm6 .pdf-embed .edit-block-button {
+  top: 6px;
+  z-index: 1;
+  background-color: var(--background-primary);
+  opacity: 1;
+}
+
+@media print {
+  /* embedded pdf chrome does not print */
+  .pdf-embed:not(.canvas-node-content) .pdf-container,
+  .pdf-embed:not(.canvas-node-content) .pdf-toolbar {
+    display: none;
+  }
+}

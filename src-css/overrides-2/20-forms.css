@@ -1,0 +1,135 @@
+/* forms (late): controls and field chrome that must win over later component layers. */
+
+/* ---------- combobox label ---------- */
+
+.combobox-button .combobox-button-label {
+  margin-inline-end: auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ---------- icon-and-text buttons ---------- */
+
+.text-icon-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--size-2-2);
+  overflow: hidden;
+  padding: var(--size-2-2);
+  border-radius: var(--button-radius);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: var(--font-ui-small);
+  font-weight: var(--input-font-weight);
+  white-space: nowrap;
+  cursor: var(--cursor);
+  user-select: none;
+  -webkit-app-region: no-drag;
+  corner-shape: var(--corner-shape);
+}
+
+.text-icon-button .flair {
+  margin: 0;
+}
+
+.text-icon-button .text-button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (hover: hover) {
+  .text-icon-button.has-active-menu .text-button-icon,
+  .text-icon-button:hover .text-button-icon {
+    color: var(--icon-color-hover);
+  }
+}
+
+.text-icon-button.is-active.has-active-menu,
+.text-icon-button.is-active:active {
+  color: var(--icon-color-active);
+  background-color: var(--background-modifier-active-hover);
+}
+
+@media (hover: hover) {
+  .text-icon-button.is-active:hover {
+    color: var(--icon-color-active);
+    background-color: var(--background-modifier-active-hover);
+  }
+}
+
+/* ---------- text fields ---------- */
+
+textarea,
+.multi-select-container,
+input.metadata-input-text,
+input[type='date'],
+input[type='datetime-local'],
+input[type='text'],
+input[type='search'],
+input[type='email'],
+input[type='password'],
+input[type='number'] {
+  padding: var(--input-padding);
+  border: var(--input-border-width) solid var(--background-modifier-border);
+  border-radius: var(--input-radius);
+  outline: none;
+  color: var(--text-normal);
+  font-family: inherit;
+  font-size: var(--font-ui-small);
+  background: var(--background-modifier-form-field);
+  -webkit-app-region: no-drag;
+  corner-shape: var(--input-corner-shape);
+}
+
+textarea {
+  padding: var(--textarea-padding, var(--input-padding));
+  border-radius: var(--textarea-radius, var(--input-radius));
+  line-height: var(--line-height-tight);
+}
+
+input[type='date'],
+input[type='datetime-local'] {
+  position: relative;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- specialised inputs ---------- */
+
+input[type='range'] {
+  width: 100px;
+  height: var(--slider-track-height);
+  padding: 0;
+  border-radius: var(--slider-track-height);
+  outline: none;
+  background-color: var(--slider-track-background);
+  -webkit-appearance: none;
+}
+
+input[type="color"] {
+  width: calc(var(--swatch-width) + 4px);
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: var(--cursor);
+  -webkit-appearance: none;
+}
+
+/* ---------- warnings and removable pills ---------- */
+
+.mod-warning {
+  color: var(--text-error);
+}
+
+.multi-select-pill-remove-button {
+  --icon-size: var(--icon-xs);
+  --icon-stroke: var(--icon-xs-stroke-width);
+  display: flex;
+  align-items: center;
+  margin-inline-end: min(var(--size-2-3), var(--pill-padding-x));
+  border-radius: var(--radius-s);
+  color: var(--pill-color-remove);
+  cursor: var(--cursor);
+  corner-shape: var(--corner-shape);
+}

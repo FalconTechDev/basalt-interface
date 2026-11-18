@@ -1,0 +1,33 @@
+/* canvas late rules: dark card menu, group tinting and editing rings. */
+
+/* the card menu keeps the raised panel tone in the dark theme */
+.theme-dark .canvas-card-menu {
+  background-color: var(--background-secondary);
+}
+
+.canvas-node-label.mod-hover-label {
+  opacity: 0;
+}
+
+.canvas-node-group .canvas-node-container {
+  background-color: transparent;
+}
+
+.canvas-node-group .canvas-node-content {
+  background-color: rgba(var(--canvas-color), 0.07);
+}
+
+.canvas-path-label.is-editing {
+  border-color: rgb(var(--canvas-color));
+  box-shadow: var(--shadow-stationary), 0 0 0 calc((var(--bs-focus-width) + var(--bs-hairline)) * var(--zoom-multiplier)) rgb(var(--canvas-color));
+}
+
+.canvas-color-picker-item.is-active {
+  box-shadow: 0 0 0 var(--bs-focus-width) rgb(var(--canvas-color));
+}
+
+@media (hover: hover) {
+  .canvas-color-picker-item:hover {
+    box-shadow: 0 0 0 var(--bs-focus-width) rgb(var(--canvas-color));
+  }
+}

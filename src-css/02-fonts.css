@@ -1,0 +1,57 @@
+/* fonts: Font faces shipped with the app. All SIL Open Font License 1.1, see THIRD_PARTY.md. */
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url(public/fonts/source-code-pro-regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: url(public/fonts/source-code-pro-italic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url(public/fonts/source-code-pro-bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+  src: url(public/fonts/source-code-pro-bold-italic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Flow Circular';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url(public/fonts/flow-circular.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  src: url(public/fonts/inter-variable.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  src: url(public/fonts/inter-variable-italic.woff2) format('woff2');
+}

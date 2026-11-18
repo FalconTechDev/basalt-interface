@@ -1,0 +1,13 @@
+/* tabs (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* metadata property icons act as links; active drawer tab icon colours */
+.metadata-property-value .clickable-icon:hover {
+  color: var(--text-normal);
+  background: transparent;
+  cursor: var(--cursor-link);
+}
+
+.workspace-drawer-tab-options .workspace-tab-header.is-active {
+  --icon-color: var(--text-normal);
+  color: var(--text-normal);
+}

@@ -1,0 +1,28 @@
+/* forms (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* radio/checkbox hover, focus ring and checked states */
+input[type="radio"]:hover,
+input[type=checkbox]:hover,
+input[type="radio"]:active,
+input[type=checkbox]:active,
+input[type="radio"]:focus,
+input[type=checkbox]:focus {
+  outline: 0;
+  border-color: var(--checkbox-border-color-hover);
+}
+
+input[type="radio"]:focus-visible,
+input[type=checkbox]:focus-visible {
+  box-shadow: 0 0 0 var(--input-border-width-focus) var(--background-modifier-border-focus);
+}
+
+input[type="radio"]:checked,
+input[type=checkbox]:checked {
+  border-color: var(--checkbox-color);
+  background-color: var(--checkbox-color);
+}
+
+input[type="radio"]:checked {
+  border-color: var(--interactive-accent);
+  background-color: var(--interactive-accent);
+}

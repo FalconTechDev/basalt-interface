@@ -1,0 +1,31 @@
+/* suggest (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* ---------- suggestion items ---------- */
+
+/* property-value suggestions are roomier than the default item padding */
+.suggestion-container.mod-property-value .suggestion-item {
+  padding: var(--size-2-3) var(--size-4-2);
+  font-size: var(--font-ui-small);
+}
+
+/* property-key suggestions keep a tighter leading edge */
+.suggestion-container.mod-property-key .suggestion-item {
+  padding: var(--size-2-3) var(--size-4-2) var(--size-2-3) var(--size-4-1);
+  font-size: var(--font-ui-small);
+}
+
+/* complex suggestions stack their content vertically */
+.suggestion-item.mod-complex .suggestion-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-inline-end: auto;
+  text-overflow: ellipsis;
+}
+
+.suggestion-item.mod-complex .suggestion-hotkey {
+  padding: var(--size-2-1) var(--size-2-2);
+  font-family: var(--font-interface);
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+}

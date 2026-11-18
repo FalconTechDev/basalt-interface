@@ -1,0 +1,253 @@
+/* utilities: state classes, platform tweaks, RTL support, u-* helpers */
+
+/* ---------- off-screen helpers ---------- */
+
+/* hidden canvas/copy elements used by the app for measurement */
+.hiddenCopyElement,
+.hiddenCanvasElement {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* ---------- platform variables ---------- */
+
+/* macOS gets its own slider/toggle geometry and frame insets */
+.mod-macos {
+  --slider-thumb-width: 30px;
+  --toggle-width: 44px;
+  --toggle-radius: 24px;
+  --toggle-thumb-radius: 24px;
+  --toggle-thumb-height: 16px;
+  --toggle-thumb-width: 26px;
+  --toggle-thumb-opacity-active: 0.6;
+  --toggle-s-width: 36px;
+  --toggle-s-thumb-height: 12px;
+  --toggle-s-thumb-width: 20px;
+  --frame-left-space: calc(80px - var(--ribbon-width));
+  --frame-right-space: 0px;
+}
+
+/* Windows/Linux reserve space on the right for window controls */
+.mod-windows,
+.mod-linux {
+  --frame-left-space: 0px;
+  --frame-right-space: 126px;
+}
+
+/* ---------- transient states ---------- */
+
+/* flash highlight fades out over a moderate beat */
+.is-flashing {
+  border-radius: var(--radius-s);
+  color: var(--text-normal);
+  background-color: var(--text-highlight-bg) !important;
+  mix-blend-mode: var(--highlight-mix-blend-mode);
+  transition: color var(--bs-dur-slow) var(--bs-ease-standard), background-color var(--bs-dur-slow) var(--bs-ease-standard);
+}
+
+/* garbled text (encoding fallback) renders in the display font */
+.is-text-garbled * {
+  font-family: 'Flow Circular', sans-serif !important;
+  line-height: 1.45em !important;
+}
+
+/* frameless-hidden mode stretches dividers full height */
+.is-hidden-frameless {
+  --divider-vertical-height: 100%;
+}
+
+/* loading: an accent bar sweeps across the top of the element */
+.is-loading {
+  position: relative;
+}
+
+.is-loading:before {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 3px;
+  content: ' ';
+  background-color: var(--interactive-accent);
+  animation: progress-bar calc(var(--bs-dur-slow) * 3) var(--bs-ease-standard) var(--bs-dur-normal) infinite;
+}
+
+/* translucent windows soften collapse icons and dividers */
+.is-translucent:not(.is-fullscreen) {
+  --nav-collapse-icon-color: rgba(var(--mono-rgb-100), 0.3);
+  --nav-collapse-icon-color-collapsed: rgba(var(--mono-rgb-100), 0.3);
+  --divider-color: color-mix(in srgb, var(--background-modifier-border) 55%, transparent);
+}
+
+/* ---------- RTL ---------- */
+
+/* --direction flips fold-arrow rotation; inset vars swap start/end */
+.mod-rtl,
+[dir='rtl'] {
+  --direction: -1;
+  --inset-start: right;
+  --inset-end: left;
+  --bases-table-header-sort-mask: linear-gradient(to right, transparent var(--size-4-6), black var(--size-4-6));
+}
+
+/* :dir() is more precise than the class; prefer it where supported */
+@supports selector(:dir(rtl)) {
+  .is-collapsed:dir(ltr),
+  .cm-line:dir(ltr) {
+    --direction: 1;
+  }
+
+  .is-collapsed:dir(rtl),
+  .cm-line:dir(rtl) {
+    --direction: -1;
+  }
+}
+
+/* padding order flips for callouts, embeds and nav items */
+.mod-rtl,
+.is-rtl,
+.rtl {
+  --callout-padding: var(--size-4-3) var(--size-4-6) var(--size-4-3) var(--size-4-3);
+  --embed-padding: 0 var(--size-4-6) 0 0;
+  --nav-item-padding: var(--size-4-1) var(--size-4-6) var(--size-4-1) var(--size-4-2);
+}
+
+/* date inputs must lay out right-to-left too */
+.mod-rtl input[type='date'],
+.is-rtl input[type='date'],
+.rtl input[type='date'],
+.mod-rtl input[type='datetime-local'],
+.is-rtl input[type='datetime-local'],
+.rtl input[type='datetime-local'] {
+  direction: rtl;
+}
+
+.mod-rtl input[type='date']::-webkit-calendar-picker-indicator,
+.is-rtl input[type='date']::-webkit-calendar-picker-indicator,
+.rtl input[type='date']::-webkit-calendar-picker-indicator,
+.mod-rtl input[type='datetime-local']::-webkit-calendar-picker-indicator,
+.is-rtl input[type='datetime-local']::-webkit-calendar-picker-indicator,
+.rtl input[type='datetime-local']::-webkit-calendar-picker-indicator {
+  right: var(--size-4-1);
+  left: auto;
+}
+
+.mod-rtl {
+  --tab-stacked-text-transform: rotate(180deg);
+}
+
+/* Hebrew help icon renders upright instead of mirrored */
+[lang="he"] svg.svg-icon:is( .lucide-help-circle, .help ) {
+  transform: scale(1, 1);
+}
+
+/* ---------- u-* helpers ---------- */
+
+.u-center-text {
+  text-align: center;
+}
+
+.u-faded-text {
+  color: var(--text-muted);
+}
+
+.u-pop {
+  color: var(--text-accent);
+  font-weight: var(--font-semibold);
+}
+
+.u-break-word {
+  overflow-wrap: break-word;
+}
+
+.u-muted {
+  color: var(--text-muted);
+}
+
+.u-small {
+  font-size: var(--font-smallest);
+}
+
+/* ---------- misc ---------- */
+
+/* an active document search panel gets a solid background */
+.mod-active .document-search-container {
+  background-color: var(--background-primary);
+}
+
+/* fold arrow rotates toward collapse direction */
+.collapse-icon svg.svg-icon {
+  width: 10px;
+  height: 10px;
+  color: var(--nav-collapse-icon-color);
+  stroke-width: 4px;
+  transition: transform var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+.collapse-icon.is-collapsed svg.svg-icon {
+  transform: rotate(calc(var(--direction) * -1 * 90deg));
+}
+
+/* macOS vertical-dots icon lies on its side */
+.mod-macos .lucide-more-vertical {
+  transform: rotate(90deg);
+}
+
+/* canvas colour classes map onto the --canvas-color-N palette */
+.mod-canvas-color-1 {
+  --canvas-color: var(--canvas-color-1);
+}
+
+.mod-canvas-color-2 {
+  --canvas-color: var(--canvas-color-2);
+}
+
+.mod-canvas-color-3 {
+  --canvas-color: var(--canvas-color-3);
+}
+
+.mod-canvas-color-4 {
+  --canvas-color: var(--canvas-color-4);
+}
+
+.mod-canvas-color-5 {
+  --canvas-color: var(--canvas-color-5);
+}
+
+.mod-canvas-color-6 {
+  --canvas-color: var(--canvas-color-6);
+}
+
+/* ---------- scroll-edge fades ---------- */
+
+.mod-fade {
+  --scroll-fade-offset-right: 0;
+  --scroll-fade-offset-left: 0;
+}
+
+/* gradient pseudo-elements appear only on the non-start/non-end edge */
+.mod-fade:not(.mod-at-start):before {
+  position: absolute;
+  top: 0;
+  left: var(--scroll-fade-offset-left);
+  z-index: 1;
+  width: var(--size-4-8);
+  height: 100%;
+  content: ' ';
+  pointer-events: none;
+  background: linear-gradient(to right, var(--background-primary), transparent);
+}
+
+.mod-fade:not(.mod-at-end):after {
+  position: absolute;
+  top: 0;
+  right: var(--scroll-fade-offset-right);
+  width: var(--size-4-8);
+  height: 100%;
+  content: ' ';
+  pointer-events: none;
+  background: linear-gradient(to right, transparent, var(--background-primary));
+}

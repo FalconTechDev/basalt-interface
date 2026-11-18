@@ -1,0 +1,9 @@
+/* utilities (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* rename textarea fills its row */
+.mod-file-rename .rename-textarea {
+  overflow: hidden;
+  padding: var(--size-2-3) var(--size-4-2);
+  width: 100%;
+  resize: none;
+}

@@ -1,0 +1,14 @@
+/* suggest (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* suggestion rows inside a combobox get roomier vertical padding */
+.combobox .suggestion-item {
+  padding: var(--size-2-3) var(--size-4-2);
+  font-size: var(--font-ui-small);
+}
+
+/* complex suggestions spread label and value across the row */
+.suggestion-item.mod-complex {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}

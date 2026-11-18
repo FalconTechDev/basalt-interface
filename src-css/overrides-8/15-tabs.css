@@ -1,0 +1,8 @@
+/* tabs (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* file tree action icons stay small */
+.file-tree .clickable-icon {
+  --icon-size: var(--icon-s);
+  --icon-stroke: var(--icon-s-stroke-width);
+  display: flex;
+}

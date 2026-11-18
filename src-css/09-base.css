@@ -1,0 +1,522 @@
+/* base: document defaults and small shared pieces */
+
+/* ---------- undo bar ---------- */
+
+/* undo bar floats centred under the titlebar; colours ride the theme tokens */
+#editorUndoBar {
+  --text-primary-color: var(--text-normal);
+  --message-bar-icon-color: var(--text-accent);
+  --message-bar-bg-color: var(--menu-background);
+  --message-bar-fg-color: var(--text-primary-color);
+  --message-bar-border-color: var(--menu-border-color);
+  --undo-button-bg-color: color-mix(in srgb, var(--text-normal) 8%, transparent);
+  --undo-button-bg-color-hover: color-mix(in srgb, var(--text-normal) 14%, transparent);
+  --undo-button-bg-color-active: color-mix(in srgb, var(--text-normal) 21%, transparent);
+  --undo-button-border: 1px solid var(--interactive-accent);
+  --undo-button-fg-color: var(--message-bar-fg-color);
+  --undo-button-fg-color-hover: var(--undo-button-fg-color);
+  --undo-button-fg-color-active: var(--undo-button-fg-color);
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  z-index: 10;
+  padding-top: var(--size-4-2);
+  padding-bottom: var(--size-4-2);
+  padding-left: var(--size-4-4);
+  padding-right: var(--size-4-2);
+  font: menu;
+  font-size: var(--font-ui-medium);
+  cursor: default;
+  transform: translateX(-50%);
+}
+
+@media screen and (forced-colors: active) {
+  #editorUndoBar {
+    --text-primary-color: CanvasText;
+    --message-bar-icon-color: CanvasText;
+    --message-bar-bg-color: Canvas;
+    --message-bar-border-color: CanvasText;
+    --undo-button-bg-color: ButtonText;
+    --undo-button-bg-color-hover: SelectedItem;
+    --undo-button-bg-color-active: SelectedItem;
+    --undo-button-fg-color: ButtonFace;
+    --undo-button-fg-color-hover: SelectedItemText;
+    --undo-button-fg-color-active: SelectedItemText;
+    --undo-button-border: none;
+  }
+}
+
+#editorUndoBar > div {
+  align-items: center;
+}
+
+/* global focus ring colour with the same fallback pattern (copper per DESIGN §10) */
+:root * {
+  --csstools-light-dark-toggle--23: var(--csstools-color-scheme--dark) #8a5a26;
+  --focus-ring-color: var(--csstools-light-dark-toggle--23, #e0a96f);
+}
+
+/* ---------- pdf presentation ---------- */
+
+.pdfPresentationMode .spread {
+  margin: 0;
+}
+
+/* ---------- document reset ---------- */
+
+iframe {
+  border: 0;
+  color-scheme: normal;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overscroll-behavior: none;
+}
+
+body.is-translucent {
+  background-color: transparent;
+}
+
+/* editable regions opt back into text selection */
+body [contenteditable="true"],
+body [contenteditable=""] {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* global grabbing cursor, except on resize handles */
+body.is-grabbing,
+body.is-grabbing *:not(.workspace-leaf-resize-handle) {
+  cursor: grabbing !important;
+}
+
+:focus {
+  outline: none;
+}
+
+/* ---------- file browser ---------- */
+
+.file-browser-description {
+  flex-shrink: 0;
+}
+
+.file-browser-views {
+  flex: 1 1 auto;
+  overflow: auto;
+  min-height: 200px;
+}
+
+/* ---------- empty states ---------- */
+
+.empty-state {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.empty-state-container {
+  max-width: 480px;
+  max-height: 280px;
+  margin: var(--size-4-5);
+  text-align: center;
+}
+
+.empty-state-title {
+  position: relative;
+  margin: var(--size-4-5) 0;
+  font-weight: var(--h2-weight);
+  font-size: var(--h2-size);
+  line-height: var(--line-height-tight);
+}
+
+.empty-state-action-list {
+  margin-top: var(--size-4-5);
+  font-size: var(--font-text-size);
+  line-height: var(--line-height-tight);
+  color: var(--text-muted);
+}
+
+.empty-state-action {
+  line-height: var(--size-4-9);
+  color: var(--text-accent);
+  cursor: var(--cursor);
+}
+
+@media (hover: hover) {
+  .empty-state-action:hover {
+    color: var(--text-accent-hover);
+  }
+}
+
+/* ---------- frameless titlebar spacing ---------- */
+
+body.is-frameless.in-progress,
+body.is-frameless:not(.is-hidden-frameless, .is-fullscreen) {
+  padding-top: calc(var(--titlebar-height) / var(--zoom-factor));
+}
+
+body.is-frameless.in-progress {
+  --titlebar-background: var(--background-primary);
+  --titlebar-background-focused: var(--background-primary);
+}
+
+/* hidden-frameless (non-starter) needs no top padding */
+body.is-frameless.is-hidden-frameless:not(.in-progress) {
+  padding-top: 0 !important;
+}
+
+/* ---------- loaders ---------- */
+
+.loader-spinner {
+  --icon-size: var(--icon-xl);
+  --icon-stroke: var(--icon-l-stroke-width);
+  width: var(--size-4-8);
+  height: var(--size-4-8);
+  margin: 100px auto;
+  color: var(--interactive-accent);
+}
+
+.loader-spinner svg {
+  animation: spin calc(var(--bs-dur-slow) * 3) linear infinite;
+}
+
+/* ---------- view content ---------- */
+
+.view-content {
+  width: 100%;
+  height: calc(100% - var(--header-height));
+}
+
+::selection {
+  background-color: var(--text-selection);
+}
+
+/* ---------- side dock ---------- */
+
+.side-dock-settings,
+.side-dock-actions {
+  flex-direction: column;
+  gap: var(--size-2-3);
+}
+
+.side-dock-settings {
+  margin-top: auto;
+}
+
+/* ---------- forms & lists ---------- */
+
+.setting {
+  display: flex;
+  align-items: center;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-2);
+}
+
+/* input decorator (icon/count) centres on the right edge */
+.input-right-decorator {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: var(--input-icon-inset);
+  transform: translateY(-50%);
+}
+
+.value-list-element {
+  align-items: center;
+}
+
+[contenteditable] {
+  outline: none;
+}
+
+.list-item {
+  display: flex;
+  gap: var(--size-4-2);
+  align-items: center;
+  border-radius: var(--radius-s);
+  margin: var(--size-4-2) 0;
+}
+
+.list-item.mod-selectable {
+  cursor: var(--cursor);
+}
+
+.list-item-actions {
+  display: flex;
+  gap: var(--size-4-2);
+}
+
+/* ---------- document search ---------- */
+
+.document-search-input.mod-no-match,
+.document-replace-input.mod-no-match {
+  background-color: rgba(var(--background-modifier-error-rgb), 0.2);
+}
+
+.document-search-count {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: var(--size-4-2);
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  font-variant-numeric: tabular-nums;
+  transform: translateY(-50%);
+}
+
+.document-replace-buttons,
+.document-search-buttons {
+  display: flex;
+  gap: var(--size-4-1);
+  align-items: center;
+}
+
+/* ---------- flair badges ---------- */
+
+.flair {
+  position: relative;
+  border-radius: var(--radius-s);
+  margin-inline-start: var(--size-4-2);
+  padding: var(--size-2-1) var(--size-2-2);
+  color: var(--flair-color);
+  font-size: var(--font-smallest);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: var(--flair-background);
+  corner-shape: var(--corner-shape);
+}
+
+/* ---------- collapse icon ---------- */
+
+.collapse-icon {
+  display: flex;
+  align-items: center;
+}
+
+.collapse-icon:before {
+  content: "\200B";
+}
+
+/* date inputs need room for the picker indicator */
+body input[type='date']:not([disabled="true"]),
+body input[type='datetime-local']:not([disabled="true"]) {
+  padding-left: var(--size-4-6);
+}
+
+/* ---------- messages ---------- */
+
+.message-container {
+  margin: var(--size-4-4) 0;
+}
+
+/* links inside messages stay readable in both tones */
+.message.mod-success a {
+  color: var(--text-normal);
+}
+
+.message.mod-error a {
+  color: var(--text-normal);
+}
+
+/* ---------- multi-select pills ---------- */
+
+.multi-select-pill:focus:after {
+  display: block;
+  position: absolute;
+  inset-inline-end: var(--pill-focus-left-adjust);
+  border-radius: var(--pill-radius);
+  width: var(--pill-focus-width);
+  height: 100%;
+  box-shadow: 0 0 0 var(--bs-focus-width) var(--focus-ring-color);
+  content: '';
+  pointer-events: none;
+}
+
+.multi-select-pill-content {
+  overflow: hidden;
+  margin-inline-start: var(--pill-padding-x);
+  word-break: break-word;
+}
+
+.multi-select-input:empty:before {
+  color: var(--input-placeholder-color);
+  content: attr(placeholder, '\200B');
+  pointer-events: none;
+}
+
+.multi-select-duplicate {
+  animation: multi-select-highlight 2000ms ease-in;
+}
+
+/* Firefox fallback for styled scrollbars */
+@supports not selector(::-webkit-scrollbar) {
+  body.styled-scrollbars {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb-bg) var(--scrollbar-bg);
+  }
+}
+
+/* ---------- audio ---------- */
+
+audio {
+  outline: none;
+  width: 100%;
+  height: 42px;
+}
+
+audio::-webkit-media-controls-enclosure {
+  border-radius: var(--radius-s);
+  border: var(--border-width) solid var(--background-modifier-border);
+  background-color: var(--background-primary-alt);
+}
+
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+  font-family: var(--font-interface);
+}
+
+/* ---------- pdf popups ---------- */
+
+.popupWrapper {
+  --pdf-popup-width: 280px;
+  position: absolute;
+  z-index: 10000;
+  font-size: var(--font-ui-medium);
+  pointer-events: none;
+  transform: translate(-50%, 0);
+}
+
+.popupWrapper > div {
+  position: relative;
+  margin: var(--size-4-3);
+  border-radius: var(--radius-m);
+  background-color: var(--background-primary);
+  box-shadow: var(--shadow-s);
+}
+
+/* little arrow nub on top of the popup card */
+.popupWrapper > div:after {
+  inset-inline-start: calc(50% - 2px);
+  top: -5px;
+  position: absolute;
+  z-index: -1;
+  border-start-start-radius: 2px;
+  height: var(--size-4-3);
+  width: var(--size-4-3);
+  background: var(--background-primary);
+  content: "";
+  transform: rotate(45deg);
+}
+
+.popupDate {
+  white-space: nowrap;
+}
+
+/* dark theme inverts mermaid diagrams for contrast */
+.theme-dark .mermaid > svg {
+  filter: invert(100%) hue-rotate(180deg) saturate(1.25);
+}
+
+/* ---------- embeds & queries ---------- */
+
+.file-embed-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-4-2);
+}
+
+iframe.external-embed {
+  width: 600px;
+  max-width: 100%;
+  height: 350px;
+}
+
+.internal-query .internal-query-header-title {
+  font-weight: var(--font-medium);
+}
+
+.internal-query .internal-query-header-title:before,
+.internal-query .internal-query-header-title:after {
+  content: '"';
+}
+
+/* ---------- text emphasis ---------- */
+
+b,
+strong {
+  font-weight: calc(var(--font-weight) + var(--bold-modifier));
+  color: var(--bold-color);
+}
+
+b a,
+strong a {
+  font-weight: calc(var(--link-weight) + var(--bold-modifier));
+}
+
+i,
+em {
+  font-style: italic;
+  color: var(--italic-color);
+}
+
+/* ---------- misc ---------- */
+
+.view-action.mod-bookmarked {
+  --icon-color: var(--icon-color-active);
+  --icon-color-hover: var(--icon-color-active);
+}
+
+.file-tree-item-icon {
+  --icon-size: var(--icon-s);
+  --icon-stroke: var(--icon-s-stroke-width);
+  position: relative;
+  top: var(--size-2-1);
+  margin-right: var(--size-4-1);
+  color: var(--icon-color);
+}
+
+.site-list-site-id-setting {
+  margin-top: var(--size-4-4);
+}
+
+.passwords-container {
+  margin-bottom: var(--size-4-4);
+}
+
+.tree-list-title {
+  font-size: var(--font-ui-medium);
+  font-weight: var(--font-semibold);
+}
+
+.view-action.mod-webviewer {
+  --icon-color: var(--icon-color-active);
+  --icon-color-hover: var(--icon-color-active);
+}
+
+body.hide-cursor {
+  caret-color: transparent !important;
+}
+
+body.is-screenshotting .mod-raised {
+  visibility: hidden;
+}

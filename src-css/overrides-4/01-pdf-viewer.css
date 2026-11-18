@@ -1,0 +1,72 @@
+/* pdf-viewer (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* hidden sidebar panels, phone findbar and annotation modal layout */
+.pdf-sidebar-content > .hidden {
+  display: none;
+}
+
+.is-mobile .pdf-sidebar-resizer,
+.pdf-embed .pdf-sidebar-resizer {
+  display: none;
+}
+
+.hover-popover .pdf-toolbar {
+  display: none;
+}
+
+.pdf-toolbar-left.hidden,
+.pdf-toolbar-center.hidden,
+.pdf-toolbar-right.hidden {
+  display: none;
+}
+
+.pdf-findbar input {
+  min-width: 300px;
+}
+
+.pdf-findbar.mod-hidden {
+  display: none;
+}
+
+.pdf-findbar .pdf-search-wrapper {
+  display: flex;
+  gap: var(--size-4-1);
+  align-items: center;
+}
+
+.is-phone .pdf-findbar .pdf-toolbar-button {
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: auto;
+  width: auto;
+  padding: 6px 0;
+  color: var(--text-accent);
+  background-color: transparent;
+}
+
+.pdf-find-results-count:empty {
+  display: none;
+}
+
+.pdf-container .pdfViewer .page {
+  --page-border: calc(var(--size-4-1) * var(--scale-factor)) solid transparent;
+  --page-margin: 0 auto;
+  --page-bg-color: transparent;
+  flex-shrink: 0;
+  box-sizing: content-box;
+}
+
+.is-phone .pdf-annotation-modal {
+  align-items: flex-end;
+}
+
+.is-phone .pdf-annotation-modal .popup {
+  flex-direction: column-reverse;
+  overflow: hidden;
+  height: 100%;
+}
+
+.pdf-embed:not(.canvas-node-content) {
+  border: var(--border-width) solid var(--background-modifier-border);
+  border-radius: var(--radius-s);
+}

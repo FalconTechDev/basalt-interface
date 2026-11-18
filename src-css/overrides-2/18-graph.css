@@ -1,0 +1,47 @@
+/* graph (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* graph controls panel: a menu-styled card pinned to the top corner */
+.graph-controls {
+  position: absolute;
+  top: var(--size-4-3);
+  inset-inline-end: var(--size-4-3);
+  width: var(--graph-controls-width);
+  overflow: auto;
+  padding: 0;
+  border-radius: var(--radius-m);
+  background-color: var(--background-secondary);
+  corner-shape: var(--corner-shape);
+}
+
+/* the mobile controls toggle stays hidden until narrow layouts need it */
+.graph-controls-button {
+  display: none;
+  z-index: 1;
+}
+
+/* control sections: padded groups separated by a hairline */
+.graph-control-section {
+  padding: var(--size-2-3) var(--size-4-3);
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.graph-control-section-header {
+  font-size: var(--font-ui-small);
+  font-weight: var(--font-medium);
+  color: var(--text-normal);
+}
+
+/* colour groups: a row holding a native colour input and its swatch */
+.graph-color-group {
+  --swatch-height: 18px;
+  --swatch-width: 18px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 0 var(--size-2-3) 0;
+  transition: top var(--bs-dur-normal) var(--bs-ease-standard);
+}
+
+.graph-color-group input[type="color"] {
+  margin: 0 var(--size-2-1) 0 var(--size-2-3);
+}

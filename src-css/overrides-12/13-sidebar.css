@@ -1,0 +1,20 @@
+/* sidebar (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* drawer header padding and bottom action bar styling */
+.workspace-drawer .nav-header {
+  padding: var(--size-4-1) var(--size-4-4) 0;
+}
+
+.workspace-drawer .nav-buttons-container {
+  --icon-size: var(--icon-l);
+  --icon-stroke: var(--icon-l-stroke-width);
+  --icon-color: var(--text-muted);
+  --icon-color-hover: var(--text-muted);
+  --icon-color-active: var(--text-normal);
+  --icon-color-focus: var(--text-muted);
+  --icon-opacity-hover: 1;
+  gap: var(--size-4-2);
+  padding: var(--size-4-1) 0 var(--size-4-2) 0;
+  border-radius: var(--radius-s);
+  background-color: var(--mobile-sidebar-background);
+}

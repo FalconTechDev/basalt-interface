@@ -1,0 +1,88 @@
+/* menus (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* ---------- menu surface ---------- */
+
+/* floating panel: fixed to the viewport, themed chrome, never draggable */
+.menu {
+  position: fixed;
+  z-index: var(--layer-menu);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 100%;
+  padding: 0;
+  border: var(--menu-border-width) solid var(--menu-border-color);
+  border-radius: var(--menu-radius);
+  corner-shape: var(--menu-corner-shape);
+  box-shadow: var(--menu-shadow);
+  background-color: var(--menu-background);
+  backdrop-filter: var(--menu-backdrop-filter);
+  user-select: none;
+  -webkit-app-region: no-drag;
+}
+
+/* inner column that carries the themed padding around the items */
+.menu-scroll {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: var(--menu-padding);
+}
+
+/* grab handle slot (unused, kept for DOM parity) */
+.menu-grabber {
+  display: none;
+}
+
+/* ---------- items ---------- */
+
+/* hairline between groups of items; negative margins bleed to the panel edge */
+.menu-separator {
+  height: 0;
+  margin: var(--size-2-3) calc(var(--size-2-3) * -1);
+  border-bottom: var(--border-width) solid var(--divider-color);
+}
+
+/* secondary line under an item label */
+.menu-item-desc {
+  padding-top: var(--size-4-1);
+  color: var(--text-faint);
+  font-size: var(--font-smallest);
+}
+
+/* single row: icon + label (+ optional description/checkmarks from elsewhere) */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-2);
+  padding: var(--size-2-3) var(--size-4-2);
+  border-radius: var(--radius-s);
+  corner-shape: var(--corner-shape);
+  font-size: var(--font-ui-small);
+  white-space: nowrap;
+  cursor: var(--cursor);
+  transition: background-color var(--bs-dur-fast) var(--bs-ease-standard),
+    box-shadow var(--bs-dur-fast) var(--bs-ease-standard),
+    color var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+/* destructive-but-enabled items read as errors */
+.menu-item.is-warning:not(.is-disabled) {
+  color: var(--text-error);
+}
+
+/* leading glyph slot; shrinks but never grows */
+.menu-item-icon {
+  display: flex;
+  flex: 0 1 auto;
+  color: var(--text-muted);
+}
+
+/* icon tint follows the item state; disabled wins over warning */
+.menu-item.is-warning .menu-item-icon {
+  color: var(--text-error);
+}
+
+.menu-item.is-disabled .menu-item-icon {
+  color: var(--text-faint);
+}

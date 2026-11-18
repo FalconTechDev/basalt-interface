@@ -1,0 +1,19 @@
+/* graph (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* ---------- graph colour picker ---------- */
+
+/* while dragging a colour group the text field takes the full row */
+.graph-color-group.drag-ghost input[type='text'] {
+  width: 100%;
+}
+
+.graph-color-group.drag-ghost input[type='color'] {
+  margin-inline-start: var(--size-2-3);
+}
+
+/* ---------- graph controls ---------- */
+
+/* the last control section keeps breathing room under its tree */
+.graph-control-section:last-child .tree-item-children {
+  padding-bottom: var(--size-4-4);
+}

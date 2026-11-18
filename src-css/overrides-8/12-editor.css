@@ -1,0 +1,16 @@
+/* editor (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* frontmatter definition keys, collapsed list markers, unresolved spans */
+.cm-hmd-frontmatter.cm-hmd-frontmatter.cm-def {
+  color: var(--text-muted);
+}
+
+.cm-s-basalt .is-collapsed ~ .cm-formatting-list {
+  color: var(--list-marker-color-collapsed);
+}
+
+.markdown-source-view.mod-cm6 .is-unresolved {
+  color: var(--link-unresolved-color);
+  opacity: var(--link-unresolved-opacity);
+  filter: var(--link-unresolved-filter);
+}

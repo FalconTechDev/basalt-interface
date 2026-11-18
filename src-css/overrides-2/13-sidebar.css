@@ -1,0 +1,43 @@
+/* sidebar (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* combobox search box: the icon tint follows the faint text colour and the
+   input itself stays chromeless inside the container */
+.combobox .search-input-container {
+  --search-icon-color: var(--text-faint);
+  margin-top: var(--size-2-1);
+}
+
+.combobox .search-input-container input[type=search] {
+  border: 0;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+/* nav button rows: a centred flex row that wraps and spaces its icons */
+.nav-buttons-container,
+.view-actions,
+.workspace-tab-header-inner,
+.side-dock-settings,
+.side-dock-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-buttons-container {
+  flex-wrap: wrap;
+  gap: var(--size-2-1);
+}
+
+/* embedded backlinks: the search field gives way to the header actions */
+.embedded-backlinks .nav-header > .search-input-container {
+  width: calc(100% - 150px);
+  margin: 0 0 var(--size-4-3) 0;
+}
+
+/* search results: file destinations wrap their match metadata in a row */
+.search-result-file-match-destination-file-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-2-1);
+  margin-top: var(--size-2-3);
+}

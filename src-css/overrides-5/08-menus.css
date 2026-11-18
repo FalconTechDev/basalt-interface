@@ -1,0 +1,34 @@
+/* menus (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* label and disabled menu items, submenu icon colour */
+.menu-item.is-label {
+  overflow-wrap: anywhere;
+  font-size: var(--font-ui-medium);
+  color: var(--text-muted);
+  white-space: pre-wrap;
+  word-break: break-word;
+  cursor: default;
+}
+
+.menu-item.is-disabled {
+  color: var(--text-faint);
+  cursor: default;
+}
+
+.menu-item-icon .mod-submenu {
+  color: var(--icon-color);
+}
+
+/* row states: quiet hover, copper-tinted selection with an accent edge */
+.menu-item:not(.is-label):not(.is-disabled):hover {
+  background-color: var(--background-modifier-hover);
+}
+
+.menu-item:not(.is-label):not(.is-disabled).selected {
+  background-color: var(--bs-accent-soft);
+  box-shadow: inset 2px 0 0 var(--interactive-accent);
+}
+
+.menu-item.is-warning:not(.is-label):not(.is-disabled).selected {
+  box-shadow: inset 2px 0 0 var(--text-error);
+}

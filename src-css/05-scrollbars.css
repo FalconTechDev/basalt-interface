@@ -1,0 +1,53 @@
+/* scrollbars: 12px overlay chrome, hidden during screenshots */
+
+/* the multi-select filter input never shows a scrollbar */
+.multi-select-input::-webkit-scrollbar {
+  display: none;
+}
+
+/* styled scrollbars are opt-in via body.styled-scrollbars */
+body.styled-scrollbars ::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-height);
+  -webkit-border-radius: var(--scrollbar-radius);
+  background-color: transparent;
+}
+
+/* track is a whisper of the mono tint; the thumb carries the visible part */
+body.styled-scrollbars ::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-bg);
+}
+
+/* the thumb is a padded pill: border-width insets it from the track edge */
+body.styled-scrollbars ::-webkit-scrollbar-thumb {
+  -webkit-border-radius: var(--scrollbar-radius);
+  border: 2px solid transparent;
+  border-width: var(--scrollbar-border-width);
+  min-height: 45px;
+  background-color: var(--scrollbar-thumb-bg);
+  background-clip: padding-box;
+}
+
+body.styled-scrollbars ::-webkit-scrollbar-thumb:active {
+  -webkit-border-radius: var(--scrollbar-radius);
+}
+
+body.styled-scrollbars ::-webkit-scrollbar-thumb:hover,
+body.styled-scrollbars ::-webkit-scrollbar-thumb:active {
+  background-color: var(--scrollbar-active-thumb-bg);
+}
+
+body.styled-scrollbars ::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* search parameter popovers hide their scrollbars entirely */
+.search-params::-webkit-scrollbar,
+.search-params::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+/* screenshot mode hides every scrollbar on the page */
+body.is-screenshotting *::-webkit-scrollbar {
+  display: none;
+}

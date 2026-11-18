@@ -1,0 +1,108 @@
+/* canvas late rules: group selection, menu divider, control states and resizers. */
+
+.canvas-selection.mod-group-selection {
+  border-width: var(--divider-width-hover);
+  border-radius: var(--radius-m);
+  border-color: color-mix(in srgb, var(--bs-accent) 35%, transparent);
+  background-color: color-mix(in srgb, var(--bs-accent) 6%, transparent);
+  pointer-events: initial;
+}
+
+.canvas-card-menu .canvas-card-menu-divider {
+  width: var(--bs-hairline);
+  background-color: var(--background-modifier-border);
+}
+
+.canvas-control-item:last-child {
+  border-bottom: none;
+}
+
+@media (hover: hover) {
+  .canvas-control-item:hover {
+    color: var(--text-normal);
+    background-color: var(--background-modifier-hover);
+  }
+}
+
+.canvas-control-item.is-active {
+  color: var(--text-accent);
+  background-color: var(--bs-accent-soft);
+}
+
+@media (hover: hover) {
+  .canvas-node-label:hover {
+    color: var(--text-muted);
+  }
+}
+
+.canvas-node-group .canvas-node-resizer {
+  pointer-events: initial;
+}
+
+.canvas-group-label[contenteditable="true"] {
+  box-shadow: 0 0 0 var(--bs-focus-width) rgb(var(--canvas-color));
+  color: var(--text-normal);
+  text-overflow: initial;
+  cursor: text;
+  background-color: var(--background-primary);
+}
+
+.canvas-node-resizer[data-resize='top'] {
+  left: 0;
+  right: 0;
+  top: calc(var(--resizer-size) * var(--zoom-multiplier) * -0.5);
+  width: auto;
+  cursor: ns-resize;
+}
+
+.canvas-node-resizer[data-resize='bottom'] {
+  left: 0;
+  right: 0;
+  bottom: calc(var(--resizer-size) * var(--zoom-multiplier) * -0.5);
+  width: auto;
+  cursor: ns-resize;
+}
+
+.canvas-node-resizer[data-resize='left'] {
+  top: 0;
+  bottom: 0;
+  left: calc(var(--resizer-size) * var(--zoom-multiplier) * -0.5);
+  height: auto;
+  cursor: ew-resize;
+}
+
+.canvas-node-resizer[data-resize='right'] {
+  top: 0;
+  bottom: 0;
+  right: calc(var(--resizer-size) * var(--zoom-multiplier) * -0.5);
+  height: auto;
+  cursor: ew-resize;
+}
+
+.canvas-node-resizer[data-resize='topright'] {
+  right: calc(var(--resizer-size) * var(--zoom-multiplier) * -0.5);
+  top: calc(var(--resizer-size) * var(--zoom-multiplier) * -0.5);
+  cursor: nesw-resize;
+}
+
+.canvas-node-resizer[data-resize='bottomright'] {
+  right: calc(var(--resizer-size) * var(--zoom-multiplier) * -0.5);
+  bottom: calc(var(--resizer-size) * var(--zoom-multiplier) * -0.5);
+  cursor: nwse-resize;
+}
+
+.canvas-node-resizer[data-resize='topleft'] {
+  left: calc(var(--resizer-size) * var(--zoom-multiplier) * -0.5);
+  top: calc(var(--resizer-size) * var(--zoom-multiplier) * -0.5);
+  cursor: nwse-resize;
+}
+
+.canvas-node-resizer[data-resize='bottomleft'] {
+  left: calc(var(--resizer-size) * var(--zoom-multiplier) * -0.5);
+  bottom: calc(var(--resizer-size) * var(--zoom-multiplier) * -0.5);
+  cursor: nesw-resize;
+}
+
+.inline-embed > .canvas-minimap {
+  max-height: var(--embed-canvas-max-height);
+}

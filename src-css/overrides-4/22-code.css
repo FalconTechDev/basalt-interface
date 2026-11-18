@@ -1,0 +1,6 @@
+/* code (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* namespace tokens are dimmed */
+.token.namespace {
+  opacity: 0.7;
+}

@@ -1,0 +1,15 @@
+/* suggest (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* suggestion container is a column flex surface sized for the notice layer */
+.suggestion-container {
+  align-self: stretch;
+  overflow: hidden;
+  flex-direction: column;
+  z-index: var(--layer-notice);
+  max-width: 500px;
+  max-height: 300px;
+  /* same frame cut as the other floating surfaces */
+  clip-path: polygon(var(--bs-cut-md) 0, 100% 0, 100% calc(100% - var(--bs-cut-md)), calc(100% - var(--bs-cut-md)) 100%, 0 100%, 0 var(--bs-cut-md));
+  background-color: var(--suggestion-background);
+  backdrop-filter: var(--suggestion-backdrop-filter);
+}

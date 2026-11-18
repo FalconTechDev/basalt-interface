@@ -1,0 +1,75 @@
+/* elements (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* heading levels pull every typographic knob from their --hN-* tokens */
+h1,
+.markdown-rendered h1 {
+  --font-weight: var(--h1-weight);
+  font-variant: var(--h1-variant);
+  font-family: var(--h1-font);
+  font-size: var(--h1-size);
+  font-style: var(--h1-style);
+  font-weight: var(--font-weight);
+  line-height: var(--h1-line-height);
+  letter-spacing: var(--h1-letter-spacing);
+  color: var(--h1-color);
+}
+
+h2,
+.markdown-rendered h2 {
+  --font-weight: var(--h2-weight);
+  font-variant: var(--h2-variant);
+  font-family: var(--h2-font);
+  font-size: var(--h2-size);
+  font-style: var(--h2-style);
+  font-weight: var(--font-weight);
+  line-height: var(--h2-line-height);
+  letter-spacing: var(--h2-letter-spacing);
+  color: var(--h2-color);
+}
+
+h3,
+.markdown-rendered h3 {
+  --font-weight: var(--h3-weight);
+  font-variant: var(--h3-variant);
+  font-family: var(--h3-font);
+  font-size: var(--h3-size);
+  font-style: var(--h3-style);
+  font-weight: var(--font-weight);
+  line-height: var(--h3-line-height);
+  letter-spacing: var(--h3-letter-spacing);
+  color: var(--h3-color);
+}
+
+h4,
+.markdown-rendered h4 {
+  --font-weight: var(--h4-weight);
+  font-variant: var(--h4-variant);
+  font-family: var(--h4-font);
+  font-size: var(--h4-size);
+  font-style: var(--h4-style);
+  font-weight: var(--font-weight);
+  line-height: var(--h4-line-height);
+  letter-spacing: var(--h4-letter-spacing);
+  color: var(--h4-color);
+}
+
+@media (hover: hover) {
+  /* hovering a collapsed row's fold indicator rings its bullet */
+  li.is-collapsed .list-collapse-indicator:hover ~ .list-bullet:after,
+  li.is-collapsed .cm-fold-indicator:hover ~ .list-bullet:after,
+  .list-collapse-indicator:hover.is-collapsed ~ .list-bullet:after,
+  .cm-fold-indicator:hover.is-collapsed ~ .list-bullet:after,
+  li.is-collapsed .list-collapse-indicator:hover ~ .cm-formatting-list .list-bullet:after,
+  li.is-collapsed .cm-fold-indicator:hover ~ .cm-formatting-list .list-bullet:after,
+  .list-collapse-indicator:hover.is-collapsed ~ .cm-formatting-list .list-bullet:after,
+  .cm-fold-indicator:hover.is-collapsed ~ .cm-formatting-list .list-bullet:after {
+    box-shadow: 0 0 0 4px var(--background-modifier-active-hover);
+    background-color: var(--list-marker-color-collapsed);
+  }
+}
+
+/* task-list checkboxes hang into the indent so the box aligns with text */
+ul > li.task-list-item > p > .task-list-item-checkbox,
+ul > li.task-list-item > .task-list-item-checkbox {
+  margin-inline-start: calc(var(--checkbox-size) * -1.5);
+}

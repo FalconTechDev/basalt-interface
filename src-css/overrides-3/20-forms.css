@@ -1,0 +1,45 @@
+/* forms (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* combobox button parts: leading icon, clear button and trailing chevron */
+.combobox-button .combobox-button-icon {
+  --icon-size: var(--icon-s);
+  --icon-stroke: var(--icon-s-stroke-width);
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+}
+
+.combobox-button .combobox-clear-button {
+  --icon-size: var(--icon-xs);
+  --icon-stroke: var(--icon-xs-stroke-width);
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+}
+
+.combobox-button .combobox-button-chevron {
+  --icon-size: var(--icon-xs);
+  --icon-stroke: var(--icon-xs-stroke-width);
+  display: flex;
+  align-items: center;
+}
+
+/* a combobox that ends a row drops its trailing border */
+.combobox-button:last-child {
+  border-inline-end-width: 0;
+}
+
+/* checked radio/checkbox controls deepen on hover */
+@media (hover: hover) {
+  input[type="radio"]:checked:hover,
+  input[type="checkbox"]:checked:hover {
+    border-color: var(--checkbox-color-hover);
+    background-color: var(--checkbox-color-hover);
+  }
+}
+
+/* base view toolbar sort control sits flush inside its container */
+.base-toolbar-sort-item .combobox-button {
+  box-shadow: none;
+  border-radius: 0;
+}

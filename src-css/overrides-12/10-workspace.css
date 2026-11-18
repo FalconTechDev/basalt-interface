@@ -1,0 +1,40 @@
+/* workspace (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* pinned mobile drawer: fixed width sheet docked to its side edge */
+.workspace-drawer.is-pinned {
+  position: relative;
+  z-index: var(--layer-cover);
+  height: 100%;
+  max-width: var(--mobile-sidebar-width);
+  width: var(--mobile-sidebar-width-pinned);
+  padding-bottom: 0;
+  margin: 0;
+  box-shadow: none;
+}
+
+.workspace-drawer.mod-left {
+  left: 0;
+  padding-left: var(--safe-area-inset-left);
+  border-top-right-radius: var(--mobile-sidebar-radius);
+  border-bottom-right-radius: var(--mobile-sidebar-radius);
+}
+
+.workspace-drawer.mod-right {
+  right: 0;
+  padding-right: var(--safe-area-inset-right);
+  border-top-left-radius: var(--mobile-sidebar-radius);
+  border-bottom-left-radius: var(--mobile-sidebar-radius);
+}
+
+.workspace-drawer-ribbon .side-dock-actions {
+  padding: var(--size-4-2) 0;
+}
+
+.workspace-drawer-ribbon .side-dock-ribbon-action {
+  padding: var(--size-4-2);
+}
+
+.workspace-drawer-active-tab-content .view-content {
+  padding-top: var(--size-4-1);
+  height: 100%;
+}

@@ -1,0 +1,132 @@
+/* bases (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* ---------- bases in popovers ---------- */
+
+/* a bases view inside a hover popover scrolls within the popover height */
+.hover-popover > .bases-embed .bases-view {
+  overflow: auto;
+  max-height: calc(var(--popover-height) - var(--bases-header-height));
+}
+
+/* ---------- toolbar menu ---------- */
+
+/* the section header flair lines up with the items below it */
+.bases-toolbar-menu .bases-toolbar-section-header .flair {
+  margin-inline-start: var(--size-4-1);
+}
+
+/* sort and group-by sections share the same item list metrics */
+.bases-toolbar-menu .bases-sort-container .bases-toolbar-items,
+.bases-toolbar-menu .bases-groupby-container .bases-toolbar-items {
+  gap: var(--size-2-3);
+  padding: var(--size-4-1) 0 var(--size-4-2);
+}
+
+.bases-toolbar-menu .bases-sort-container .bases-toolbar-section-content,
+.bases-toolbar-menu .bases-groupby-container .bases-toolbar-section-content {
+  padding: 0 var(--size-4-2);
+}
+
+/* sort/group-by rows are full-width buttons stacked with a gap */
+.bases-toolbar-menu .bases-sort-container .text-icon-button,
+.bases-toolbar-menu .bases-groupby-container .text-icon-button {
+  width: 100%;
+  margin-bottom: var(--size-4-2);
+}
+
+/* ---------- toolbar form (formula editor rows) ---------- */
+
+.bases-toolbar-menu-form .formula-editor .cm-editor {
+  height: 100%;
+}
+
+.bases-toolbar-menu-form .formula-editor .cm-content {
+  min-height: calc(var(--input-height) * 3);
+}
+
+.bases-toolbar-menu-form .input-row + .input-group-divider {
+  margin-top: var(--size-4-1);
+}
+
+.bases-toolbar-menu-form .input-row .input-row-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: var(--input-height);
+}
+
+.bases-toolbar-menu-form .input-row .formula-editor-status .status-icon {
+  --icon-size: var(--icon-xs);
+  --icon-stroke: var(--icon-xs-stroke-width);
+  display: flex;
+  align-items: center;
+  margin-right: var(--size-4-1);
+}
+
+/* ---------- query builder ---------- */
+
+.bases-query-container .filter-group .filter-group-actions {
+  display: flex;
+  padding-top: var(--size-2-2);
+}
+
+.bases-query-container .filter-group .filter-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--size-2-1);
+}
+
+/* the conjunction label gets a fixed minimum so operators align */
+.bases-query-container .filter-row .conjunction {
+  min-width: 4.5rem;
+  font-size: var(--font-ui-small);
+  text-align: end;
+}
+
+.bases-query-container .filter-row .filter-property-select {
+  width: 100%;
+}
+
+.bases-query-container .filter-row .filter-operator {
+  align-self: stretch;
+  max-width: 33%;
+  height: auto;
+  border-width: 0 1px;
+}
+
+.bases-query-container .filter-expression .filter-row-actions {
+  display: flex;
+  height: var(--input-height);
+  margin-inline-start: auto;
+  padding: var(--size-2-1);
+}
+
+.bases-query-container .filter-rhs-container .metadata-link-inner {
+  width: auto;
+}
+
+/* ---------- grouped card view ---------- */
+
+.is-grouped .bases-cards-container .bases-group-heading {
+  position: absolute;
+  padding: var(--size-4-1) 0 var(--size-4-2);
+}
+
+.is-grouped .bases-cards-container .bases-cards-group {
+  padding: 0 0 var(--size-4-4);
+  border-width: 0 0 1px;
+  border-style: solid;
+  border-color: var(--background-modifier-border);
+}
+
+/* ---------- list view ---------- */
+
+.bases-list-item .bases-list-item-properties.nested {
+  padding-inline-start: var(--list-indent);
+}
+
+.bases-list-item .bases-list-property p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}

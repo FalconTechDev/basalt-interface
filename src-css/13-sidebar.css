@@ -1,0 +1,293 @@
+/* side panes: explorer, search, backlinks, outline and tags */
+
+/* ---------- empty states ---------- */
+
+.pane-empty {
+  margin: var(--size-4-2) auto;
+  padding: var(--size-4-6) var(--size-4-4);
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  text-align: center;
+}
+
+.pane-empty .pane-empty-actions {
+  margin-top: var(--size-4-4);
+}
+
+/* search decorations mirror horizontally in RTL */
+.mod-rtl .search-input-container:before,
+.mod-rtl .checkbox-container {
+  transform: scale(-1, 1);
+}
+
+/* ---------- search input ---------- */
+
+/* the clear button only exists once the field has text */
+.search-input-container input:placeholder-shown ~ .search-input-clear-button {
+  display: none;
+}
+
+.search-input-container input:not(:placeholder-shown) {
+  padding-inline-end: calc(var(--size-4-6) + var(--size-4-1));
+}
+
+/* global search keeps room for its extra actions */
+.global-search-input-container.search-input-container input:not(:placeholder-shown) {
+  padding-inline-end: calc((var(--size-4-6) + var(--size-4-1)) * 2);
+}
+
+/* the decorator moves past the clear action */
+.search-input-container input:not(:placeholder-shown) ~ .input-right-decorator {
+  inset-inline-end: calc(var(--input-icon-inset) + var(--size-4-6) + var(--size-4-1));
+}
+
+.search-input-clear-button ~ .document-search-count {
+  inset-inline-end: var(--size-4-8);
+}
+
+/* ---------- tree items (nav / file explorer) ---------- */
+
+/* zero-width content keeps rows aligned before text arrives */
+.tree-item-self:before {
+  content: '\200B';
+}
+
+.tree-item-self.is-clickable {
+  cursor: var(--cursor);
+}
+
+.tree-item-self .tree-item-icon:before {
+  content: "\200b";
+}
+
+.tree-item-inner {
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+
+.tree-item-inner-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- backlink / outgoing-link panes ---------- */
+
+/* top-level rows read as headings */
+.backlink-pane > .tree-item-self .tree-item-inner,
+.outgoing-link-pane > .tree-item-self .tree-item-inner {
+  font-weight: var(--nav-heading-weight);
+}
+
+.backlink-pane > .tree-item-self.is-clickable.is-collapsed,
+.outgoing-link-pane > .tree-item-self.is-clickable.is-collapsed {
+  color: var(--nav-heading-color-collapsed);
+}
+
+@media (hover: hover) {
+  .backlink-pane > .tree-item-self.is-clickable.is-collapsed:hover,
+  .outgoing-link-pane > .tree-item-self.is-clickable.is-collapsed:hover {
+    color: var(--nav-heading-color-collapsed-hover);
+  }
+}
+
+/* these panes never show fold arrows on top-level rows */
+.backlink-pane > .tree-item-self .collapse-icon,
+.outgoing-link-pane > .tree-item-self .collapse-icon {
+  display: none;
+}
+
+/* ---------- embedded backlinks ---------- */
+
+.embedded-backlinks .backlink-pane > .tree-item-self .tree-item-inner {
+  margin-inline-end: var(--size-2-3);
+}
+
+.embedded-backlinks .backlink-pane .tree-item-flair {
+  font-size: max(var(--font-ui-small),var(--font-smallest));
+}
+
+/* hover actions float at the row's inline end */
+.embedded-backlinks .nav-buttons-container {
+  position: absolute;
+  inset-inline-end: 0;
+  top: var(--size-4-3);
+  z-index: 1;
+}
+
+/* ---------- bases leaf ---------- */
+
+.workspace-leaf-content[data-type="bases"] {
+  --bases-table-container-border-width: 0;
+  --bases-table-container-border-radius: var(--radius-s);
+  --bases-table-cell-edge-padding: var(--size-4-1);
+  --bases-view-padding: 0 0 var(--size-4-16);
+  --bases-header-padding-start: var(--size-4-2);
+  --bases-header-padding-end: var(--size-4-2);
+}
+
+/* ---------- nav files ---------- */
+
+/* unsupported files hidden unless the filter is on */
+.nav-files-container:not(.show-unsupported) .is-unsupported {
+  display: none;
+}
+
+.nav-file-title-content:not([contenteditable="true"]),
+.nav-folder-title-content:not([contenteditable="true"]) {
+  text-overflow: ellipsis;
+}
+
+/* drag-over highlight on the folder arrow */
+.nav-folder.is-being-dragged-over > .nav-folder-title .collapse-icon {
+  color: var(--nav-item-color-highlighted);
+}
+
+/* pending-delete rows hide their flair unless selected */
+.file-tree .mod-to-delete .tree-item-flair {
+  display: none;
+}
+
+.file-tree .mod-to-delete.is-selected .tree-item-flair {
+  display: block;
+}
+
+/* file-properties leaf hides the properties heading (it is the pane) */
+.workspace-leaf-content[data-type=file-properties] .metadata-properties-heading {
+  display: none;
+}
+
+/* custom nav items: hidden ones fade, inner row is a flex line */
+.tree-item.mod-custom-nav.hidden .tree-item-self {
+  color: var(--text-faint);
+}
+
+.tree-item.mod-custom-nav .tree-item-inner {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* ---------- search input chrome ---------- */
+
+.search-input-container {
+  position: relative;
+}
+
+/* magnifier is a masked SVG pinned to the inline start */
+.search-input-container:before {
+  top: calc((var(--input-height) - var(--search-icon-size)) / 2);
+  inset-inline-start: var(--size-4-2);
+  position: absolute;
+  display: block;
+  height: var(--search-icon-size);
+  width: var(--search-icon-size);
+  content: '';
+  background-color: var(--search-icon-color);
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27currentColor%27 stroke-width=%272%27 stroke-linecap=%27square%27 stroke-linejoin=%27miter%27><circle cx=%2711%27 cy=%2711%27 r=%278%27></circle><line x1=%2721%27 y1=%2721%27 x2=%2716.65%27 y2=%2716.65%27></line></svg>");
+  -webkit-mask-repeat: no-repeat;
+}
+
+/* clear button glyph is an inline masked SVG */
+.search-input-clear-button:after {
+  display: block;
+  height: var(--search-clear-button-size);
+  width: var(--search-clear-button-size);
+  content: '';
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,<svg viewBox=%270 0 12 12%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath fill-rule=%27evenodd%27 clip-rule=%27evenodd%27 d=%27M6 12C9.31371 12 12 9.31371 12 6C12 2.68629 9.31371 0 6 0C2.68629 0 0 2.68629 0 6C0 9.31371 2.68629 12 6 12ZM3.8705 3.09766L6.00003 5.22718L8.12955 3.09766L8.9024 3.8705L6.77287 6.00003L8.9024 8.12955L8.12955 8.9024L6.00003 6.77287L3.8705 8.9024L3.09766 8.12955L5.22718 6.00003L3.09766 3.8705L3.8705 3.09766Z%27 fill=%27currentColor%27/></svg>");
+  -webkit-mask-repeat: no-repeat;
+}
+
+/* ---------- search results ---------- */
+
+/* loading state reuses the top progress-bar sweep */
+.search-result-container:before {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: var(--divider-width-hover);
+  content: ' ';
+}
+
+.search-result-container.is-loading:before {
+  background-color: var(--interactive-accent);
+  animation: 1000ms var(--anim-motion-smooth) var(--anim-duration-moderate) infinite progress-bar;
+}
+
+.search-result {
+  word-break: break-word;
+}
+
+@media (hover: hover) {
+  .search-result-file-match:hover .search-result-file-match-replace-button {
+    display: block;
+  }
+}
+
+.search-result-hover-button.mod-top {
+  top: var(--size-2-1);
+}
+
+.search-result-hover-button.mod-bottom {
+  bottom: var(--size-2-1);
+}
+
+@media (hover: hover) {
+  .search-result-file-match:hover .search-result-file-match-destination-file:hover {
+    box-shadow: var(--input-shadow-hover);
+    color: var(--text-normal);
+    background-color: var(--background-modifier-hover);
+  }
+}
+
+.search-result-file-match-destination-file-name {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.search-results-result-count {
+  font-size: var(--font-ui-smaller);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- recent changes pane ---------- */
+
+.recent-changes-container .nav-folder-title:hover {
+  font-weight: var(--nav-heading-weight) !important;
+}
+
+.recent-changes-container .nav-folder-title .collapse-icon {
+  display: none;
+}
+
+.recent-changes-container .tree-item.nav-folder.is-collapsed .nav-folder-title {
+  color: var(--nav-heading-color-collapsed);
+}
+
+@media (hover: hover) {
+  .recent-changes-container .tree-item.nav-folder.is-collapsed .nav-folder-title:hover {
+    color: var(--nav-heading-color-collapsed-hover);
+  }
+}
+
+/* ---------- tag pane ---------- */
+
+/* nested tags hide their parent label */
+.tree-item-children .tag-pane-tag .tag-pane-tag-parent {
+  display: none;
+}
+
+/* ---------- misc leaves ---------- */
+
+.workspace-leaf-content[data-type="browser"] .view-header {
+  gap: 0;
+}
+
+/* the drawer's root folder row is redundant — hide its title */
+.workspace-drawer .nav-folder.mod-root > .nav-folder-title {
+  display: none;
+}
+
+.workspace-drawer-active-tab-content .outline {
+  font-size: var(--font-ui-medium);
+}

@@ -1,0 +1,20 @@
+/* tooltips (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* native <progress> inside notes/notices is flattened to a thin bar */
+.notice progress,
+.markdown-preview-view progress,
+.markdown-rendered progress,
+.markdown-source-view.is-live-preview progress {
+  display: inline-block;
+  overflow: hidden;
+  box-sizing: border-box;
+  height: 6px;
+  max-width: 100%;
+  margin-bottom: var(--size-4-1);
+  border: 0;
+  border-radius: 0;
+  -webkit-writing-mode: horizontal-tb;
+  writing-mode: horizontal-tb;
+  vertical-align: -0.2rem;
+  appearance: none;
+}

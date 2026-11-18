@@ -1,0 +1,119 @@
+/* modals (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* settings rows: first child keeps a trailing gap, last child clears it */
+.setting-item > *:first-child {
+  margin-inline-end: var(--size-4-4);
+}
+
+.setting-item > *:last-child {
+  margin-inline-end: 0;
+}
+
+.setting-item-heading .setting-item-info {
+  flex-grow: 0;
+  margin-inline-end: 0;
+}
+
+/* lightbox content centres its media with room above and below */
+.modal.mod-image-lightbox .modal-content {
+  padding: var(--size-4-12) var(--size-4-3) var(--size-4-2) var(--size-4-3);
+  text-align: center;
+}
+
+/* secret-suggestion modal gets a filter toolbar above the list */
+.modal.mod-secret .suggestion-filter-toolbar {
+  display: flex;
+  gap: var(--size-4-2);
+  padding: var(--size-4-4) var(--size-4-4) 0 var(--size-4-4);
+}
+
+/* community modal sidebar labels stay small */
+.mod-community-modal .modal-sidebar .setting-item-name {
+  padding-inline-start: var(--size-4-1);
+  font-size: var(--font-ui-small);
+}
+
+/* community items: no gap after the last one */
+.community-item:last-child {
+  margin-bottom: 0;
+}
+
+.community-item .flair {
+  --flair-background: var(--background-modifier-active-hover);
+  --flair-color: var(--text-accent);
+  top: -1px;
+  margin-inline-start: var(--size-4-1);
+  vertical-align: middle;
+}
+
+/* confirmation dialogs centre their body between title and buttons */
+.modal-confirmation-state {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* scrollable-content modals: title padded, body scrolls, buttons pinned by a top border */
+.modal.mod-scrollable-content .modal-title {
+  padding: var(--size-4-4) var(--size-4-4) 0 var(--size-4-4);
+}
+
+.modal.mod-scrollable-content .modal-content {
+  overflow: auto;
+  padding: 0 var(--size-4-4) var(--size-4-4) var(--size-4-4);
+}
+
+.modal.mod-scrollable-content .modal-button-container {
+  margin-top: 0;
+  padding: var(--size-4-4);
+  border-top: var(--border-width) solid var(--background-modifier-border);
+}
+
+.modal-content {
+  flex: 1 1 auto;
+  font-size: var(--font-ui-medium);
+}
+
+/* scrollable modals keep an input-height band of space above the button row */
+.modal.mod-scrollable .modal-title {
+  padding: 0 var(--size-4-4);
+}
+
+.modal.mod-scrollable .modal-content {
+  overflow: auto;
+  margin-bottom: calc(var(--input-height) + var(--size-4-8));
+  padding: 0 var(--size-4-4) var(--size-4-4);
+  border-top: var(--border-width) solid var(--background-modifier-border);
+}
+
+/* vertical tab nav (settings sidebar): titles ellipsize, groups stack icons */
+.vertical-tab-nav-item-title {
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vertical-tab-header-group-items {
+  --icon-size: var(--icon-s);
+  --icon-stroke: var(--icon-s-stroke-width);
+  display: flex;
+  flex-direction: column;
+}
+
+.vertical-tab-content-container {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+/* publish modal pins its button row to the bottom edge */
+.modal.mod-publish .modal-button-container {
+  position: absolute;
+  bottom: 0;
+  gap: var(--size-4-2);
+  width: 100%;
+  margin: 0 0 0 calc(var(--size-4-4) * -1);
+}

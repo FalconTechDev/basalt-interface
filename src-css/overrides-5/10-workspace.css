@@ -1,0 +1,38 @@
+/* workspace (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* shared popover surface, follow-link arrow, drawer leaf background */
+.popover,
+.suggestion-container,
+.cm-tooltip.cm-tooltip-autocomplete {
+  display: flex;
+  position: absolute;
+  z-index: var(--layer-popover);
+  border: var(--border-width) solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-s);
+  max-height: var(--popover-max-height);
+  background-color: var(--background-primary);
+}
+
+.popover.hover-popover > * {
+  width: var(--popover-width);
+}
+
+.follow-link-popover .popover-arrow {
+  position: absolute;
+  top: calc(100%);
+  inset-inline-start: 50%;
+  width: 0;
+  margin-inline-start: -5px;
+  border-inline-end: 5px solid transparent;
+  border-inline-start: 5px solid transparent;
+  border-top: 5px solid var(--background-primary);
+  border-bottom: 5px solid transparent;
+  font-size: 0;
+  line-height: 0;
+  content: " ";
+}
+
+.workspace-drawer .workspace-leaf {
+  background-color: transparent;
+}

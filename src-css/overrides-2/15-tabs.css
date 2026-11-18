@@ -1,0 +1,100 @@
+/* tabs (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* status bar: the last segment flushes against the trailing edge */
+.status-bar-item-segment:last-child {
+  margin-inline-end: 0;
+}
+
+/* workspace tabs: each leaf fills its tab strip on the secondary background */
+.workspace-tabs .workspace-leaf {
+  height: 100%;
+  background-color: var(--background-secondary);
+}
+
+/* tab header icons: medium-sized glyphs centred in their buttons */
+.workspace-tab-header-tab-list .clickable-icon,
+.workspace-tab-header-new-tab .clickable-icon {
+  --icon-size: var(--icon-m);
+  --icon-stroke: var(--icon-m-stroke-width);
+  align-items: center;
+  padding: var(--size-2-2);
+  color: var(--icon-color);
+}
+
+/* status icons inside tabs take the accent colour when active */
+.mod-root .workspace-tab-header-status-icon {
+  color: var(--text-accent);
+}
+
+.mod-root .workspace-tab-header-status-icon,
+.mod-root .workspace-tab-header-inner-icon {
+  --icon-size: var(--icon-xs);
+  --icon-stroke: var(--icon-xs-stroke-width);
+}
+
+/* view actions: small icons packed tightly, centred in the row */
+.view-actions {
+  --icon-size: var(--icon-s);
+  align-items: center;
+  gap: 0;
+}
+
+/* pressed state for ribbon actions and docked tab icons */
+.clickable-icon.side-dock-ribbon-action:active,
+.mod-left-split .workspace-tab-header-inner-icon:active,
+.mod-right-split .workspace-tab-header-inner-icon:active {
+  color: var(--icon-color-focused);
+}
+
+/* clickable icons: a rounded, chromeless button that opts out of window dragging */
+.clickable-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--size-2-2) var(--size-2-3);
+  height: auto;
+  border-radius: var(--clickable-icon-radius);
+  color: var(--icon-color);
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+  cursor: var(--cursor);
+  corner-shape: var(--corner-shape);
+  -webkit-app-region: no-drag;
+}
+
+/* icon glyphs fade in opacity on hover and while pressed */
+@media (hover: hover) {
+  .clickable-icon:hover svg {
+    opacity: var(--icon-opacity-hover);
+  }
+
+  .clickable-icon.has-active-menu svg,
+  .clickable-icon:active svg {
+    opacity: var(--icon-opacity-hover);
+  }
+}
+
+/* an active icon stays highlighted and reacts to hover only on pointer devices */
+.clickable-icon.is-active svg {
+  opacity: var(--icon-opacity-hover);
+}
+
+@media (hover: hover) {
+  .clickable-icon.is-active:hover {
+    background-color: var(--background-modifier-active-hover);
+  }
+
+  .clickable-icon[aria-disabled='true']:hover {
+    background-color: unset;
+  }
+}
+
+/* drawer tab options: the title truncates with an ellipsis inside the row */
+.workspace-drawer-tab-options .workspace-tab-header-inner-title {
+  flex-grow: 1;
+  overflow: hidden;
+  font-size: var(--font-ui-medium);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

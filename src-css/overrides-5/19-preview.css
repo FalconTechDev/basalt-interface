@@ -1,0 +1,131 @@
+/* preview (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* callouts, embed links, metadata rows, footnotes */
+.callout-content .callout {
+  margin-top: var(--size-4-5);
+}
+
+.callout-icon .svg-icon {
+  color: rgb(var(--callout-color));
+}
+
+.callout-fold .svg-icon {
+  transition: transform var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+@media (hover: hover) {
+  .markdown-embed-link:hover,
+  .file-embed-link:hover {
+    color: var(--icon-color-hover);
+    opacity: var(--icon-opacity-hover);
+    background: var(--background-modifier-hover);
+  }
+}
+
+.inline-embed > .markdown-embed-content {
+  overflow: auto;
+  height: fit-content;
+  max-height: var(--embed-max-height);
+}
+
+@media (hover: hover) {
+  .footnote-backref:hover {
+    color: var(--text-accent);
+    text-decoration: none;
+  }
+}
+
+.metadata-container .metadata-show-source-button,
+.metadata-container .metadata-add-button {
+  padding-inline-start: var(--size-2-3);
+  margin-top: var(--size-2-3);
+  font-size: var(--metadata-label-font-size);
+  font-family: var(--metadata-label-font);
+}
+
+.metadata-input-text.mod-date {
+  padding-inline-end: 0;
+  width: auto;
+}
+
+.metadata-property-icon[aria-disabled='true'] {
+  color: var(--text-muted);
+  opacity: 0.4;
+}
+
+@media (hover: hover) {
+  input.metadata-property-key-input:hover {
+    background-color: transparent;
+  }
+}
+
+input.metadata-property-key-input:active,
+input.metadata-property-key-input:focus {
+  background-color: transparent;
+}
+
+@media (hover: hover) {
+  .metadata-property-warning-icon:hover {
+    color: var(--text-warning);
+    background-color: rgba(var(--color-orange-rgb), 0.15);
+  }
+}
+
+.metadata-property-value .metadata-input-text,
+.metadata-property-value .metadata-input-number,
+.metadata-property-value .multi-select-container {
+  background-color: transparent;
+}
+
+.metadata-property-value .mod-unknown {
+  overflow: hidden;
+  padding: var(--input-padding);
+  color: var(--text-warning);
+  font-size: var(--metadata-input-font-size);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.metadata-property-value .multi-select-container input {
+  background-color: transparent;
+}
+
+@media (hover: hover) {
+  .metadata-link-inner:hover {
+    text-decoration-line: var(--link-decoration-hover);
+    color: var(--link-color-hover);
+  }
+
+  .external-link:hover {
+    color: var(--link-external-color-hover);
+    text-decoration-line: var(--link-external-decoration-hover);
+  }
+}
+
+.metadata-property-value .internal-link,
+.markdown-rendered .internal-link {
+  --font-weight: var(--link-weight);
+  text-decoration-line: var(--link-decoration);
+  color: var(--link-color);
+  cursor: var(--cursor-link);
+  transition: opacity var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+@container (width < 250px) {
+  .metadata-property .metadata-property-key {
+    width: 100%;
+    border-bottom: 0;
+  }
+}
+
+.footnotes-view .footnote-id {
+  color: var(--footnote-id-color);
+  font-size: var(--footnote-size);
+  font-variant-numeric: tabular-nums;
+  line-height: var(--footnote-line-height);
+}
+
+.footnotes-view .footnote-content {
+  width: 100%;
+  cursor: text;
+}

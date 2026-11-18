@@ -1,0 +1,87 @@
+/* workspace (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* mobile drawer sheet: fixed side panel over a dimming backdrop */
+.workspace-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  overflow: hidden;
+  z-index: var(--layer-popover);
+  contain: layout style paint;
+  min-width: var(--mobile-sidebar-min-width);
+  max-width: var(--mobile-sidebar-max-width);
+  width: var(--mobile-sidebar-width);
+  margin: 0;
+  border-radius: var(--mobile-sidebar-radius);
+  font-size: var(--font-ui-small);
+  background-color: var(--mobile-sidebar-background);
+}
+
+.workspace-drawer-backdrop {
+  display: block;
+  position: fixed;
+  z-index: var(--layer-cover);
+  top: 0;
+  left: 0;
+  contain: layout paint;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-modifier-cover);
+  opacity: 1;
+  transition: opacity var(--bs-dur-normal) var(--bs-ease-standard);
+}
+
+.workspace-drawer-ribbon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: auto;
+  height: 100%;
+  width: var(--ribbon-width);
+  padding: var(--safe-area-inset-top) 0 var(--safe-area-inset-bottom);
+  border-inline-end: var(--divider-width) solid var(--divider-color);
+  background-color: var(--ribbon-background);
+}
+
+.workspace-drawer-header-icon {
+  --icon-size: var(--icon-l);
+  --icon-stroke: var(--icon-l-stroke-width);
+  flex-shrink: 0;
+  width: var(--touch-size-m);
+  height: var(--touch-size-m);
+  padding-top: var(--size-2-2);
+  color: var(--text-normal);
+}
+
+.workspace-drawer-tab-options.is-collapsed .workspace-drawer-tab-select {
+  --icon-color: var(--text-normal);
+  color: var(--text-normal);
+}
+
+.workspace-drawer-tab-options-list {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 1;
+  width: 100%;
+  max-height: 400px;
+  padding: var(--size-4-2);
+  padding-top: var(--touch-size-l);
+  border-radius: var(--touch-radius-xs);
+  opacity: 1;
+  scrollbar-gutter: stable;
+  background-color: var(--interactive-normal);
+  transition: max-height var(--bs-dur-normal) var(--anim-motion-swing), opacity var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+.workspace-drawer-tab-select {
+  --icon-color: var(--text-faint);
+  z-index: var(--layer-cover);
+  height: var(--touch-size-l);
+  color: var(--text-faint);
+  touch-action: none;
+}

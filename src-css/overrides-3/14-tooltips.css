@@ -1,0 +1,87 @@
+/* tooltips (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* text drawn on the fixed dark message plate (--background-modifier-message
+   stays dark in both themes, so the ink is a constant warm white) */
+body {
+  --bs-on-dark: #ece4db;
+}
+
+/* notice stack: fixed column of transient messages, centred on top,
+   clicks pass through the gaps */
+.notice-container {
+  position: fixed;
+  top: var(--size-4-6);
+  inset-inline: 0;
+  z-index: var(--layer-notice);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: var(--size-4-3);
+  pointer-events: none;
+}
+
+/* a single notice card */
+.notice {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-2);
+  max-width: 300px;
+  margin-bottom: var(--size-4-3);
+  padding: var(--size-4-3) var(--size-4-4);
+  border-radius: var(--radius-m);
+  clip-path: polygon(var(--bs-cut-md) 0, 100% 0, 100% calc(100% - var(--bs-cut-md)), calc(100% - var(--bs-cut-md)) 100%, 0 100%, 0 var(--bs-cut-md));
+  box-shadow: var(--shadow-xs);
+  color: var(--bs-on-dark);
+  font-size: var(--font-ui-small);
+  line-height: var(--line-height-tight);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  background-color: var(--background-modifier-message);
+  cursor: var(--cursor);
+  pointer-events: auto;
+}
+
+/* severity accent bars: red for errors, copper for success/progress */
+.notice.mod-error {
+  box-shadow: var(--shadow-xs), inset 3px 0 0 var(--color-red);
+}
+
+.notice.mod-success,
+.notice.is-loading,
+.notice.mod-warning {
+  box-shadow: var(--shadow-xs), inset 3px 0 0 var(--interactive-accent);
+}
+
+/* call-to-action link inside a notice */
+.notice-cta {
+  display: flex;
+  align-items: center;
+  color: var(--text-accent);
+  white-space: nowrap;
+}
+
+/* floating tooltip label: dark plate, hairline, small radius */
+.tooltip {
+  position: fixed;
+  left: 50%;
+  z-index: var(--layer-tooltip);
+  max-width: 300px;
+  padding: var(--size-4-1) var(--size-4-2);
+  border: var(--bs-hairline) solid var(--background-modifier-border-hover);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-xs);
+  color: var(--bs-on-dark);
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-medium);
+  line-height: var(--line-height-tight);
+  text-align: center;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  background-color: var(--background-modifier-message);
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: pop-down var(--bs-dur-normal) var(--bs-ease-standard) forwards;
+}

@@ -1,0 +1,21 @@
+/* elements (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* collapse indicators */
+
+/* any fold affordance becomes visible while hovered, while its section is
+   collapsed, or while the cursor is anywhere on the heading/gutter line */
+h1:hover .collapse-indicator,
+h2:hover .collapse-indicator,
+h3:hover .collapse-indicator,
+h4:hover .collapse-indicator,
+h5:hover .collapse-indicator,
+h6:hover .collapse-indicator,
+.collapse-indicator:hover,
+.is-collapsed .collapse-indicator,
+.cm-fold-indicator.is-collapsed .collapse-indicator,
+.cm-gutterElement:hover .collapse-indicator,
+.cm-gutterElement .is-collapsed .collapse-indicator,
+.cm-line:hover .cm-fold-indicator .collapse-indicator,
+.metadata-properties-heading:hover .collapse-indicator {
+  opacity: 1;
+}

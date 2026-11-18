@@ -1,0 +1,16 @@
+/* menus: context menus and drop-down menus */
+
+/* a menu without icons hides the icon slot of the first item */
+.menu.mod-no-icon .menu-item-icon:first-child {
+  display: none;
+}
+
+/* destructive items turn red only while selected, disabled stays muted */
+.menu-item.is-warning:not(.is-disabled).selected {
+  color: var(--text-error);
+}
+
+/* the title takes all remaining row space */
+.menu-item-title {
+  flex: 1 0 0;
+}

@@ -1,0 +1,7 @@
+/* forms (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* search params call-to-action spans the row */
+.search-params .mod-cta {
+  margin-top: var(--size-2-3);
+  width: 100%;
+}

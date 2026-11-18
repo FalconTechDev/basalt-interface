@@ -1,0 +1,95 @@
+/* preview (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* embed padding, metadata property rows, external link rtl icon */
+.markdown-embed .markdown-preview-view {
+  padding: 0;
+}
+
+.inline-embed > .markdown-embed-title {
+  padding: var(--embed-padding);
+}
+
+.metadata-properties .metadata-input-longtext {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--metadata-input-longtext-lines);
+}
+
+.metadata-properties-heading .collapse-indicator {
+  position: absolute;
+  inset-inline-start: -22px;
+  padding: 0 6px;
+}
+
+@media (hover: hover) {
+  .metadata-property:hover {
+    --metadata-divider-color: var(--metadata-divider-color-hover);
+    box-shadow: var(--metadata-property-box-shadow-hover);
+    border-radius: var(--metadata-property-radius-hover);
+    background-color: var(--metadata-property-background-hover);
+    corner-shape: var(--metadata-property-corner-shape-hover);
+  }
+}
+
+.metadata-property.has-focus,
+.metadata-property:focus-within {
+  --metadata-divider-color: var(--metadata-divider-color-focus);
+  box-shadow: var(--metadata-property-box-shadow-focus);
+  border-radius: var(--metadata-property-radius-focus);
+  background-color: var(--metadata-property-background-hover);
+  corner-shape: var(--metadata-property-corner-shape-focus);
+}
+
+@media (hover: hover) {
+  .metadata-property-key:hover {
+    background-color: var(--metadata-label-background-hover);
+  }
+}
+
+.metadata-property-key:focus-within {
+  background-color: var(--metadata-label-background-active);
+}
+
+input.metadata-property-key-input {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border: none;
+  padding: var(--metadata-input-padding);
+  height: var(--input-height);
+  width: 100%;
+  color: var(--metadata-label-text-color);
+  font-size: var(--metadata-label-font-size);
+  font-weight: var(--metadata-label-font-weight);
+  text-overflow: ellipsis;
+  text-align: left;
+  background-color: transparent;
+}
+
+.metadata-property-value .multi-select-container,
+.metadata-property-value .metadata-link-inner,
+.metadata-property-value input {
+  font-size: var(--metadata-input-font-size);
+}
+
+@media (hover: hover) {
+  .metadata-property-value:hover {
+    background-color: var(--metadata-input-background-hover);
+  }
+}
+
+.metadata-property-value:focus-within {
+  background-color: var(--metadata-input-background-active);
+}
+
+.markdown-preview-view.show-properties .metadata-container {
+  display: var(--metadata-display-reading);
+}
+
+@supports selector(:dir(rtl)) {
+  :dir(rtl) .external-link {
+    background-position: center left;
+    background-image: linear-gradient(transparent, transparent), url(public/images/external-link-rtl.svg);
+    background-repeat: no-repeat;
+  }
+}

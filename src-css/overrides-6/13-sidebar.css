@@ -1,0 +1,51 @@
+/* sidebar (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* search clear/suggest buttons, result info dropdown, tag pane, drawer input */
+.search-input-clear-button:hover,
+.search-input-clear-button:active {
+  color: var(--text-normal);
+  transition: color var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+@media (hover: hover) {
+  .search-input-suggest-button:hover {
+    color: var(--text-muted);
+  }
+
+  .search-result-file-match:hover {
+    color: var(--text-normal);
+    background-color: var(--background-modifier-hover);
+  }
+
+  .search-result-file-match-replace-button:hover {
+    color: var(--text-normal);
+    background-color: var(--background-modifier-hover);
+  }
+}
+
+.search-results-info .dropdown {
+  height: var(--size-4-6);
+  max-width: 60%;
+  box-shadow: none;
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+  text-align-last: end;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: transparent;
+}
+
+.recent-changes-container .nav-folder-title {
+  font-weight: var(--nav-heading-weight);
+  color: var(--nav-heading-color);
+}
+
+.tag-pane-tag.is-active {
+  color: var(--text-normal);
+  background-color: var(--bs-accent-soft);
+  box-shadow: inset var(--bs-focus-width) 0 0 var(--interactive-accent);
+}
+
+.workspace-drawer .search-input-container input {
+  border-width: 0 0 var(--border-width) 0;
+}

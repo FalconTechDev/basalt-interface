@@ -1,0 +1,67 @@
+/* modals (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* sidebar-layout modals, scrollable modals, language picker */
+.setting-item-control .clickable-icon {
+  padding: var(--size-2-2);
+}
+
+.modal.mod-sidebar-layout {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  width: var(--modal-width);
+  height: var(--modal-height);
+  max-width: var(--modal-max-width);
+  max-height: var(--modal-max-height);
+}
+
+.modal.mod-scrollable-content {
+  overflow: hidden;
+  padding: 0;
+}
+
+.mod-sidebar-layout .modal-header {
+  display: none;
+}
+
+.modal-title:empty {
+  display: none;
+}
+
+.modal-button-container .mod-checkbox {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-1);
+}
+
+.modal.mod-scrollable {
+  position: relative;
+  overflow: hidden;
+  height: var(--modal-height);
+  width: var(--modal-width);
+  max-width: var(--modal-max-width-narrow);
+  padding: var(--size-4-4) 0 0 0;
+}
+
+.search-params .setting-item.mod-slider {
+  flex-direction: column;
+}
+
+.modal.mod-sync-log .modal-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: calc(var(--size-4-1) * -1);
+  padding: var(--size-4-1);
+}
+
+.setting-item.mod-change-language .setting-item-info {
+  flex-grow: 0;
+}
+
+.setting-item.mod-change-language select {
+  width: 100%;
+  max-width: 100%;
+}

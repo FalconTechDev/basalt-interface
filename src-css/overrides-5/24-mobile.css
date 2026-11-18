@@ -1,0 +1,68 @@
+/* mobile (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* suggestion width, view header, menus, tab pin, vault chooser */
+.is-mobile .suggestion-container {
+  max-width: calc(100vw - 20px - var(--safe-area-inset-left) - var(--safe-area-inset-right));
+  max-height: 240px;
+}
+
+.search-result-file-match.mobile-tap {
+  color: var(--text-normal);
+  background-color: var(--text-selection);
+}
+
+.is-phone .bases-toolbar-menu-container {
+  --bases-property-menu-item-radius: 0;
+  max-width: 100%;
+}
+
+.mobile-onboarding .logo {
+  color: var(--interactive-accent);
+}
+
+.mobile-onboarding .button-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-4);
+  width: 100%;
+}
+
+.is-mobile .view-header {
+  border-top: none;
+  height: var(--view-header-height);
+}
+
+.is-mobile .view-header-title-container {
+  height: var(--view-header-height);
+}
+
+.is-mobile .community-modal-button-container {
+  width: 100%;
+}
+
+.is-mobile .menu {
+  --background-modifier-form-field: var(--interactive-normal);
+  --dropdown-background: var(--interactive-normal);
+  --input-height: 40px;
+  border: none;
+  max-width: 100%;
+  background-color: color-mix(in srgb, var(--menu-background) var(--blur-opacity-m), transparent);
+}
+
+.is-phone .menu-scroll {
+  max-height: 60vh;
+}
+
+.is-phone .modal-close-button {
+  z-index: var(--layer-modal);
+  height: var(--touch-size-m);
+  width: var(--touch-size-m);
+}
+
+.mobile-tab .mobile-tab-pin {
+  color: var(--interactive-accent);
+}
+
+.mobile-vault-chooser-action.is-warning {
+  color: var(--text-error);
+}

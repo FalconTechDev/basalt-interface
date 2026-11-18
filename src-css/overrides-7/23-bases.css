@@ -1,0 +1,129 @@
+/* bases (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* toolbar grip handles, menu form status, nested filter groups */
+@media (hover: hover) {
+  .bases-toolbar-menu-container-header .back-button:hover {
+    background-color: var(--background-modifier-hover);
+  }
+}
+
+.bases-toolbar-items .grip-handle:active {
+  cursor: grabbing;
+}
+
+.bases-toolbar-items .grip-handle:hover {
+  color: var(--text-muted);
+}
+
+.bases-toolbar-menu-form .input-row .help-icon {
+  --icon-size: var(--icon-xs);
+  --icon-stroke: var(--icon-xs-stroke-width);
+  padding: var(--size-2-1) var(--size-2-2);
+  color: var(--text-faint);
+}
+
+.bases-toolbar-menu-form .input-row .formula-editor-status {
+  display: flex;
+  align-items: center;
+  margin-top: var(--size-4-1);
+  font-size: var(--font-ui-smaller);
+  color: var(--text-success);
+}
+
+.view-config-menu .formula-editor-status:not(.mod-error) {
+  display: none;
+}
+
+.bases-toolbar-menu-item .clickable-icon {
+  margin: calc(var(--size-2-2) * -1);
+  padding: var(--size-2-2);
+}
+
+.bases-query-container .filter-group .filter-group {
+  border: var(--table-border-width) solid var(--table-border-color);
+  border-radius: var(--radius-m);
+  padding: var(--size-2-3);
+  background-color: var(--background-primary-alt);
+}
+
+/* list items align wrapped markers into the gutter */
+.bases-list-item .list-number {
+  display: inline-block;
+  padding-inline-end: 0.25em;
+  width: 3em;
+  margin-inline-start: -3em;
+  font-size: var(--bases-table-font-size);
+  font-variant: tabular-nums;
+  color: var(--list-marker-color);
+  text-align: end;
+}
+
+.bases-list-item .list-bullet {
+  float: none;
+  padding-inline-end: 0.25em;
+  margin-inline-start: -0.8em;
+  width: 0.8em;
+  font-size: var(--bases-table-font-size);
+}
+
+.bases-list-item .bases-rendered-value {
+  padding: 0;
+  word-break: break-word;
+}
+
+.bases-list-item .bases-list-property {
+  padding: 0;
+  cursor: text;
+}
+
+.bases-table .bases-group-heading {
+  width: 100%;
+  height: var(--bases-table-row-height);
+  padding-inline-start: var(--size-4-2);
+}
+
+@media (hover: hover) {
+  .bases-thead .bases-td:hover {
+    background-color: var(--bases-table-header-background-hover);
+  }
+}
+
+.bases-thead .bases-td.has-active-menu {
+  background-color: var(--bases-table-header-background-hover);
+}
+
+.bases-tbody .bases-tr:hover {
+  background-color: var(--bases-table-row-background-hover);
+}
+
+/* summary row cells reveal details on container focus */
+.bases-table-summary-cell .placeholder {
+  overflow: hidden;
+  padding-inline-start: var(--size-2-1);
+  font-size: var(--font-ui-smaller);
+  text-overflow: ellipsis;
+  unicode-bidi: plaintext;
+  opacity: 0;
+}
+
+.bases-table-summary-cell .summary-function-name {
+  overflow: hidden;
+  padding-inline-start: var(--size-2-2);
+  color: var(--text-muted);
+  font-size: var(--font-smaller);
+  text-overflow: ellipsis;
+  unicode-bidi: plaintext;
+}
+
+.bases-table-summary-cell .summary-expand-button {
+  display: none;
+  align-items: center;
+  margin-inline-start: auto;
+  color: var(--text-faint);
+  opacity: 0;
+}
+
+.bases-table-container:focus .bases-table-selection {
+  background-color: var(--bases-table-cell-background-selected);
+  mix-blend-mode: var(--table-selection-blend-mode);
+}

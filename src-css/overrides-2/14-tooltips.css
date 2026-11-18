@@ -1,0 +1,10 @@
+/* tooltips (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* notice buttons: actions wrap into rows with consistent column and row gaps */
+.notice-button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: var(--size-4-3);
+  row-gap: var(--size-4-1);
+}

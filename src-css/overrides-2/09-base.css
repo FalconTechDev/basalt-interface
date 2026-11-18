@@ -1,0 +1,120 @@
+/* base (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* generic stacked list: items separated by a small gap */
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-1);
+}
+
+/* row-lined lists bleed items to the container edge */
+.list-container.has-row-lines .list-item {
+  margin: 0 calc(var(--size-4-4) * -1);
+  padding: var(--size-4-2) var(--size-4-4);
+}
+
+.list-item-separator {
+  width: 100%;
+  border-bottom: var(--border-width) solid var(--background-modifier-border);
+}
+
+.list-item-desc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-4-2);
+  width: 100%;
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+}
+
+/* document search bar floats over the note content, capped to line width */
+.document-search-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-2);
+  z-index: var(--layer-popover);
+  padding: var(--size-4-2) 0;
+  margin: 0 var(--size-4-4);
+}
+
+.document-search,
+.document-replace {
+  display: flex;
+  gap: var(--size-4-2);
+  width: 100%;
+  max-width: var(--file-line-width);
+  margin: 0 auto;
+  padding: 0 var(--size-4-2);
+}
+
+/* replace row only appears in replace mode */
+.document-replace {
+  display: none;
+}
+
+.document-search-input,
+.document-replace-input {
+  flex-grow: 1;
+}
+
+/* inputs with no match turn red on hover-capable devices */
+@media (hover: hover) {
+  .document-search-input.mod-no-match:hover,
+  .document-replace-input.mod-no-match:hover {
+    background-color: rgba(var(--background-modifier-error-rgb), 0.2);
+  }
+}
+
+/* flair badges: flat ones align to the top, pop ones take accent colours */
+.flair.mod-flat {
+  vertical-align: top;
+}
+
+.flair.mod-pop {
+  --flair-background: var(--interactive-accent);
+  --flair-color: var(--text-on-accent);
+}
+
+/* file tree rows: checkbox and icon keep their size, title wraps */
+.file-tree-item-checkbox,
+.file-tree-item-icon {
+  flex-shrink: 0;
+}
+
+.file-tree-item-title {
+  flex-grow: 1;
+  word-break: break-word;
+}
+
+.site-list-container .list-item:last-child {
+  padding-top: var(--size-4-4);
+}
+
+/* grouped search suggestions: groups after the first get a top border */
+.search-suggest-item.mod-group:not(:first-child) {
+  margin-top: var(--size-2-3);
+  margin-inline-end: calc(var(--size-2-3) * -1);
+  padding-top: var(--size-2-3);
+  padding-inline-end: var(--size-2-3);
+  padding-bottom: 0px;
+  padding-inline-start: var(--size-2-7);
+  border-top: var(--border-width) solid var(--background-modifier-border);
+}
+
+/* copy-search result stacks its rows */
+.copy-search-result-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* search params sit in a narrow column beside the results */
+.search-params {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-2);
+  margin: var(--size-4-1) var(--size-4-4);
+}
+
+.global-search-input-container {
+  flex-grow: 1;
+}

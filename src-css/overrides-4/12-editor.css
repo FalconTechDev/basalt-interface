@@ -1,0 +1,39 @@
+/* editor (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* inline code border, code-block flair badge, hidden metadata containers */
+.cm-s-basalt .cm-inline-code {
+  border-color: var(--code-border-color);
+  border-style: solid;
+}
+
+.markdown-source-view.mod-cm6 .code-block-flair {
+  position: absolute;
+  right: var(--size-4-2);
+  top: var(--size-4-2);
+  z-index: 1;
+  display: inline-block;
+  padding: var(--size-4-1) var(--size-4-2);
+  border-radius: var(--code-radius);
+  font-family: var(--font-interface);
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+  cursor: var(--cursor);
+}
+
+.markdown-source-view .metadata-container,
+.markdown-preview-view .metadata-container:not(.mod-error) {
+  display: none;
+}
+
+.markdown-source-view.mod-cm6 img {
+  max-width: 100%;
+}
+
+.cm-s-basalt img.hmd-emoji {
+  height: 1.2em;
+  vertical-align: middle;
+}
+
+.cm-s-basalt .hmd-table-column {
+  display: inline-block;
+}

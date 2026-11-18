@@ -1,0 +1,207 @@
+/* services (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* ---------- file recovery ---------- */
+
+.file-recovery-list {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: auto;
+  padding: var(--size-4-3) var(--size-4-2);
+}
+
+/* fixed-width column holding the list, separated by a border */
+.file-recovery-list-container {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 250px;
+  flex-shrink: 0;
+  border-inline-end: var(--border-width) solid var(--background-modifier-border);
+}
+
+.file-recovery-list-item-header {
+  display: flex;
+  padding: var(--size-4-2);
+  border-radius: var(--radius-s);
+  transition: background-color var(--bs-dur-normal) var(--bs-ease-standard), color var(--bs-dur-normal) var(--bs-ease-standard);
+}
+
+.file-recovery-list-item-header .file-recovery-list-item-details {
+  flex-grow: 1;
+  font-size: var(--font-ui-small);
+  cursor: var(--cursor);
+}
+
+/* recovered content shown as a read-only monospace diff */
+.file-recovery-text {
+  flex: 1 0 0;
+  padding: var(--size-4-6);
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-medium);
+  tab-size: 4;
+  background-color: var(--background-primary);
+  resize: none;
+}
+
+/* ---------- publish ---------- */
+
+.publish-change-list {
+  padding: var(--size-4-2) 0;
+}
+
+/* section header inside the publish view */
+.publish-section-header {
+  display: flex;
+  align-items: center;
+  padding: var(--size-4-2) 0;
+  border-bottom: var(--border-width) solid var(--background-modifier-border);
+  font-size: var(--font-ui-small);
+  line-height: 1.1;
+  color: var(--text-muted);
+}
+
+.publish-section-header-text {
+  flex-grow: 1;
+  font-size: var(--font-ui-medium);
+  font-weight: var(--font-medium);
+  line-height: var(--line-height-tight);
+  color: var(--text-normal);
+}
+
+/* summary row above the change list */
+.publish-changes-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--size-4-5);
+}
+
+/* collapse arrow and per-section action stay faint until needed */
+.publish-section-header-toggle-collapsed-button {
+  width: var(--size-4-2);
+  height: var(--size-4-2);
+  margin-inline-end: var(--size-4-1);
+  color: var(--text-faint);
+}
+
+.publish-section-header-action {
+  margin-inline-start: var(--size-4-3);
+  color: var(--text-faint);
+}
+
+/* upload rows get a little breathing room */
+.publish-upload-item {
+  position: relative;
+  padding: var(--size-4-1) var(--size-4-2);
+}
+
+/* ---------- sync status ---------- */
+
+.sync-status-icon {
+  display: flex;
+  align-items: center;
+  cursor: var(--cursor);
+}
+
+/* ---------- sync history ---------- */
+
+/* fixed-width list column beside the history detail */
+.sync-history-list-container {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 250px;
+  flex-shrink: 0;
+  border-inline-end: var(--border-width) solid var(--background-modifier-border);
+  background-color: var(--background-secondary);
+}
+
+.sync-history-list {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  overflow: auto;
+  padding: var(--size-4-2) var(--size-4-2) 0;
+}
+
+.sync-history-list-item-header {
+  display: flex;
+  align-items: center;
+  padding: var(--size-4-2);
+  margin-bottom: var(--size-4-1);
+  border-radius: var(--radius-s);
+}
+
+.sync-history-list-item-header .sync-history-list-item-details {
+  flex-grow: 1;
+  font-size: var(--font-ui-small);
+  cursor: var(--cursor);
+}
+
+/* detail pane takes the remaining width */
+.sync-history-content-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  width: 0;
+  height: auto;
+  padding: 0;
+  background-color: var(--background-primary);
+}
+
+.sync-history-content-empty {
+  display: none;
+}
+
+.sync-history-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+  padding: 0;
+}
+
+.sync-history-content .setting-item-info {
+  flex-grow: 1;
+  overflow: hidden;
+  font-weight: var(--bold-weight);
+}
+
+/* preview and diff panes share one scrollable text style */
+.sync-history-preview,
+.file-recovery-diff,
+.sync-history-diff {
+  flex: 1 0 0;
+  overflow: auto;
+  padding: var(--size-4-6);
+  font-size: var(--font-ui-medium);
+  user-select: text;
+  background-color: var(--background-primary);
+}
+
+/* the rendered preview uses the note font, not the UI font */
+.sync-history-preview {
+  --cursor-link: default;
+  font-family: var(--font-text);
+  font-size: var(--font-text-size);
+}
+
+/* empty-state message centred in the detail pane */
+.sync-history-desc {
+  flex-grow: 1;
+  padding: var(--size-4-6);
+  overflow-wrap: break-word;
+  text-align: center;
+}
+
+/* ---------- sync file browser ---------- */
+
+/* file tree capped to most of the modal height */
+.sync-file-tree-container {
+  overflow: auto;
+  max-height: calc(min(90vh, var(--modal-max-height)) - 250px);
+}
+
+/* ---------- web viewer ---------- */
+
+.webviewer-address-container {
+  padding: 0 var(--size-4-2);
+}

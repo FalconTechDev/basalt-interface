@@ -1,0 +1,31 @@
+/* sidebar (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* internal query results panel and backlink panes */
+.internal-query .search-result-container {
+  overflow: auto;
+  padding: var(--size-4-2);
+  max-height: calc(var(--size-4-16) * 12 + var(--size-4-8));
+  border: var(--border-width) solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  background-color: var(--background-secondary);
+}
+
+.backlink-pane .search-result-container,
+.outgoing-link-pane .search-result-container {
+  padding: var(--size-4-1) var(--bs-hairline) var(--size-4-4);
+}
+
+.backlink-pane > .tree-item-self,
+.outgoing-link-pane > .tree-item-self {
+  padding-inline-start: var(--size-4-2);
+  color: var(--nav-heading-color);
+}
+
+.embedded-backlinks .backlink-pane {
+  padding: 0;
+}
+
+.embedded-backlinks .nav-header {
+  position: relative;
+  padding: var(--size-4-3) 0 0 0;
+}

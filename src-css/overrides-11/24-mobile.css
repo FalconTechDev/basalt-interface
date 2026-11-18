@@ -1,0 +1,413 @@
+/* mobile (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* ---------- bases toolbar / document search ---------- */
+
+.is-mobile .bases-toolbar-section {
+  padding: var(--size-4-1);
+}
+
+.is-mobile .action-row {
+  padding: var(--size-4-2) var(--size-4-3);
+}
+
+.is-mobile .document-search-container {
+  margin-inline-end: 0;
+  margin-inline-start: 0;
+  padding: var(--size-4-4) var(--size-4-3);
+  padding-top: var(--view-top-spacing-markdown);
+  border-bottom: var(--border-width) solid var(--background-modifier-border);
+}
+
+.is-mobile .document-search,
+.is-mobile .document-replace {
+  height: auto;
+  padding: 0;
+}
+
+.is-phone .document-replace-buttons,
+.is-phone .document-search-buttons {
+  gap: var(--size-2-1);
+  justify-content: flex-end;
+  padding-inline-start: var(--size-4-1);
+}
+
+.is-phone .bases-toolbar-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: none;
+  border-radius: var(--radius-l) var(--radius-l) 0 0;
+  width: calc(100% - var(--safe-area-inset-left) - var(--safe-area-inset-right));
+  min-width: unset;
+  height: calc(100vh - var(--safe-area-inset-top));
+  margin-left: var(--safe-area-inset-left);
+  margin-right: var(--safe-area-inset-right);
+  margin: 0 auto;
+  background-color: var(--background-secondary);
+}
+
+.is-phone .bases-toolbar-menu-item {
+  padding: var(--size-4-2) var(--size-4-3);
+}
+
+/* ---------- onboarding ---------- */
+
+.mobile-onboarding .language-dropdown {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-2);
+  width: 100%;
+  margin-bottom: var(--4-3);
+}
+
+.mobile-onboarding .list-heading {
+  margin-top: 1.5em;
+  margin-bottom: var(--size-4-2);
+  color: var(--text-normal);
+  font-size: var(--font-ui-medium);
+  font-weight: var(--font-semibold);
+  line-height: var(--line-height-normal);
+}
+
+.mobile-onboarding .form-field-help {
+  margin: var(--size-2-3) 0;
+  color: var(--text-faint);
+  font-size: var(--font-ui-small);
+}
+
+.mobile-onboarding .status-text {
+  padding: 0 var(--size-4-6);
+  font-size: var(--font-ui-small);
+}
+
+.mobile-onboarding .mod-version {
+  order: 1;
+  margin: var(--size-4-2);
+  text-align: center;
+  font-size: var(--font-ui-smaller);
+  opacity: 0.3;
+}
+
+.mobile-onboarding-feature-table .feature-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-1);
+  padding: var(--size-4-1) 0;
+}
+
+.mobile-onboarding-radio-option-title .flair {
+  align-self: baseline;
+  display: inline-block;
+  padding: var(--size-4-1) var(--size-4-2);
+  margin-left: auto;
+  border-radius: var(--radius-l);
+  color: var(--text-success);
+  background-color: rgba(var(--color-green-rgb), 0.3);
+}
+
+/* ---------- view header ---------- */
+
+.is-mobile .view-header-title {
+  padding-inline-end: 0px;
+}
+
+.is-mobile .inline-title {
+  padding-top: 0.5em;
+}
+
+.is-mobile .view-actions {
+  justify-content: flex-end;
+  gap: var(--size-2-1);
+  padding: var(--size-4-2) 0;
+}
+
+.is-mobile .view-action {
+  margin: auto 0;
+  width: auto;
+}
+
+.is-phone .view-header {
+  position: var(--view-header-position);
+  gap: var(--size-4-3);
+  padding-top: var(--view-header-top-offset);
+  margin-top: 0;
+  height: auto;
+  width: 100%;
+  direction: ltr;
+  transition: opacity var(--bs-dur-normal) var(--bs-ease-standard), transform var(--bs-dur-slow) var(--bs-ease-standard);
+}
+
+/* ---------- forms / settings ---------- */
+
+.is-mobile .form-field {
+  width: 100%;
+  margin: 1em 0;
+}
+
+.is-tablet .vertical-tab-nav-item {
+  padding: var(--size-4-2) var(--size-4-3);
+  border-radius: var(--touch-radius-m);
+}
+
+.is-phone .vertical-tab-header-group-title {
+  padding: var(--size-4-2) 0 var(--size-4-2);
+  padding-inline-start: var(--size-4-4);
+  margin-bottom: var(--size-4-2);
+}
+
+.is-phone .installed-plugins-container {
+  border: none;
+  padding: 0;
+}
+
+/* ---------- community modal ---------- */
+
+.is-mobile .community-item {
+  border-width: 0;
+  border-radius: var(--touch-radius-xxs);
+  padding: var(--size-4-4);
+  background-color: var(--setting-items-background);
+  corner-shape: var(--corner-shape);
+}
+
+.is-mobile .community-modal-meta,
+.is-mobile .community-modal-readme {
+  padding: var(--size-4-5);
+  border-radius: var(--touch-radius-xs);
+  background-color: var(--setting-items-background);
+  corner-shape: var(--corner-shape);
+}
+
+.is-phone .community-modal-controls {
+  padding-top: var(--size-2-1);
+  background-color: transparent;
+}
+
+.is-phone .community-modal-search-results {
+  gap: var(--size-4-2);
+  padding: var(--size-4-4);
+}
+
+.is-phone .community-modal-info {
+  padding: var(--size-4-2) var(--size-4-4) var(--size-4-4);
+}
+
+.is-phone .community-item-info {
+  padding: var(--size-4-5);
+}
+
+.is-phone .community-modal-details {
+  padding: var(--size-4-4);
+  border: none;
+  background-color: var(--modal-background);
+}
+
+.is-phone .community-modal-search-summary {
+  padding: var(--size-4-1) var(--size-4-4) var(--size-4-4);
+}
+
+/* ---------- workspace drawer ---------- */
+
+.is-tablet .workspace-drawer {
+  margin: var(--size-4-8) var(--size-4-4) 0;
+  height: calc(100vh - var(--size-4-12));
+}
+
+.is-phone .workspace-drawer-tab-options-list {
+  bottom: 0;
+  top: unset;
+  box-shadow: 0 -12px 12px 0 var(--mobile-sidebar-background);
+  padding-top: var(--size-4-2);
+  padding-bottom: var(--touch-size-l);
+}
+
+/* ---------- empty states / search / metadata ---------- */
+
+.is-mobile .empty-state-action-list {
+  margin-top: 40px;
+}
+
+.is-mobile .empty-state-action {
+  margin: 12px 0;
+  padding: 6px 30px;
+  border-radius: var(--button-radius);
+  text-align: center;
+  background-color: var(--background-primary-alt);
+  corner-shape: var(--button-corner-shape);
+}
+
+.is-mobile .search-result-file-match-replace-button {
+  display: block;
+  position: relative;
+  inset-inline-end: 0;
+  padding: 6px 10px;
+  margin-top: var(--size-4-3);
+  background-color: var(--settings-home-background);
+}
+
+.is-mobile .metadata-content {
+  width: calc(100% + var(--size-4-6));
+  border-radius: var(--touch-radius-xxs);
+  padding: var(--size-4-2) var(--size-4-3);
+  background-color: var(--background-primary-alt);
+  transform: translateX(-12px);
+  corner-shape: var(--corner-shape);
+}
+
+/* ---------- menus ---------- */
+
+.is-mobile .menu-scroll {
+  overflow-y: auto;
+  padding: var(--menu-padding);
+}
+
+.is-phone .menu-grabber {
+  display: flex;
+  position: relative;
+  height: var(--size-4-1);
+  width: 15%;
+  border-radius: var(--radius-xl);
+  margin: var(--size-4-2) auto var(--size-4-1);
+  background: var(--text-faint);
+  transition: width var(--bs-dur-fast) var(--anim-motion-swing), background-color var(--bs-dur-slow) var(--anim-motion-swing);
+}
+
+.is-phone .menu {
+  position: absolute;
+  bottom: 0;
+  left: var(--safe-area-inset-left);
+  right: var(--safe-area-inset-right);
+  top: unset !important;
+  min-width: unset;
+  border-radius: var(--radius-m) var(--radius-m) 0 0;
+  margin: 0 auto;
+}
+
+.is-phone .menu .suggestion-group .suggestion-item,
+.is-phone .menu-item {
+  padding: var(--size-4-3) var(--size-4-4);
+  height: unset;
+  border-radius: 0;
+  line-height: unset;
+  transition: background-color var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+.is-phone .menu-separator {
+  margin: var(--size-4-2) 0;
+  border: 0;
+}
+
+/* ---------- messages / modals ---------- */
+
+.is-mobile .message-container {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.is-phone .modal {
+  padding: 0 var(--safe-area-inset-right) 0 var(--safe-area-inset-left);
+}
+
+.is-phone .modal-content {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  overflow: auto;
+  margin-top: 0;
+  padding: var(--size-4-4);
+}
+
+.is-phone .modal-button-container {
+  width: 100%;
+  padding: var(--size-4-3);
+  margin-top: 0;
+  margin-bottom: var(--safe-area-inset-bottom);
+}
+
+.is-phone .modal-header {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 0;
+  padding: var(--size-4-6) var(--size-4-5) var(--size-4-4);
+  width: 100%;
+}
+
+.is-phone .modal.mod-sidebar-layout .modal-content > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0 var(--safe-area-inset-right) 0 var(--safe-area-inset-left);
+}
+
+/* ---------- floating nav ---------- */
+
+.is-floating-nav .mobile-navbar {
+  margin-bottom: calc(var(--navbar-bottom-offset) - var(--keyboard-height) - 2px);
+  padding-bottom: 0;
+}
+
+.mobile-navbar-action.has-longpress-menu {
+  position: relative;
+  margin-inline-start: var(--size-4-2);
+}
+
+.is-mobile .suggestion-flair {
+  position: relative;
+  inset-inline-start: 0;
+  top: 0;
+  margin-inline-end: 6px;
+}
+
+.is-mobile.is-floating-nav.is-phone .view-header {
+  left: 0;
+  right: 0;
+  margin-top: var(--view-header-top-offset);
+  padding-top: 0;
+  background-color: transparent;
+}
+
+.is-phone .modal.mod-publish .modal-button-container {
+  position: fixed;
+  background-color: var(--modal-background);
+}
+
+/* ---------- sync history ---------- */
+
+.is-mobile .sync-history-list {
+  padding-left: max(var(--size-4-5), var(--safe-area-inset-left));
+  padding-right: max(var(--size-4-5), var(--safe-area-inset-right));
+  padding-bottom: max(var(--size-4-2), var(--safe-area-inset-bottom));
+}
+
+.is-mobile .sync-history-list-item-header {
+  margin-bottom: 0;
+}
+
+.is-mobile .sync-history-list-item-details {
+  padding: var(--size-4-1) var(--size-4-4);
+}
+
+.is-phone .modal.mod-sync-log .modal-content {
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+}
+
+.is-phone .modal.mod-sync-history .search-input-container {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.is-phone .sync-history-preview {
+  padding-bottom: max(var(--size-4-6), var(--safe-area-inset-bottom));
+}
+
+.is-phone .sync-history-content .setting-item:first-child {
+  padding: 0 var(--size-4-6) var(--size-4-4);
+}

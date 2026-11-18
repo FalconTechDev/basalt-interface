@@ -1,0 +1,69 @@
+/* canvas late rules: card menu surface, control items, placeholders and empty embeds. */
+
+.canvas-card-menu {
+  bottom: var(--size-4-4);
+  left: 50%;
+  align-items: stretch;
+  border: var(--bs-hairline) solid var(--background-modifier-border);
+  border-radius: var(--radius-s);
+  box-shadow: var(--raised-shadow);
+  background-color: var(--background-secondary);
+  clip-path: var(--bs-canvas-clip);
+  transform: translateX(-50%);
+}
+
+.canvas-control-item {
+  --icon-size: var(--canvas-controls-icon-size);
+  --icon-stroke: var(--canvas-controls-icon-stroke);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  border-bottom: var(--bs-hairline) solid var(--background-modifier-border);
+  box-shadow: none;
+  height: auto;
+  padding: var(--size-4-2);
+  line-height: 1;
+  font-size: inherit;
+  color: var(--text-muted);
+  cursor: var(--cursor);
+  background-color: var(--background-secondary);
+}
+
+.canvas-node-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  width: 100%;
+  height: 100%;
+  padding: var(--size-4-6);
+  text-align: center;
+  font-size: 32px;
+  font-weight: var(--font-semibold);
+}
+
+.canvas-node.is-dragging {
+  pointer-events: none;
+}
+
+.is-selected .canvas-node-resizer {
+  pointer-events: none;
+}
+
+.canvas-empty-embed-container {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-6);
+  height: 100%;
+  padding: var(--size-4-3);
+  text-align: center;
+}
+
+.canvas-instruction {
+  display: flex;
+  justify-content: space-between;
+}

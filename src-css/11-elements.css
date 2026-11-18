@@ -1,0 +1,200 @@
+/* elements: bare HTML elements — icons, keys, headings, lists, links, tags, tasks */
+
+/* ---------- icons & inline code ---------- */
+
+svg.svg-icon {
+  height: var(--icon-size);
+  width: var(--icon-size);
+  stroke-width: var(--icon-stroke);
+}
+
+kbd {
+  border-radius: var(--radius-s);
+  padding: 0.1em 0.25em;
+  color: var(--code-normal);
+  font-family: var(--font-monospace);
+  font-size: var(--code-size);
+  background-color: var(--code-background);
+}
+
+/* ---------- headings ---------- */
+
+/* every heading level shares the same block rhythm */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block-start: var(--p-spacing);
+  margin-block-end: var(--p-spacing);
+}
+
+/* links inside a heading inherit the heading weight via --link-weight */
+h1 a,
+.markdown-rendered h1 a {
+  --link-weight: var(--h1-weight);
+}
+
+h2 a,
+.markdown-rendered h2 a {
+  --link-weight: var(--h2-weight);
+}
+
+h3 a,
+.markdown-rendered h3 a {
+  --link-weight: var(--h3-weight);
+}
+
+h4 a,
+.markdown-rendered h4 a {
+  --link-weight: var(--h4-weight);
+}
+
+/* h5/h6 carry their full type scale; the --font-weight var feeds font-weight */
+h5,
+.markdown-rendered h5 {
+  --font-weight: var(--h5-weight);
+  font-variant: var(--h5-variant);
+  font-size: var(--h5-size);
+  line-height: var(--h5-line-height);
+  font-weight: var(--font-weight);
+  font-style: var(--h5-style);
+  font-family: var(--h5-font);
+  letter-spacing: var(--h5-letter-spacing);
+  color: var(--h5-color);
+}
+
+h5 a,
+.markdown-rendered h5 a {
+  --link-weight: var(--h5-weight);
+}
+
+h6,
+.markdown-rendered h6 {
+  --font-weight: var(--h6-weight);
+  font-variant: var(--h6-variant);
+  font-size: var(--h6-size);
+  line-height: var(--h6-line-height);
+  font-weight: var(--font-weight);
+  font-style: var(--h6-style);
+  font-family: var(--h6-font);
+  letter-spacing: var(--h6-letter-spacing);
+  color: var(--h6-color);
+}
+
+h6 a,
+.markdown-rendered h6 a {
+  --link-weight: var(--h6-weight);
+}
+
+/* ---------- rules & lists ---------- */
+
+hr {
+  border: none;
+  border-top: var(--hr-thickness) solid;
+  border-color: var(--hr-color);
+  margin: var(--size-4-8) 0;
+}
+
+/* nesting deeper than one level returns to disc bullets */
+ul ul,
+ol ul,
+ol ol ul,
+ol ul ul,
+ul ol ul,
+ul ul ul {
+  list-style-type: disc;
+}
+
+ol {
+  list-style-type: var(--list-numbered-style);
+}
+
+ul > li,
+ol > li {
+  text-align: start;
+}
+
+ol > li::marker,
+ul > li::marker {
+  color: var(--list-marker-color);
+}
+
+/* collapsed folds dim their marker */
+ol > li.is-collapsed::marker,
+ul > li.is-collapsed::marker {
+  color: var(--list-marker-color-collapsed);
+}
+
+/* the fold bullet gets a halo ring in the collapsed colour */
+li.is-collapsed .list-bullet:after,
+.is-collapsed ~ .cm-formatting-list .list-bullet:after {
+  box-shadow: 0 0 0 4px var(--background-modifier-active-hover);
+  background-color: var(--list-marker-color-collapsed);
+}
+
+/* ---------- links ---------- */
+
+a {
+  --font-weight: var(--link-weight);
+  outline: none;
+  color: var(--link-color);
+  font-weight: var(--link-weight);
+  text-decoration-line: var(--link-decoration);
+  text-decoration-thickness: var(--link-decoration-thickness);
+  cursor: var(--cursor-link);
+  transition: opacity var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+@media (hover: hover) {
+  a:hover {
+    color: var(--link-color-hover);
+    text-decoration-line: var(--link-decoration-hover);
+  }
+}
+
+/* mobile tap feedback dims the link */
+a.mobile-tap {
+  opacity: 0.5;
+}
+
+mjx-container {
+  outline: none;
+}
+
+/* ---------- tags ---------- */
+
+a.tag {
+  border: var(--tag-border-width) solid var(--tag-border-color);
+  border-radius: var(--tag-radius);
+  padding: var(--tag-padding-y) var(--tag-padding-x);
+  color: var(--tag-color);
+  font-size: var(--tag-size);
+  font-weight: var(--tag-weight);
+  line-height: 1;
+  text-decoration: var(--tag-decoration);
+  background-color: var(--tag-background);
+  corner-shape: var(--tag-corner-shape);
+}
+
+@media (hover: hover) {
+  a.tag:hover {
+    border: var(--tag-border-width) solid var(--tag-border-color-hover);
+    color: var(--tag-color-hover);
+    text-decoration: var(--tag-decoration-hover);
+    background-color: var(--tag-background-hover);
+  }
+}
+
+/* ---------- task lists ---------- */
+
+ul > li.task-list-item {
+  list-style: none;
+}
+
+ul > li.task-list-item[data-task="x"],
+ul > li.task-list-item[data-task="X"] {
+  text-decoration: var(--checklist-done-decoration);
+  color: var(--checklist-done-color);
+}

@@ -1,0 +1,71 @@
+/* sidebar (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* file tags recolour on hover/active/drag states */
+@media (hover: hover) {
+  .tree-item-self:hover .nav-file-tag {
+    color: var(--nav-tag-color-hover);
+  }
+}
+
+.tree-item-self.is-active .nav-file-tag {
+  color: var(--nav-tag-color-active);
+}
+
+.tree-item-self.is-being-dragged .nav-file-tag {
+  color: var(--text-normal);
+}
+
+.nav-folder.is-being-dragged-over > .nav-folder-title {
+  color: var(--nav-item-color-highlighted);
+}
+
+/* file tree status flair colours: changed/new/deleted */
+.file-tree .mod-changed .tree-item-flair {
+  color: var(--text-accent-hover);
+}
+
+.file-tree .mod-new .tree-item-flair {
+  color: var(--text-success);
+}
+
+.file-tree .mod-deleted .tree-item-flair,
+.file-tree .mod-to-delete .tree-item-flair {
+  color: var(--text-error);
+}
+
+/* global search results */
+.search-result-container.mod-global-search {
+  overflow-y: auto;
+  padding-bottom: max(var(--safe-area-inset-bottom), var(--size-4-3));
+}
+
+.search-result:not(.is-collapsed) .search-result-file-title {
+  color: var(--nav-item-color-active);
+}
+
+.search-result-file-matches:empty {
+  display: none;
+}
+
+.search-result-file-match-destination-file-icon .svg-icon {
+  align-self: center;
+}
+
+@media (hover: hover) {
+  .search-results-info .dropdown:hover {
+    color: var(--interactive-accent);
+  }
+}
+
+.recent-changes-container .nav-file-title,
+.recent-changes-container .nav-folder-title {
+  padding-inline-start: var(--size-4-2);
+}
+
+@media (hover: hover) {
+  .tag-pane-tag.is-active:hover {
+    color: var(--text-normal);
+    background-color: var(--bs-accent-soft);
+    box-shadow: inset var(--bs-focus-width) 0 0 var(--interactive-accent);
+  }
+}

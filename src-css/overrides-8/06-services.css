@@ -1,0 +1,36 @@
+/* services (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* file recovery list spacing and sync history search field */
+.file-recovery-list-item-header:not(:last-child) {
+  margin-bottom: var(--size-4-2);
+}
+
+.file-recovery-list-item-header .collapse-indicator {
+  min-width: var(--size-4-6);
+  padding-inline-start: var(--size-4-2);
+  opacity: 1;
+}
+
+.publish-changes-info .search-input-container {
+  flex: 1 0 auto;
+  margin: 0;
+  width: 0;
+}
+
+.sync-history-list .search-input-container {
+  width: 100%;
+}
+
+.sync-history-list-item-header:last-child {
+  margin-bottom: 0;
+}
+
+.sync-history-list-item .version-group-container {
+  position: relative;
+  margin-bottom: var(--size-4-2);
+}
+
+.webviewer-content .markdown-preview-view .external-link {
+  padding-right: 0;
+  background-image: none;
+}

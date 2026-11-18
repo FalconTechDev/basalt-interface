@@ -1,0 +1,20 @@
+/* base (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* selected file-tree rows tinted by their status colour */
+.file-tree .mod-changed.is-selected {
+  background-color: var(--bs-accent-soft);
+}
+
+.file-tree .mod-new.is-selected {
+  background-color: rgba(var(--background-modifier-success-rgb), 0.2);
+}
+
+.file-tree .mod-deleted.is-selected,
+.file-tree .mod-to-delete.is-selected {
+  background-color: rgba(var(--background-modifier-error-rgb), 0.2);
+}
+
+.search-suggest-item.mod-group:hover,
+.search-suggest-item.mod-group.is-selected {
+  background-color: initial;
+}

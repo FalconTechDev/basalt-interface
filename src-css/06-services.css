@@ -1,0 +1,527 @@
+/* services: account-side screens — sync, publish, web viewer, recovery */
+
+/* ---------- attachments gallery ---------- */
+
+.attachments-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--size-4-1);
+}
+
+/* each tile is a square media preview with an inset ring and bottom scrim */
+.attachments-gallery .download-attachment-item {
+  --checkbox-marker-color: var(--text-on-accent);
+  --checkbox-size: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  border-radius: var(--radius-s);
+  background-color: var(--background-secondary);
+}
+
+.attachments-gallery .download-attachment-item:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  box-shadow: inset 0 0 0 1px rgba(var(--mono-rgb-100), 0.2);
+  border-radius: var(--radius-s);
+  height: 100%;
+  width: 100%;
+  content: '';
+  pointer-events: none;
+  opacity: 0.5;
+  background: linear-gradient(to top, var(--background-modifier-cover), rgba(0, 0, 0, 0) 50%);
+  transition: box-shadow var(--bs-dur-instant) var(--bs-ease-standard);
+}
+
+.attachments-gallery .download-attachment-item:hover:before {
+  box-shadow: inset 0 0 0 1px rgba(var(--mono-rgb-100), 0.3);
+}
+
+/* selection checkbox floats bottom-inline-end above the scrim */
+.attachments-gallery .download-attachment-item input[type=checkbox] {
+  position: absolute;
+  bottom: var(--size-4-2);
+  inset-inline-end: var(--size-4-2);
+  z-index: 2;
+  margin-inline: 0;
+}
+
+.attachments-gallery .download-attachment-item input[type=checkbox]:not(:checked) {
+  background-color: var(--background-primary);
+}
+
+.attachments-gallery .download-attachment-item .download-attachment-embed {
+  overflow: hidden;
+  border-radius: var(--radius-s);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.attachments-gallery .download-attachment-item img,
+.attachments-gallery .download-attachment-item video {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.attachments-gallery .download-attachment-item video::-webkit-media-controls {
+  display: none;
+}
+
+.attachments-gallery .download-attachment-item .pdf-toolbar {
+  display: none;
+}
+
+/* ---------- feedback banner ---------- */
+
+.feedback-banner-container {
+  display: none;
+  padding-top: var(--size-4-4);
+  padding-bottom: var(--size-4-5);
+  padding-right: max(var(--size-4-4), var(--safe-area-inset-right));
+  padding-left: max(var(--size-4-4), var(--safe-area-inset-left));
+}
+
+.feedback-banner {
+  position: relative;
+}
+
+.feedback-banner-title {
+  margin-bottom: var(--size-4-4);
+  padding-inline-start: var(--size-4-4);
+  color: var(--text-muted);
+  font-weight: var(--font-semibold);
+  font-size: var(--font-ui-small);
+}
+
+.feedback-banner-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--size-4-4);
+  padding: var(--size-4-4);
+  border-radius: var(--setting-items-radius);
+  font-size: var(--font-ui-small);
+  background-color: var(--setting-items-background);
+}
+
+/* dismiss button straddles the card's top-inline-end corner */
+.feedback-banner-dismiss-button {
+  position: absolute;
+  top: calc(var(--size-4-2) * -1);
+  inset-inline-end: var(--size-4-2);
+  padding: var(--size-4-2) var(--size-4-1);
+  font-weight: var(--font-semibold);
+  font-size: var(--font-ui-smaller);
+  color: var(--interactive-accent);
+}
+
+/* ---------- titlebar & loader ---------- */
+
+body.is-frameless.is-hidden-frameless.starter .titlebar {
+  height: var(--titlebar-height);
+}
+
+.is-hidden-frameless:not(.starter) .titlebar {
+  -webkit-app-region: no-drag;
+}
+
+/* 3x3 cube-grid spinner, staggered per cell */
+.loader-cube {
+  width: 40px;
+  height: 40px;
+  margin: 100px auto;
+}
+
+.loader-cube .sk-cube {
+  float: inline-start;
+  width: 33%;
+  height: 33%;
+  background-color: var(--interactive-accent);
+  -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+  animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+}
+
+.loader-cube .sk-cube1 {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+.loader-cube .sk-cube2 {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.loader-cube .sk-cube3 {
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+.loader-cube .sk-cube4 {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.loader-cube .sk-cube5 {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+.loader-cube .sk-cube6 {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.loader-cube .sk-cube7 {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.loader-cube .sk-cube8 {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.loader-cube .sk-cube9 {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+/* ---------- release notes ---------- */
+
+.release-notes-view {
+  padding: var(--file-margins);
+}
+
+.release-notes-view .markdown-preview-view {
+  overflow: visible;
+}
+
+/* ---------- spellchecker dictionary ---------- */
+
+.spellchecker-dictionary-container {
+  overflow: auto;
+  max-height: 60vh;
+}
+
+.spellchecker-dictionary-item {
+  display: flex;
+  margin-bottom: var(--size-4-2);
+}
+
+.spellchecker-dictionary-word {
+  flex-grow: 1;
+}
+
+.spellchecker-dictionary-remove-button {
+  margin-inline-end: var(--size-4-3);
+  color: var(--text-muted);
+  cursor: var(--cursor);
+}
+
+@media (hover: hover) {
+  .spellchecker-dictionary-remove-button:hover {
+    color: var(--text-normal);
+  }
+}
+
+/* ---------- changelog items ---------- */
+
+.changelog-item {
+  margin: var(--size-4-2) 0;
+  font-size: var(--font-ui-medium);
+  line-height: var(--line-height);
+}
+
+/* the label pill is generated from data-label */
+.changelog-item:before {
+  display: inline-block;
+  width: 50px;
+  border-radius: var(--pill-radius);
+  margin-right: var(--size-4-4);
+  font-size: var(--font-ui-small);
+  line-height: 22px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  content: attr(data-label);
+}
+
+.changelog-item.mod-success:before {
+  color: var(--text-on-accent);
+  background-color: var(--background-modifier-success);
+}
+
+.changelog-item.mod-failed:before {
+  color: var(--text-on-accent);
+  background-color: var(--background-modifier-error);
+}
+
+.changelog-item.mod-highlighted:before {
+  background-color: var(--interactive-accent);
+}
+
+/* ---------- diff view ---------- */
+
+.diff-view {
+  user-select: text;
+}
+
+.diff-line {
+  padding: 0 var(--size-4-2);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.diff-line.mod-left {
+  background-color: rgba(var(--background-modifier-error-rgb), 0.2);
+}
+
+.diff-line.mod-right {
+  background-color: rgba(var(--background-modifier-success-rgb), 0.2);
+}
+
+.diff-collapsed {
+  margin: var(--size-4-2) 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  cursor: pointer;
+}
+
+/* ---------- file recovery ---------- */
+
+.file-recovery-text[data-ext="md"] {
+  font-family: var(--font-text);
+  font-size: var(--font-text-size);
+}
+
+/* ---------- publish ---------- */
+
+.publish-section {
+  margin-bottom: var(--size-4-1);
+}
+
+.publish-section-header-text,
+.publish-section-header-toggle-collapsed-button,
+.publish-section-header-action {
+  cursor: var(--cursor);
+}
+
+.publish-changes-current-site-name {
+  margin-inline-start: var(--size-2-3);
+  text-decoration: underline;
+}
+
+.publish-upload-item-title {
+  word-break: break-word;
+  font-size: var(--nav-item-size);
+  line-height: var(--line-height-tight);
+}
+
+/* progress bar fills left-to-right; green ok, red failed, full = done */
+.publish-upload-item:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 0;
+  height: 100%;
+  border-radius: var(--radius-s);
+  content: ' ';
+  background-color: rgba(var(--background-modifier-success-rgb), 0.2);
+  transition: width var(--bs-dur-normal) var(--bs-ease-standard);
+}
+
+.publish-upload-item.mod-failed:before {
+  background-color: rgba(var(--background-modifier-error-rgb), 0.2);
+}
+
+.publish-upload-item.mod-completed:before {
+  width: 100%;
+}
+
+/* ---------- sync ---------- */
+
+.sync-status-icon.mod-spin svg {
+  animation-name: spin;
+  animation-duration: 5000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sync-status-icon.mod-spin svg {
+    animation: none;
+  }
+}
+
+/* active sync-history rows invert their avatar colours */
+.sync-history-list-item-header.is-active {
+  --nav-collapse-icon-color: var(--text-on-accent);
+}
+
+@media (hover: hover) {
+  .sync-history-list-item-header.is-active:hover {
+    --nav-collapse-icon-color: var(--text-on-accent);
+  }
+
+  .sync-history-list-item-header.is-active .tree-item-flair:hover {
+    --nav-collapse-icon-color: var(--text-on-accent);
+  }
+}
+
+.sync-history-list-item-header.is-active .sync-history-list-item-avatar {
+  border: var(--bs-hairline) solid color-mix(in srgb, var(--bs-on-accent) 30%, transparent);
+}
+
+.sync-history-list-item-header:not(.is-active) .sync-history-list-item-avatar.mod-avatar-current-user {
+  color: var(--text-normal);
+}
+
+.sync-history-list-item .version-group-container .version-group-item:hover {
+  color: var(--nav-item-color-hover);
+  background-color: var(--nav-item-background-hover);
+}
+
+.sync-history-list-item .version-group-container .version-group-item.is-active,
+.sync-history-list-item .version-group-container .version-group-item.is-active:hover {
+  color: var(--nav-item-color-active);
+  background-color: var(--nav-item-background-active);
+}
+
+.sync-history-list-item .version-group-container .version-group-item.is-active .u-muted,
+.sync-history-list-item .version-group-container .version-group-item.is-active:hover .u-muted {
+  color: var(--text-on-accent);
+  opacity: 0.8;
+}
+
+@media (hover: hover) {
+  .sync-history-list-item .version-group-container .version-group-item:hover {
+    background-color: var(--background-modifier-hover);
+  }
+}
+
+/* the version textarea is chromeless */
+.sync-history-content-container textarea:hover,
+.sync-history-content-container textarea:active,
+.sync-history-content-container textarea:focus {
+  border: none;
+  box-shadow: none;
+}
+
+@media (hover: hover) {
+  button.sync-history-button:hover {
+    box-shadow: none;
+    background-color: var(--background-modifier-hover);
+  }
+}
+
+/* sync log modal: plain wrapped lines, errors in red */
+.modal.mod-sync-log .sync-log-container .list-item {
+  gap: 0;
+  margin: 0;
+  line-height: var(--line-height-normal);
+  white-space: pre-wrap;
+}
+
+.modal.mod-sync-log .sync-log-container .list-item.mod-error {
+  color: var(--text-error);
+}
+
+/* ---------- sync exclude ---------- */
+
+.sync-exclude-folder {
+  display: flex;
+  margin: var(--size-4-3) 0;
+}
+
+.sync-exclude-folder-remove {
+  visibility: hidden;
+  margin-inline-end: var(--size-2-3);
+}
+
+.sync-exclude-folder:hover .sync-exclude-folder-remove {
+  visibility: visible;
+}
+
+/* ---------- sync vault shares ---------- */
+
+.sync-vault-shares-list-item-container {
+  overflow: auto;
+}
+
+/* ---------- web viewer ---------- */
+
+.webviewer-address-container::after {
+  background: transparent !important;
+}
+
+/* address-bar suggestions: title truncates, url dims below it */
+.webviewer-addressbar-suggestion.suggestion-item .suggestion-icon:last-child:empty {
+  display: none;
+}
+
+.webviewer-addressbar-suggestion.suggestion-item > .suggestion-content > .suggestion-title {
+  flex-shrink: 0;
+  overflow: hidden;
+  max-width: 75%;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  font-size: var(--font-ui-medium);
+}
+
+.webviewer-addressbar-suggestion.suggestion-item > .suggestion-content > .suggestion-url {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  font-size: var(--font-ui-small);
+  color: var(--text-muted);
+}
+
+.webviewer-addressbar-suggestion.suggestion-item > .suggestion-content .suggestion-title + .suggestion-url {
+  margin-left: var(--size-4-2);
+}
+
+.webviewer-addressbar-suggestion.suggestion-item > .suggestion-content .suggestion-title:empty + .suggestion-url {
+  margin-left: 0;
+}
+
+/* reader mode content scrolls; readable-width centres the sizer */
+.webviewer-content .reader-mode-content {
+  overflow-y: auto;
+}
+
+.webviewer-content .reader-mode-content.is-readable-line-width .markdown-preview-sizer {
+  max-width: var(--file-line-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.webviewer-history-view-item {
+  overflow: hidden;
+  text-wrap: nowrap;
+}
+
+textarea.webviewer-adblock-lists {
+  flex-grow: 1;
+}
+
+/* ---------- starter screen ---------- */
+
+.starter {
+  padding-top: 0 !important;
+  -webkit-user-select: none;
+}
+
+.starter .notice {
+  top: calc(var(--titlebar-height) + var(--size-4-2));
+}

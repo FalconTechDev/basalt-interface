@@ -1,0 +1,21 @@
+/* sidebar (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* recent changes list: extra bottom space, flat tree indentation */
+.recent-changes-container .nav-folder-children {
+  margin-bottom: var(--size-4-4);
+}
+
+.recent-changes-container .tree-item-children {
+  border-inline-start: unset;
+  padding-inline-start: 0;
+  margin-inline-start: 0;
+}
+
+/* drawer search field blends into the sidebar background */
+.workspace-drawer .search-input-container {
+  --background-modifier-form-field: transparent;
+  --background-modifier-form-field-hover: transparent;
+  --input-radius: var(--radius-s);
+  --input-border-width-focus: 0;
+  margin: var(--size-4-1) var(--size-4-1) 0;
+}

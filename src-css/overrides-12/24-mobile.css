@@ -1,0 +1,206 @@
+/* mobile (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* ---------- onboarding / navbar ---------- */
+
+.mobile-onboarding-navbar .back-button {
+  padding: var(--size-4-2) 0;
+}
+
+/* navbar actions are circular touch targets; tab count badge overlays the icon */
+.mobile-navbar-action .clickable-icon,
+.mobile-navbar-action button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--touch-size-l);
+}
+
+.mobile-navbar-action-tabs .mobile-navbar-tabs-number {
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: var(--icon-size);
+  margin: auto;
+  font-size: calc(var(--icon-size) * 0.55);
+  font-weight: var(--bold-weight);
+  text-align: center;
+  opacity: var(--icon-opacity);
+}
+
+/* ---------- notices ---------- */
+
+.is-phone .notice-container {
+  bottom: auto;
+  top: max(var(--size-4-1),var(--safe-area-inset-top));
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--size-4-1);
+  padding: 0;
+  padding-right: max(var(--size-4-3), var(--safe-area-inset-right));
+  padding-left: max(var(--size-4-3), var(--safe-area-inset-left));
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto 48px;
+}
+
+.is-phone .notice {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: var(--touch-radius-xxs);
+  border: var(--border-width) solid var(--background-modifier-border);
+  margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
+  box-shadow: none;
+  padding: 1em 1.5em;
+  font-weight: var(--font-medium);
+  font-size: var(--font-ui-smaller);
+}
+
+/* ---------- quick switcher prompt ---------- */
+
+.is-mobile .prompt {
+  --prompt-top: calc(var(--safe-area-inset-top) + var(--header-height) + var(--size-4-4));
+  top: var(--prompt-top);
+  max-height: min(var(--prompt-max-height), calc(100vh - var(--prompt-top) - var(--safe-area-inset-bottom)));
+  border: none;
+  border-radius: var(--touch-radius-xxs);
+  background-color: color-mix(in srgb, var(--prompt-background) var(--blur-opacity-m), transparent);
+}
+
+.is-mobile .prompt-input-cta {
+  --icon-color: var(--text-muted);
+  --icon-size: var(--icon-l);
+  --icon-stroke: var(--icon-l-stroke-width);
+  position: absolute;
+  top: 0;
+  bottom: 0px;
+  inset-inline-end: var(--size-4-10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 1 auto;
+  height: var(--input-height);
+  margin: auto;
+  padding: 0 var(--size-4-3);
+  line-height: 0;
+}
+
+.is-phone .prompt {
+  margin: 0 auto;
+  width: calc(100% - var(--safe-area-inset-left) - var(--safe-area-inset-right));
+  min-width: unset;
+  max-height: 100vh;
+  height: calc(100vh - var(--prompt-top));
+  border-radius: var(--touch-radius-xs) var(--touch-radius-xs) 0 0;
+  padding-bottom: var(--safe-area-inset-bottom);
+  box-shadow: var(--shadow-s);
+}
+
+.is-phone .prompt-input-container {
+  order: 3;
+  padding: 0;
+  width: calc(100% - var(--size-4-4));
+  margin: auto auto var(--size-4-2);
+  border-radius: var(--touch-size-m);
+}
+
+.is-phone .prompt-instructions {
+  display: none;
+}
+
+/* ---------- floating toolbar / tab switcher ---------- */
+
+.is-floating-nav .mobile-toolbar-options-container {
+  margin: 0 auto;
+  width: calc(100% - var(--size-4-4));
+}
+
+.mobile-toolbar-floating-options .mobile-toolbar-option {
+  min-width: var(--toolbar-option-width);
+  color: var(--text-normal);
+}
+
+.mobile-tab-switcher-menu-spacer:first-child {
+  justify-content: flex-start;
+}
+
+.mobile-tab-switcher-menu-spacer:last-child {
+  justify-content: flex-end;
+}
+
+/* pin and close buttons overlay the tab preview corner */
+.mobile-tab .mobile-tab-pin,
+.mobile-tab .close-button {
+  --icon-size: var(--icon-m);
+  position: absolute;
+  top: var(--size-4-2);
+  inset-inline-end: var(--size-4-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-xl);
+  background-color: var(--background-primary-alt);
+}
+
+/* ---------- suggestion popups ---------- */
+
+.is-mobile .suggestion-container {
+  border-radius: calc(var(--touch-radius-xs) - var(--size-2-3));
+  background-color: color-mix(in srgb, var(--suggestion-background) var(--blur-opacity-m), transparent);
+}
+
+.is-mobile .suggestion-item {
+  padding: var(--size-4-2) var(--size-4-3);
+  border-radius: var(--touch-radius-xxs);
+}
+
+.is-phone .suggestion-bg {
+  display: block;
+  z-index: var(--layer-modal);
+}
+
+/* ---------- publish / sync history ---------- */
+
+.is-mobile .publish-changes-info-publishing-to {
+  display: none;
+}
+
+.is-mobile .publish-changes-add-linked-btn {
+  width: auto;
+}
+
+.is-mobile .sync-history-content-container {
+  display: flex;
+  flex-direction: column;
+  max-width: unset;
+}
+
+.is-mobile .sync-history-content {
+  flex: 1 1 auto;
+  border-radius: 0;
+  border: none;
+}
+
+.is-phone .sync-history-list-item-header {
+  margin: 0;
+  border-radius: 0;
+}
+
+.is-phone .sync-history-list-container {
+  display: block;
+  border: none;
+  background-color: var(--background-primary);
+}

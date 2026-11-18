@@ -1,0 +1,15 @@
+/* modals (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* settings titlebar: toggle on the start side, actions on the end side */
+.modal-setting-titlebar .modal-setting-titlebar-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-2);
+  margin: 0 var(--size-4-3);
+}
+
+.modal-setting-titlebar .modal-setting-titlebar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--size-4-1);
+}

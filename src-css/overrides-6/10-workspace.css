@@ -1,0 +1,26 @@
+/* workspace (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* drawer header layout, vault name chevron, tab select order */
+.workspace-drawer-header {
+  align-items: center;
+  display: flex;
+  order: var(--vault-profile-order);
+  gap: var(--size-4-2);
+  padding-inline-end: var(--size-4-4);
+  padding-inline-start: var(--size-4-8);
+  padding-top: var(--size-4-3);
+}
+
+.workspace-drawer-header-name-chevron {
+  --icon-size: var(--icon-m);
+  --icon-stroke: 2.25px;
+  display: flex;
+  align-items: center;
+  margin-inline-start: var(--size-2-1);
+  color: var(--text-faint);
+}
+
+.workspace-drawer-tab-options-list .workspace-drawer-tab-select {
+  order: 0;
+  pointer-events: none;
+}

@@ -1,0 +1,11 @@
+/* menus (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* edge and adjacent separators are hidden */
+.menu-separator:last-child,
+.menu-separator:first-child {
+  display: none;
+}
+
+.menu-separator + .menu-separator {
+  display: none;
+}

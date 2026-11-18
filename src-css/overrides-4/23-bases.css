@@ -1,0 +1,68 @@
+/* bases (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* formula editor focus ring, rendered values, toolbar and table summary cells */
+.formula-editor:active,
+.formula-editor:focus,
+.formula-editor:focus-visible,
+.formula-editor:focus-within {
+  box-shadow: 0 0 0 var(--input-border-width-focus) var(--background-modifier-border-focus);
+}
+
+.formula-editor .cm-placeholder {
+  font-family: var(--font-interface);
+  font-size: var(--font-ui-small);
+  color: var(--text-faint);
+}
+
+.formula-editor .cm-line {
+  padding-inline-start: var(--size-4-2);
+  padding-inline-end: var(--size-4-2);
+}
+
+.formula-editor .cm-scroller {
+  color: var(--code-normal);
+  font-family: var(--font-monospace);
+  font-size: var(--font-small);
+}
+
+.bases-rendered-value input {
+  padding: 0;
+  background: transparent;
+}
+
+@media (hover: hover) {
+  .bases-toolbar-menu-item:hover {
+    background-color: var(--background-modifier-hover);
+  }
+}
+
+.hover-popover.bases-new-item-popover .metadata-container {
+  display: var(--metadata-display-editing);
+}
+
+.bases-table-header-resizer.is-active {
+  background-color: var(--divider-color-hover);
+}
+
+.bases-table-header-resizer:hover {
+  background-color: var(--divider-color-hover);
+}
+
+.bases-table-group-summary-row.bases-tr {
+  position: relative !important;
+  background-color: var(--bases-table-group-background);
+}
+
+@media (hover: hover) {
+  .bases-table-summary-cell:hover {
+    background-color: var(--bases-table-summary-background-hover);
+  }
+}
+
+.bases-table-summary-cell.has-active-menu {
+  background-color: var(--bases-table-summary-background-hover);
+}
+
+.bases-table-cell[disabled="true"] {
+  background-color: var(--bases-table-cell-background-disabled);
+}

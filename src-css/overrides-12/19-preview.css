@@ -1,0 +1,16 @@
+/* preview (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* footnotes panel: cards use the footnote tokens */
+.footnotes-view .footnote {
+  display: flex;
+  gap: var(--footnote-gap);
+  border-radius: var(--footnote-radius);
+  padding-inline: var(--footnote-padding-inline);
+  padding-block: var(--footnote-padding-block);
+  background-color: var(--footnote-input-background);
+}
+
+.footnotes-view .markdown-embed {
+  padding: 0;
+  border: none;
+}

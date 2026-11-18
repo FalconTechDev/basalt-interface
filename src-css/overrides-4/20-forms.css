@@ -1,0 +1,144 @@
+/* forms (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* text-icon buttons and shared form-field hover/focus states */
+.text-icon-button.is-active {
+  color: var(--icon-color-active);
+}
+
+.text-icon-button .text-button-label {
+  overflow: hidden;
+  padding-inline-end: var(--size-2-1);
+  text-overflow: ellipsis;
+}
+
+.text-icon-button .mod-aux {
+  --icon-size: var(--icon-xs);
+  color: var(--text-muted);
+}
+
+.text-icon-button:focus-visible {
+  box-shadow: 0 0 0 var(--input-border-width-focus) var(--background-modifier-border-focus);
+  outline: none;
+}
+
+.text-icon-button.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+@media (hover: hover) {
+  .text-icon-button.has-active-menu,
+  .text-icon-button:hover {
+    box-shadow: none;
+    color: var(--text-normal);
+    opacity: var(--icon-opacity-hover);
+    background-color: var(--background-modifier-hover);
+  }
+
+  textarea:hover,
+  .multi-select-container:hover,
+  input.metadata-input-text:hover,
+  input[type='date']:hover,
+  input[type='datetime-local']:hover,
+  input[type='text']:hover,
+  input[type='search']:hover,
+  input[type='email']:hover,
+  input[type='password']:hover,
+  input[type='number']:hover {
+    border-color: var(--background-modifier-border-hover);
+    background-color: var(--background-modifier-form-field-hover);
+    transition:
+      background-color var(--bs-dur-fast) var(--bs-ease-standard),
+      border-color var(--bs-dur-fast) var(--bs-ease-standard),
+      box-shadow var(--bs-dur-fast) var(--bs-ease-standard);
+  }
+}
+
+textarea:active,
+.multi-select-container:active,
+input.metadata-input-text:active,
+input[type='date']:active,
+input[type='datetime-local']:active,
+input[type='text']:active,
+input[type='search']:active,
+input[type='email']:active,
+input[type='password']:active,
+input[type='number']:active,
+textarea:focus,
+.multi-select-container:focus,
+input.metadata-input-text:focus,
+input[type='date']:focus,
+input[type='datetime-local']:focus,
+input[type='text']:focus,
+input[type='search']:focus,
+input[type='email']:focus,
+input[type='password']:focus,
+input[type='number']:focus {
+  border-color: var(--background-modifier-border-focus);
+  transition:
+    background-color var(--bs-dur-fast) var(--bs-ease-standard),
+    border-color var(--bs-dur-fast) var(--bs-ease-standard),
+    box-shadow var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+textarea:active,
+.multi-select-container:active,
+input.metadata-input-text:active,
+input[type='date']:active,
+input[type='datetime-local']:active,
+input[type='text']:active,
+input[type='search']:active,
+input[type='email']:active,
+input[type='password']:active,
+input[type='number']:active,
+textarea:focus,
+.multi-select-container:focus,
+input.metadata-input-text:focus,
+input[type='date']:focus,
+input[type='datetime-local']:focus,
+input[type='text']:focus,
+input[type='search']:focus,
+input[type='email']:focus,
+input[type='password']:focus,
+input[type='number']:focus,
+textarea:focus-visible,
+.multi-select-container:focus-visible,
+input.metadata-input-text:focus-visible,
+input[type='date']:focus-visible,
+input[type='datetime-local']:focus-visible,
+input[type='text']:focus-visible,
+input[type='search']:focus-visible,
+input[type='email']:focus-visible,
+input[type='password']:focus-visible,
+input[type='number']:focus-visible {
+  box-shadow: 0 0 0 var(--input-border-width-focus) var(--background-modifier-border-focus);
+}
+
+@media (hover: hover) {
+  .multi-select-pill-remove-button:hover {
+    color: var(--pill-color-remove-hover);
+  }
+}
+
+input[type="radio"],
+input[type=checkbox] {
+  flex-shrink: 0;
+  position: relative;
+  border-radius: var(--checkbox-radius);
+  border: 1px solid var(--checkbox-border-color);
+  padding: 0;
+  margin: 0;
+  margin-inline-end: 6px;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    background-color var(--bs-dur-fast) var(--bs-ease-standard),
+    border-color var(--bs-dur-fast) var(--bs-ease-standard),
+    box-shadow var(--bs-dur-fast) var(--bs-ease-standard);
+}
+
+input[type="radio"] {
+  border-radius: 50%;
+}

@@ -1,0 +1,22 @@
+/* editor (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* hashtags split into pill halves so adjacent tags join seamlessly */
+.cm-hashtag.cm-hashtag-begin {
+  border-start-start-radius: var(--tag-radius);
+  border-end-start-radius: var(--tag-radius);
+  border-inline-end: none;
+  border-inline-start: var(--tag-border-width) solid var(--tag-border-color);
+  padding-inline-start: var(--tag-padding-x);
+  corner-start-start-shape: var(--tag-corner-shape);
+  corner-end-start-shape: var(--tag-corner-shape);
+}
+
+.cm-hashtag.cm-hashtag-end {
+  border-start-end-radius: var(--tag-radius);
+  border-end-end-radius: var(--tag-radius);
+  border-inline-start: none;
+  border-inline-end: var(--tag-border-width) solid var(--tag-border-color);
+  padding-inline-end: var(--tag-padding-x);
+  corner-start-end-shape: var(--tag-corner-shape);
+  corner-end-end-shape: var(--tag-corner-shape);
+}

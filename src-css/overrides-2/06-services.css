@@ -1,0 +1,55 @@
+/* services (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* sync diff lines tint changed text red on the left pane, green on the right */
+.diff-line.mod-left .diff-changed {
+  background-color: rgba(var(--background-modifier-error-rgb), 0.4);
+}
+
+.diff-line.mod-right .diff-changed {
+  background-color: rgba(var(--background-modifier-success-rgb), 0.4);
+}
+
+/* file recovery list fills the pane and scrolls */
+.file-recovery-list-item-container {
+  flex: 1 1 0;
+  overflow: auto;
+}
+
+/* publish changes: site switch row sits inline with the list */
+.publish-changes-switch-site {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  position: relative;
+  gap: var(--size-2-1);
+  top: var(--size-2-1);
+  margin-inline-start: var(--size-4-2);
+  font-size: var(--font-ui-small);
+}
+
+/* sync history list fills the pane and scrolls */
+.sync-history-list-item-container {
+  flex: 1 1 0;
+  overflow: auto;
+}
+
+.sync-history-content-container.mod-empty .sync-history-content-empty {
+  display: block;
+  padding: var(--size-4-6);
+  text-align: center;
+}
+
+.sync-history-content .setting-item-control .checkbox-container {
+  margin-inline-end: var(--size-4-3);
+}
+
+.sync-exclude-folder-name {
+  flex-grow: 1;
+}
+
+/* shared-vault chooser stacks its actions in a column */
+.sync-vault-share-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}

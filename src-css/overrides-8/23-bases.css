@@ -1,0 +1,40 @@
+/* bases (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* toolbar menu icon colours, query row errors, table summary cells, cell icons */
+.bases-toolbar-menu-item .clickable-icon:hover {
+  color: var(--text-normal);
+}
+
+.bases-toolbar-menu-item:not(.mod-destructive) .bases-toolbar-menu-item-info-icon {
+  color: var(--icon-color);
+}
+
+.bases-query-container .filter-row .filter-row-error {
+  color: var(--text-error);
+  font-size: var(--font-ui-smaller);
+}
+
+.bases-table-group-summary-row.bases-tr .summary-function-value {
+  color: var(--text-muted);
+}
+
+@media (hover: hover) {
+  .bases-table-summary-cell:hover .placeholder {
+    color: var(--text-faint);
+    opacity: 1;
+  }
+}
+
+.bases-table-summary-cell.has-active-menu .placeholder {
+  color: var(--text-faint);
+  opacity: 1;
+}
+
+.bases-td .bases-metadata-value .clickable-icon {
+  opacity: 0;
+}
+
+.bases-td:focus-within .clickable-icon,
+.bases-td:hover .clickable-icon {
+  opacity: 1;
+}

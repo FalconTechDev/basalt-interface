@@ -1,0 +1,27 @@
+/* services (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* publish upload list icons and webviewer chrome layout */
+.publish-upload-item .list-item-part {
+  --icon-size: var(--icon-s);
+  --icon-stroke: var(--icon-s-stroke-width);
+  display: flex;
+  align-items: center;
+}
+
+.webviewer-favicon-container > * {
+  height: var(--icon-size);
+  max-width: var(--icon-size);
+}
+
+.webviewer-address {
+  display: flex;
+  width: 100%;
+  margin: 0 var(--size-2-1);
+}
+
+.webviewer-content {
+  display: flex;
+  flex-direction: column;
+  border-top: var(--border-width) solid var(--divider-color);
+  height: 100%;
+}

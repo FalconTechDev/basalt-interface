@@ -1,0 +1,30 @@
+/* tabs (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* drawer tab rows: large icons, faint chevrons */
+.clickable-icon:hover .more-options-icon {
+  background-color: var(--icon-color-hover);
+  opacity: var(--icon-opacity-hover);
+}
+
+.workspace-drawer-tab-options .workspace-tab-header-inner-icon {
+  --icon-size: var(--icon-l);
+  --icon-stroke: var(--icon-l-stroke-width);
+  display: flex;
+}
+
+.workspace-drawer-tab-options .workspace-tab-header-inner-chevron {
+  --icon-size: var(--icon-s);
+  --icon-stroke: var(--icon-s-stroke-width);
+  display: flex;
+  align-items: center;
+  color: var(--text-faint);
+}
+
+.workspace-drawer-tab-select .workspace-tab-header-inner .workspace-drawer-active-tab-chevron {
+  --icon-size: var(--icon-s);
+  --icon-stroke: var(--icon-s-stroke-width);
+  display: flex;
+  align-items: center;
+  margin-inline-start: auto;
+  color: var(--text-faint);
+}

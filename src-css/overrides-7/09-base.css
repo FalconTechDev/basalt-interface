@@ -1,0 +1,17 @@
+/* base (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* internal query header: icon plus centred label row */
+.internal-query .internal-query-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: var(--size-4-3) 0 var(--size-4-3) var(--size-4-1);
+  text-align: center;
+  color: var(--text-normal);
+}
+
+.internal-query .internal-query-header-icon {
+  display: flex;
+  margin-inline-end: var(--size-4-1);
+  color: var(--icon-color);
+}

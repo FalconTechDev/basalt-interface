@@ -1,0 +1,145 @@
+/* bases (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* embed sizing, group headings, toolbar menu items, query and table details */
+.markdown-reading-view .bases-embed {
+  width: var(--bases-embed-width, 100%);
+  transform: var(--bases-embed-transform, none);
+}
+
+.hover-popover > .bases-embed {
+  --bases-table-cell-edge-padding: var(--size-4-1);
+  --bases-embed-border-width: 0;
+  --bases-embed-border-radius: 0;
+  max-height: var(--popover-height);
+}
+
+.bases-group-heading .bases-group-property {
+  display: var(--bases-group-heading-property-display);
+  font-size: var(--bases-group-heading-property-size);
+  font-weight: var(--bases-group-heading-property-weight);
+  color: var(--bases-group-heading-property-color);
+}
+
+.bases-header .title {
+  color: var(--h2-color);
+  font-size: var(--h2-size);
+}
+
+.bases-toolbar-menu-container-header .back-icon,
+.bases-toolbar-menu-container-header .close-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+.bases-toolbar .mod-error {
+  --flair-background: var(--text-error);
+  --flair-color: var(--text-on-accent);
+  color: var(--text-error);
+}
+
+.bases-toolbar-items .grip-handle {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  color: var(--text-faint);
+  cursor: grab;
+}
+
+.bases-toolbar-menu.bases-toolbar-filter-menu {
+  width: var(--bases-filter-menu-width);
+}
+
+.base-toolbar-sort-item .bases-sort-property, .base-toolbar-sort-item .filter-property-select {
+  max-width: 14em;
+}
+
+.bases-toolbar-menu-form .formula-editor {
+  overflow: auto;
+  min-width: 100%;
+  max-width: 260px;
+  resize: both;
+}
+
+.bases-toolbar-menu-item.mod-destructive {
+  color: var(--text-error);
+}
+
+.bases-toolbar-menu-item.mod-hidden {
+  --icon-color: var(--text-faint);
+  color: var(--text-faint);
+}
+
+.bases-toolbar-menu-item .bases-toolbar-menu-action-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+.bases-query-container .filter-group {
+  gap: var(--size-2-3);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (hover: hover) {
+  .bases-cards-item:hover {
+    box-shadow: var(--bases-cards-shadow-hover);
+    transition: box-shadow var(--anim-duration-fast) ease-in-out;
+  }
+}
+
+.bases-list-item .bases-list-separator {
+  font-size: var(--bases-table-font-size);
+  color: var(--text-muted);
+}
+
+.bases-table-container input[type='text'],
+.bases-table-container input[type='date'],
+.bases-table-container input[type='datetime-local'],
+.bases-table-container input[type='number'],
+.bases-table-container .multi-select-container {
+  border-radius: 0;
+  border: none;
+}
+
+.bases-thead .bases-table-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--bases-table-row-height);
+}
+
+.bases-table-summary-cell .summary-content {
+  --input-placeholder-color: var(--text-faint);
+  flex-grow: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--size-2-3);
+  overflow: hidden;
+  max-width: 100%;
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  line-height: var(--line-height-tight);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: var(--cursor);
+}
+
+.bases-summary-menu-item .bases-toolbar-menu-item-value {
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.bases-td:focus-within {
+  z-index: 1;
+  border-radius: var(--bases-table-cell-radius-focus);
+  box-shadow: var(--bases-table-cell-shadow-focus);
+  height: fit-content;
+  min-height: var(--bases-table-row-height);
+  background-color: var(--bases-table-cell-background-active);
+}

@@ -1,0 +1,248 @@
+/* canvas (late): viewport, node chrome, labels, menus, picker and minimap overrides. */
+
+/* ---------- viewport and layers ---------- */
+
+.canvas-wrapper {
+  --resizer-size: var(--size-4-5);
+  --shadow-stationary: var(--shadow-xs);
+  --shadow-drag: var(--shadow-s);
+  --shadow-border-accent: 0 0 0 var(--bs-focus-width) var(--bs-accent);
+  --bs-canvas-clip: polygon(var(--bs-cut-md) 0, 100% 0, 100% calc(100% - var(--bs-cut-md)), calc(100% - var(--bs-cut-md)) 100%, 0 100%, 0 var(--bs-cut-md));
+  --zoom-multiplier: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  contain: strict;
+  background-color: var(--canvas-background);
+  user-select: none;
+  touch-action: none;
+}
+
+.canvas-mover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.canvas-background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform-origin: 0 0;
+}
+
+/* ---------- control cluster ---------- */
+
+.canvas-control-group {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: var(--bs-hairline) solid var(--background-modifier-border);
+  border-radius: var(--canvas-controls-radius);
+  box-shadow: var(--raised-shadow);
+  background-color: var(--background-secondary);
+  clip-path: var(--bs-canvas-clip);
+}
+
+/* ---------- node frame and label ---------- */
+
+.canvas-node-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  contain: strict;
+  border: var(--border-width) solid rgb(var(--canvas-color));
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-stationary);
+  background-color: var(--background-primary);
+}
+
+.canvas-node-label {
+  --icon-size: 1em;
+  position: absolute;
+  top: calc(-1 * var(--size-4-1) * var(--zoom-multiplier));
+  left: 0;
+  max-width: calc(100% / var(--zoom-multiplier));
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--canvas-card-label-color);
+  transform: translate(0, -100%) scale(var(--zoom-multiplier));
+  transform-origin: bottom left;
+}
+
+.canvas-icon-placeholder {
+  display: flex;
+  width: 40%;
+  height: 40%;
+}
+
+.canvas-node {
+  --shadow-border-themed-inset: inset 0 0 0 var(--bs-hairline) rgb(var(--canvas-color));
+  --shadow-border-themed: 0 0 0 var(--bs-focus-width) rgb(var(--canvas-color));
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.canvas-node-content-blocker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: var(--layer-cover);
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- group label ---------- */
+
+.canvas-group-label {
+  position: absolute;
+  top: calc(-1 * var(--size-4-1) * var(--zoom-multiplier));
+  left: 0;
+  max-width: calc(100% / var(--zoom-multiplier));
+  padding: var(--size-4-1) var(--size-4-2);
+  overflow: hidden;
+  border-radius: var(--radius-s);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 1.5em;
+  line-height: 1;
+  color: var(--text-muted);
+  background-color: rgba(var(--canvas-color), 0.1);
+  pointer-events: initial;
+  transform: translate(0, -100%) scale(var(--zoom-multiplier));
+  transform-origin: bottom left;
+}
+
+/* ---------- node body and resize handle ---------- */
+
+.canvas-node-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.canvas-node-resizer {
+  position: absolute;
+  width: calc(var(--resizer-size) * var(--zoom-multiplier));
+  height: calc(var(--resizer-size) * var(--zoom-multiplier));
+}
+
+/* ---------- edge labels ---------- */
+
+.canvas-path-label-wrapper {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+}
+
+.canvas-path-label {
+  max-width: calc(17em * var(--zoom-multiplier));
+  padding: calc(var(--size-2-3) * var(--zoom-multiplier));
+  border: var(--bs-hairline) solid var(--background-modifier-border);
+  border-radius: var(--radius-s);
+  background-color: var(--background-primary);
+  font-size: calc(var(--font-ui-large) * var(--zoom-multiplier));
+  line-height: var(--line-height-tight);
+  text-align: center;
+  white-space: pre-wrap;
+  transform: translate(-50%, -50%);
+}
+
+/* ---------- canvas menus ---------- */
+
+.canvas-menu-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+}
+
+.canvas-menu-container .menu-container {
+  clip-path: var(--bs-canvas-clip);
+}
+
+.canvas-menu {
+  position: relative;
+  display: flex;
+  gap: var(--bs-hairline);
+  width: fit-content;
+  height: fit-content;
+  padding: var(--size-4-1);
+  border: var(--menu-border-width) solid var(--menu-border-color);
+  border-radius: var(--radius-s);
+  box-shadow: var(--menu-shadow);
+  background-color: var(--menu-background);
+  line-height: 1;
+}
+
+.canvas-submenu {
+  position: absolute;
+  top: calc(100% + var(--size-4-1));
+  left: 50%;
+  display: flex;
+  gap: var(--bs-hairline);
+  overflow: hidden;
+  padding: var(--menu-padding);
+  border: var(--menu-border-width) solid var(--menu-border-color);
+  border-radius: var(--radius-s);
+  box-shadow: var(--menu-shadow);
+  background-color: var(--menu-background);
+  clip-path: var(--bs-canvas-clip);
+  transform: translateX(-50%);
+}
+
+/* ---------- colour picker, minimap and watermark ---------- */
+
+.canvas-color-picker-item {
+  width: var(--size-4-6);
+  height: var(--size-4-6);
+  margin: var(--size-2-1);
+  border: var(--bs-hairline) solid var(--background-modifier-border);
+  border-radius: var(--radius-s);
+  background-color: rgb(var(--canvas-color));
+  cursor: var(--cursor);
+}
+
+.canvas-color-picker-item input[type="color"] {
+  --swatch-width: var(--size-4-5);
+  --swatch-height: var(--size-4-5);
+  margin: calc(-1 * var(--size-4-1)) 0 0 calc(-1 * var(--size-2-1));
+  opacity: 0;
+}
+
+.canvas-minimap {
+  width: 100%;
+  height: 100%;
+  padding: var(--size-4-1);
+}
+
+.canvas-watermark * {
+  font-family: var(--font-default) !important;
+}

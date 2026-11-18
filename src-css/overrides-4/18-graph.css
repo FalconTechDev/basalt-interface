@@ -1,0 +1,8 @@
+/* graph (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* graph controls inputs span the panel width */
+.graph-controls input[type='text'],
+.graph-controls input[type='range'] {
+  width: 100%;
+  font-size: var(--font-ui-small);
+}

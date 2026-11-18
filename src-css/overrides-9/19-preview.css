@@ -1,0 +1,6 @@
+/* preview (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* footnote ids with no back-references render muted */
+.footnotes-view .footnote-id.mod-no-occurrences {
+  color: var(--footnote-id-color-no-occurrences);
+}

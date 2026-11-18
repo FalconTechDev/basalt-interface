@@ -1,0 +1,80 @@
+/* graph: graph view controls panel and colour settings */
+
+/* ---------- collapse / expand ---------- */
+
+/* collapsed panel hides every section; only the toggle buttons remain */
+.graph-controls.is-close > .graph-control-section {
+  display: none;
+}
+
+.graph-controls:not(.is-close) .graph-controls-button.mod-close,
+.graph-controls:not(.is-close) .graph-controls-button.mod-reset {
+  display: flex;
+}
+
+.graph-controls.is-close .graph-controls-button.mod-open,
+.graph-controls.is-close .graph-controls-button.mod-animate {
+  display: flex;
+}
+
+/* a collapsed panel floating over a split gets a solid background */
+.workspace-split:not(.mod-root) .graph-controls.is-close {
+  background-color: var(--background-secondary);
+}
+
+/* ---------- settings rows ---------- */
+
+.graph-controls .setting-item .setting-item-info {
+  display: flex;
+  align-items: center;
+}
+
+.graph-controls .setting-item:first-of-type {
+  border-top: none;
+}
+
+/* sliders and search rows drop the info margin; toggles lose top padding */
+.graph-controls .setting-item.mod-slider .setting-item-info,
+.graph-controls .setting-item.mod-search-setting .setting-item-info {
+  margin-inline-end: 0;
+}
+
+.graph-controls .setting-item.mod-slider .setting-item-control {
+  padding-top: var(--size-4-3);
+}
+
+.graph-controls .setting-item.mod-toggle .setting-item-control {
+  padding-top: 0;
+}
+
+.graph-controls .setting-item-name {
+  font-size: var(--font-ui-small);
+}
+
+/* the panel never shows a scrollbar */
+.graph-controls::-webkit-scrollbar,
+.graph-controls::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+/* ---------- colour group picker ---------- */
+
+.graph-color-button-container {
+  margin-bottom: var(--size-4-2);
+  text-align: center;
+}
+
+.graph-color-button-container button {
+  margin: 0;
+  width: 100%;
+}
+
+/* extra bottom padding while drag-reordering colour groups */
+.graph-control-section.mod-color-groups .tree-item-children.is-grabbing .graph-color-groups-container {
+  padding-bottom: var(--size-4-10);
+}
+
+/* the last non-slider row in the display section is label-only */
+.graph-control-section.mod-display .setting-item:not(.mod-slider):last-child .setting-item-info {
+  display: none;
+}

@@ -1,0 +1,96 @@
+/* print: @media print rules — hide chrome, keep only .print content readable */
+
+@media print {
+  /* dark theme prints with darken blend so highlights stay visible on paper */
+  .theme-dark {
+    --highlight-mix-blend-mode: darken;
+  }
+
+  /* the page must flow naturally for pagination */
+  html,
+  body {
+    overflow: auto !important;
+    contain: initial !important;
+    padding-top: 0 !important;
+    height: auto !important;
+  }
+
+  /* window chrome and transient UI never print */
+  iframe,
+  .titlebar,
+  .app-container,
+  .progress-bar,
+  .popover,
+  .markdown-embed-link,
+  .suggestion-container,
+  .cm-tooltip.cm-tooltip-autocomplete {
+    display: none !important;
+  }
+
+  /* only elements inside .print survive; everything else is hidden */
+  body > :not(.print) {
+    display: none !important;
+  }
+
+  /* preview content prints at natural height with exact colours */
+  .print .markdown-preview-view {
+    height: unset !important;
+    color: initial;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .print .markdown-preview-view mark {
+    color: initial;
+  }
+
+  /* metadata and embeds are interactive-only */
+  .print .markdown-preview-view .metadata-container {
+    display: none;
+  }
+
+  .print .markdown-preview-view .markdown-embed-content {
+    overflow: visible;
+    max-height: none;
+  }
+
+  /* callouts keep their body visible even if collapsed on screen */
+  .print .markdown-preview-view .callout-content {
+    display: inherit !important;
+  }
+
+  /* bases toolbar: hide sort affordance and all menu buttons */
+  .print .bases-toolbar svg.lucide-chevrons-up-down {
+    display: none;
+  }
+
+  .print .bases-toolbar .bases-toolbar-item.bases-toolbar-sort-menu,
+  .print .bases-toolbar .bases-toolbar-item.bases-toolbar-filter-menu,
+  .print .bases-toolbar .bases-toolbar-item.bases-toolbar-properties-menu,
+  .print .bases-toolbar .bases-toolbar-item.bases-toolbar-new-item-menu {
+    display: none;
+  }
+
+  /* external-link icon is decorative in print */
+  .print .external-link {
+    padding-right: 0;
+    background: none;
+  }
+
+  /* no shadows or scrollbars on paper */
+  * {
+    text-shadow: none !important;
+  }
+
+  webview {
+    display: none;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* print uses the dedicated print font stack */
+  body {
+    --font-text: var(--font-print) !important;
+  }
+}

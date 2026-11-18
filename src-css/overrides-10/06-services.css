@@ -1,0 +1,53 @@
+/* services (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* sync history modal: avatar chip, version tree line, footer buttons */
+.sync-history-list-item-header .sync-history-list-item-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: var(--border-width) solid rgba(var(--mono-rgb-100), 0.2);
+  height: var(--size-4-8);
+  width: var(--size-4-8);
+  min-width: var(--size-4-8);
+  margin-inline-end: var(--size-4-2);
+  text-transform: uppercase;
+  color: var(--text-on-accent);
+}
+
+.sync-history-list-item .version-group-container .connecting-line {
+  position: absolute;
+  top: 0;
+  inset-inline-start: var(--size-4-6);
+  height: 100%;
+  width: var(--indentation-guide-width);
+  background-color: var(--indentation-guide-color);
+}
+
+.sync-history-content-container .modal-button-container {
+  justify-content: center;
+  border-top: var(--border-width) solid var(--background-modifier-border);
+  margin: 0;
+  padding: var(--size-4-3);
+}
+
+.sync-history-content .setting-item-control {
+  justify-content: flex-end;
+  padding-inline-end: var(--size-4-8);
+  white-space: nowrap;
+}
+
+/* webviewer address bar: suggestion rows get an icon gutter */
+.webviewer-addressbar-suggestion.suggestion-item {
+  gap: var(--size-4-2);
+  align-items: center;
+}
+
+.webviewer-addressbar-suggestion.suggestion-item .suggestion-flair-left,
+.webviewer-addressbar-suggestion.suggestion-item .suggestion-icon:first-child {
+  --icon-size: var(--icon-s);
+  --icon-stroke: var(--icon-s-stroke-width);
+  display: flex;
+  min-width: var(--icon-s);
+  color: var(--text-muted);
+}

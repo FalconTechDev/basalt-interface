@@ -1,0 +1,101 @@
+/* pdf-viewer (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* hover popovers get a fixed-size pdf preview */
+.popover.hover-popover > .pdf-embed {
+  width: var(--popover-pdf-width);
+  height: var(--popover-pdf-height) !important;
+  max-height: inherit;
+}
+
+/* page-progress buttons stack in a column */
+.progress-bar-button-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-2);
+}
+
+/* pdf sidebars slide off-canvas; each data-view is a different pane width */
+.is-mobile .pdf-sidebar-container[data-view="1"],
+.pdf-embed .pdf-sidebar-container[data-view="1"] {
+  inset-inline-start: -140px;
+  width: 140px;
+}
+
+.is-mobile .pdf-sidebar-container[data-view="2"],
+.pdf-embed .pdf-sidebar-container[data-view="2"] {
+  inset-inline-start: -275px;
+  width: 275px;
+}
+
+/* unloaded thumbnails show a dashed placeholder border */
+.pdf-sidebar-container .thumbnail:not([data-loaded]) {
+  margin: calc(var(--size-4-2) - 1px);
+  border: 1px dashed var(--background-modifier-border);
+}
+
+.pdf-sidebar-container .thumbnail:hover,
+.pdf-sidebar-container .thumbnail.selected {
+  border-color: var(--background-modifier-hover);
+}
+
+/* outline entries without a collapse arrow align with collapsible ones */
+.pdf-outline-view .tree-item-self:not(.mod-collapsible) {
+  padding-inline-start: calc(10px + var(--size-4-2) + var(--size-2-3));
+}
+
+.pdf-sidebar-content-wrapper {
+  position: relative;
+  flex-grow: 1;
+}
+
+/* password prompt floats centred over the viewer */
+.pdf-password-dialog {
+  position: absolute;
+  inset-inline-start: 50%;
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-4-1);
+  font-size: var(--font-ui-medium);
+  transform: translate(-50%, -50%);
+}
+
+/* text-layer highlights are plain outlines so they sit on the page cleanly */
+.pdf-container .textLayer .highlight {
+  --highlight-bg-color: transparent;
+  --highlight-selected-bg-color: transparent;
+  --highlight-backdrop-filter: none;
+  --highlight-selected-backdrop-filter: none;
+  margin: -1px;
+  padding: 1px;
+  border-radius: var(--radius-s);
+}
+
+/* annotation editor on phone: compact sheet above the keyboard/safe area */
+.is-phone .pdf-annotation-modal .modal {
+  top: unset;
+  height: auto;
+  max-height: 40vh;
+  min-height: 0;
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+.is-phone .pdf-annotation-modal .popupContent {
+  height: 100%;
+  max-height: none;
+  padding-top: 0;
+  padding-bottom: calc(var(--safe-area-inset-bottom) + var(--size-4-4));
+}
+
+/* printed pdfs keep their frame: clipped, rounded, bordered embed */
+@media print {
+  .pdf-embed:not(.canvas-node-content) .canvasWrapper {
+    overflow: hidden;
+    width: fit-content;
+    max-height: 100%;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--radius-s);
+  }
+}

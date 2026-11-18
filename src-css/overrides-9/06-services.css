@@ -1,0 +1,84 @@
+/* services (late): rules of this component that have to stay after rules of components further down the build order. */
+
+/* file recovery / sync history rows share the active-item accent treatment */
+.file-recovery-list-item-header.is-active,
+.file-recovery-list-item-header.is-active:hover {
+  color: var(--text-on-accent);
+  background-color: var(--interactive-accent);
+}
+
+.file-recovery-list-item-header.is-active .u-muted,
+.file-recovery-list-item-header.is-active:hover .u-muted {
+  color: var(--text-on-accent);
+  opacity: 0.8;
+}
+
+@media (hover: hover) {
+  .file-recovery-list-item-header:hover {
+    background-color: var(--background-modifier-hover);
+  }
+}
+
+.publish-changes-switch-site .clickable-icon {
+  --icon-size: var(--icon-s);
+  --icon-stroke: var(--icon-s-stroke-width);
+  padding: var(--size-2-2);
+}
+
+.publish-upload-item.mod-completed > * {
+  position: relative;
+}
+
+.sync-history-list-item-header.is-active,
+.sync-history-list-item-header.is-active:hover {
+  color: var(--text-on-accent);
+  background-color: var(--interactive-accent);
+}
+
+.sync-history-list-item-header.is-active .u-muted,
+.sync-history-list-item-header.is-active:hover .u-muted {
+  color: var(--text-on-accent);
+  opacity: 0.8;
+}
+
+@media (hover: hover) {
+  .sync-history-list-item-header:hover {
+    background-color: var(--background-modifier-hover);
+  }
+}
+
+.sync-history-list-item-header .tree-item-flair {
+  padding: var(--size-4-1);
+}
+
+@media (hover: hover) {
+  .sync-history-list-item-header .tree-item-flair:hover {
+    --nav-collapse-icon-color: var(--text-normal);
+    opacity: 1;
+    background-color: var(--background-modifier-hover);
+  }
+}
+
+.sync-history-list-item .version-group-container .version-group-item {
+  padding: var(--size-4-1) var(--size-2-2) var(--size-4-1) var(--size-4-12);
+  margin-bottom: var(--size-2-1);
+  border-radius: var(--radius-s);
+  font-size: var(--nav-item-size);
+  line-height: var(--line-height-tight);
+  font-variant: tabular-nums;
+  color: var(--nav-item-color);
+}
+
+/* sync log modal body is a monospace console panel */
+.modal.mod-sync-log .sync-log-container {
+  overflow: auto;
+  overflow-y: auto;
+  flex-grow: 1;
+  border-radius: var(--radius-s);
+  border: var(--border-width) solid var(--background-modifier-border);
+  padding: var(--size-4-4);
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+  background-color: var(--background-secondary);
+}
